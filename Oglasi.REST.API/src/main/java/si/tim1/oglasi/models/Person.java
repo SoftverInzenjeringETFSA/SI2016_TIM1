@@ -18,6 +18,16 @@ public class Person extends BaseEntityModel{
     private String email;
     private String phone;
 
+    public Person() {}
+
+    public Person(String firstName, String lastName, String companyName, String email, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.companyName = companyName;
+        this.email = email;
+        this.phone = phone;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reporter", targetEntity = InappropriateAdvertReport.class)
     private List<InappropriateAdvertReport> inappropriateAdvertReports = new ArrayList<>();
 

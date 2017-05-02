@@ -12,5 +12,9 @@ app.config(function ($routeProvider) {
     controller: "advertController",
     templateUrl: "views/advert/all.html"
   });
+  $routeProvider.when("/account/register", {
+    controller: "userAccountController",
+    templateUrl: "views/userAccount/register.html"
+  });
   $routeProvider.otherwise({ redirectTo: "/" });
 });

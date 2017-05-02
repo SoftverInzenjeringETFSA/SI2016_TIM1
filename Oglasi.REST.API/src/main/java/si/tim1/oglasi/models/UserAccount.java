@@ -1,5 +1,6 @@
 package si.tim1.oglasi.models;
 
+import org.apache.catalina.User;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -25,11 +26,20 @@ public class UserAccount {
     private Boolean isBlocked;
 
     @OneToOne(fetch = FetchType.LAZY)
-    //@PrimaryKeyJoinColumn => this makes Hibernate doesn't create FK, but don't delete, need to check that
+    //@PrimaryKeyJoinColumn => this makes Hibernate doesn't create FK, but don't delete, we need to check that
     private Person person;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", targetEntity = Advert.class)
     private List<Advert> adverts = new ArrayList<>();
+
+    public UserAccount() {}
+
+    public UserAccount(String username, String passwordHash, Boolean isBlocked, Person person) {
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.isBlocked = isBlocked;
+        this.person = person;
+    }
 
     public String getUsername() {
         return username;
