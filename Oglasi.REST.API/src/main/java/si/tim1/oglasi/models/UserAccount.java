@@ -1,6 +1,6 @@
 package si.tim1.oglasi.models;
 
-import org.apache.catalina.User;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -31,6 +31,9 @@ public class UserAccount {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", targetEntity = Advert.class)
     private List<Advert> adverts = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Role.class)
+    private Role role;
 
     public UserAccount() {}
 
@@ -87,5 +90,13 @@ public class UserAccount {
 
     public void setAdverts(List<Advert> adverts) {
         this.adverts = adverts;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
