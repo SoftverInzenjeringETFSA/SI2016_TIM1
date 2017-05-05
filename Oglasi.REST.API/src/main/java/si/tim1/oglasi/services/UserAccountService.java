@@ -42,5 +42,13 @@ public class UserAccountService {
         return false;
     }
 
+    public UserAccountVM getUserAccountDetails(String username) {
+        UserAccount userAccount = userAccountRepository.findByUsername(username);
+        if(userAccount != null) {
+            return userAccount.mapToViewModel();
+        }
+        return null;
+    }
+
 
 }

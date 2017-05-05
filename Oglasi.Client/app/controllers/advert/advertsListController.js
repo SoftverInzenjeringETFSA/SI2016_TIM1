@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    app.controller('advertController', ['$scope', 'advertService', function ($scope, advertService) {
+    app.controller('advertsListController', ['$scope', 'advertService', function ($scope, advertService) {
 
       advertService.getAdverts()
                   .then(function(response) {

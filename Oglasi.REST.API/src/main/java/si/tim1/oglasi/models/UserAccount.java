@@ -3,6 +3,7 @@ package si.tim1.oglasi.models;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import si.tim1.oglasi.viewmodels.UserAccountVM;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -98,5 +99,10 @@ public class UserAccount {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public UserAccountVM mapToViewModel() {
+        return new UserAccountVM(username, person.getFirstName(), person.getLastName(),
+                                person.getCompanyName(), person.getPhone(), person.getEmail(), null, null);
     }
 }

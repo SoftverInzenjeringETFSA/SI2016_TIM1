@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    app.controller('userAccountController', ['$scope', 'userAccountService', function ($scope, userAccountService) {
+    app.controller('registerController', ['$scope', 'userAccountService', function ($scope, userAccountService) {
 
 
 
