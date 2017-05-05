@@ -1,5 +1,6 @@
 package si.tim1.oglasi.models;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Created by Adnan on 5/2/2017.
  */
+@Entity
 public class Role extends BaseEntityModel {
     private String name;
 

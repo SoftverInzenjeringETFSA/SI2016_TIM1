@@ -32,7 +32,7 @@ public class UserAccount {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", targetEntity = Advert.class)
     private List<Advert> adverts = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Role.class)
+    @ManyToOne(targetEntity = Role.class)
     private Role role;
 
     public UserAccount() {}
