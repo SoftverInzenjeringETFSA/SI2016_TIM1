@@ -17,11 +17,43 @@ public class AdvertController {
     @Autowired
     private AdvertService advertService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa iz kategorije, treba dodati request parameter za odabranu kat.
     @PreAuthorize("hasRole('ROLE_USER')")
     public Iterable<Advert> getAllAdverts() {
         return advertService.findAll();
     }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST) // objavljivanje oglasa
+    public void untitledMethod() {
+        //TODO
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.PUT) // update oglasa
+    public void untitledMethod1() {
+        //TODO
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET) // detalji oglasa
+    public void untitledMethod3() {
+        //TODO
+    }
+
+    @RequestMapping(value = "/subscribe", method = RequestMethod.POST) // prijava na oglas
+    public void untitledMethod4() {
+        //TODO
+    }
+
+    @RequestMapping(value = "/{id}/subscriptions", method = RequestMethod.GET) // pregled prijava na oglas
+    public void untitledMethod5() {
+        //TODO
+    }
+
+    @RequestMapping(value = "/{id}/subscriptions/{s_id}", method = RequestMethod.GET) // pregled detalja prijave na oglas
+    public void untitledMethod6() {
+        //TODO
+    }
+
+
 
 
 }
