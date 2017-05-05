@@ -1,7 +1,78 @@
-<form>
-  <label for="usernameInput">Username:</label>
-  <input type="text" placeholder="Username" id="usernameInput" ng-model="username"/>
+<div class="col-lg-6 col-lg-offset-3">
+  <form class="form-horizontal">
+    <fieldset>
+      <br />
+      <h2 class="text-center">Create a new account</h2>
+      <br /><br />
+      <div class="form-group">
+        <label class="col-lg-2 control-label">Account type</label>
+        <div class="col-lg-10">
+          <div class="btn-group">
+              <label class="btn btn-sm btn-primary" ng-model="accType" uib-btn-radio="'Individual'">Individual</label>
+              <label class="btn btn-sm btn-primary" ng-model="accType" uib-btn-radio="'Company'">Company</label>
+          </div>
+        </div>
+      </div>
 
-  <input type="submit" ng-click="save(username)" value="Save" />
+      <div ng-show="accType == 'Individual'">
+        <div class="form-group">
+          <label for="inputFirstname" class="col-lg-2 control-label">First name</label>
+          <div class="col-lg-10">
+            <input ng-model="acc.firstname" type="text" class="form-control" id="inputFirstname" placeholder="First name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputLastname" class="col-lg-2 control-label">Last name</label>
+          <div class="col-lg-10">
+            <input ng-model="acc.lastname" type="text" class="form-control" id="inputLastname" placeholder="Last name">
+          </div>
+        </div>
+      </div>
 
-</form>
+      <div ng-show="accType == 'Company'">
+        <div class="form-group">
+          <label for="inputCompany" class="col-lg-2 control-label">Company</label>
+          <div class="col-lg-10">
+            <input ng-model="acc.companyname" type="text" class="form-control" id="inputCompany" placeholder="Company name">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+        <div class="col-lg-10">
+          <input ng-model="acc.email" type="text" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputPhone" class="col-lg-2 control-label">Phone</label>
+        <div class="col-lg-10">
+          <input ng-model="acc.phone" type="text" class="form-control" id="inputPhone" placeholder="Phone number">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputUsername" class="col-lg-2 control-label">Username</label>
+        <div class="col-lg-10">
+          <input ng-model="acc.username" type="text" class="form-control" id="inputUsername" placeholder="Username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+        <div class="col-lg-10">
+          <input ng-model="acc.pw" type="password" class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm password</label>
+        <div class="col-lg-10">
+          <input ng-model="acc.confirmPw" type="password" class="form-control" id="inputConfirmPassword" placeholder="Repeat password">
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <div class="col-lg-4 col-lg-offset-4">
+    <button class="btn btn-primary col-lg-12 text-center">Submit</button>
+  </div>
+</div>
