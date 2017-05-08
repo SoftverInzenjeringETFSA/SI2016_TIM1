@@ -46,10 +46,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException, IOException, ServletException {
 
 
-//        ServletContext servletContext = req.getServletContext();
-//        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-//        userAccountRepository = webApplicationContext.getBean(IUserAccountRepository.class);
-
         AccountCredentials creds;
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Credentials", "true");

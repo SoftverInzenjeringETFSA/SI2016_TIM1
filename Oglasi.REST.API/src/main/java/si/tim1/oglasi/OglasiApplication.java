@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 
-@SpringBootApplication//(exclude = {SecurityAutoConfiguration.class }) nice trick *_*
+@SpringBootApplication//(exclude = {SecurityAutoConfiguration.class }) nice trick to disable Spring Security *_*
 @EnableTransactionManagement
 public class OglasiApplication {
 
