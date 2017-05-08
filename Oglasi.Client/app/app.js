@@ -1,6 +1,6 @@
-var app = angular.module('oglasi', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar', 'LocalStorageModule']);
+var app = angular.module('oglasi', ['ngRoute', 'ui.bootstrap'/*, 'angular-loading-bar'*/, 'LocalStorageModule']);
 
-var apiurl = "http://localhost:8080/";
+var apiurl = "http://localhost:8080";
 
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: apiurl,
@@ -25,6 +25,12 @@ app.config(function ($routeProvider) {
   $routeProvider.otherwise({ redirectTo: "/" });
 });
 
-app.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptorService');
-});
+// app.config(function ($httpProvider) {
+//
+//     $httpProvider.defaults.headers.common = {};
+//     $httpProvider.defaults.headers.post = {};
+//     $httpProvider.defaults.headers.put = {};
+//     $httpProvider.defaults.headers.patch = {};
+//
+//     $httpProvider.interceptors.push('authInterceptorService');
+// });

@@ -45,17 +45,25 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException, IOException, ServletException {
 
+
 //        ServletContext servletContext = req.getServletContext();
 //        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 //        userAccountRepository = webApplicationContext.getBean(IUserAccountRepository.class);
 
-        AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
-
-//        UserAccount userAccount = userAccountRepository.findByUsername(creds.getUsername());
-//        Collection<GrantedAuthority> authorities = new ArrayList<>();
-//        if(userAccount != null) {
-//            authorities.add(new SimpleGrantedAuthority(userAccount.getRole().getName()));
-//        }
+        AccountCredentials creds;
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        res.setHeader("Access-Control-Max-Age", "3600");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+        res.setHeader("Access-Control-Expose-Headers", "Authorization");
+        if(!req.getMethod().equals("POST")) {
+            creds = new AccountCredentials();
+            creds.setUsername("");
+            creds.setPassword("");
+        } else {
+            creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
+        }
 
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(

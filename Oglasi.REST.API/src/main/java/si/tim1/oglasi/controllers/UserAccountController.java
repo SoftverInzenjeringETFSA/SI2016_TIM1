@@ -1,6 +1,11 @@
 package si.tim1.oglasi.controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import si.tim1.oglasi.services.UserAccountService;
 import si.tim1.oglasi.viewmodels.UserAccountVM;
@@ -17,17 +22,37 @@ public class UserAccountController {
     private UserAccountService userAccountService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public Boolean register(@RequestBody UserAccountVM userAccountVM)
+    public ResponseEntity register(@RequestBody UserAccountVM userAccountVM)
     {
-        return userAccountService.registerUserAccount(userAccountVM);
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public UserAccountVM getUserDetail(@RequestParam("username") String username, Principal principal) {
-        if(username.equals(principal.getName())) {
-            return userAccountService.getUserAccountDetails(username);
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(userAccountService.registerUserAccount(userAccountVM));
         }
-        return null;
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                                .body(e.getLocalizedMessage());
+        }
+
+
+    }
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public ResponseEntity update(@RequestBody UserAccountVM userAccountVM) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                                .body(userAccountService.updateAccount(userAccountVM));
+        }
+        catch (ServiceException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                                .body(e.getLocalizedMessage());
+        }
+    }
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public UserAccountVM getUserDetail(Principal principal) {
+
+        return userAccountService.getUserAccountDetails(principal.getName());
+
     }
 
     @Autowired
