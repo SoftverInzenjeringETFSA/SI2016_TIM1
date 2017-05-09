@@ -5,16 +5,19 @@
       // model initialization
       $scope.accType = "Individual";
 
-      $scope.save = function(username) {
+      $scope.submit = function() {
 
-        var acc = {
-          username: username
-        };
-
-        userAccountService.register(acc)
+        userAccountService.register($scope.acc)
                           .then(function(response) {
-                            console.log(response);
-                          });
+
+                                  swal("Success", "Account created!", "success");
+                                  $scope.acc = null;
+
+                              },
+                              function(response) {
+                                  swal("Error", "Check your input!", "error");
+                              }
+                          );
       }
 
 
