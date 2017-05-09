@@ -1,5 +1,7 @@
 package si.tim1.oglasi.models;
 
+import si.tim1.oglasi.viewmodels.AdvertVM;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,4 +119,12 @@ public class Advert extends BaseEntityModel {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    /**
+     * Tampered by Amer
+     */
+    public AdvertVM mapToViewModel(){
+        return new AdvertVM(title, description, category.getTitle(), owner.getUsername(), creationDate.toString());
+    }
+
 }
