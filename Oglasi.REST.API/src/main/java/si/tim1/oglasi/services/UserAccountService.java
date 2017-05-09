@@ -53,7 +53,12 @@ public class UserAccountService {
     }
 
     public Boolean updateAccount(UserAccountVM userAccountVM) {
-        return false; //not implemented yet
+        UserAccount userAccount = userAccountRepository.findByUsername(userAccountVM.getUsername());
+        if(userAccount != null) {
+            return false;
+        }
+        return false;
+         //not implemented yet
     }
 
     public UserAccountVM getUserAccountDetails(String username) {

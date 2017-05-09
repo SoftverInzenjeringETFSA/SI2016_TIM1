@@ -22,15 +22,13 @@ app.config(function ($routeProvider) {
     controller: "registerController",
     templateUrl: "views/userAccount/register.html"
   });
+  $routeProvider.when("/account", {
+      controller: "userDetailsController",
+      templateUrl: "views/userAccount/details.html"
+  });
   $routeProvider.otherwise({ redirectTo: "/" });
 });
 
-// app.config(function ($httpProvider) {
-//
-//     $httpProvider.defaults.headers.common = {};
-//     $httpProvider.defaults.headers.post = {};
-//     $httpProvider.defaults.headers.put = {};
-//     $httpProvider.defaults.headers.patch = {};
-//
-//     $httpProvider.interceptors.push('authInterceptorService');
-// });
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+});

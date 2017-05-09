@@ -1,6 +1,7 @@
 (function () {
     'use strict';
-    app.controller('loginController', ['$scope', 'userAccountService', function ($scope, userAccountService) {
+    app.controller('loginController', ['$scope', 'userAccountService', 'localStorageService',
+                            function ($scope, userAccountService, localStorageService) {
 
       $scope.login = function() {
 
@@ -9,16 +10,20 @@
               "password": $scope.user.password
           };
 
-          userAccountService.login(user)
-                            .then(function(response) {
-                                console.log('ss');
-                            },
-                        function(response) {
-                            console.log(response);
-                        });
+          userAccountService
+                .login($scope.user)
+                .then(function(response) {
+                    console.log(response.headers()['authorization']);
+                    var authObj = {
+                        token : response.headers()['authorization'].split(" ")[1]
+                    };
+                    localStorageService.set('authorizationData', authObj);
+                },
+                    function(response) {
+                        console.log(response);
+                    }
+                );
 
-            var ajax = new XMLHttpRequest();
-            
       };
 
 

@@ -51,7 +51,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         res.setHeader("Access-Control-Allow-Credentials", "true");
         res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         res.setHeader("Access-Control-Max-Age", "3600");
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+        res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, X-Requested-With, remember-me, Access-Control-Allow-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers");
         res.setHeader("Access-Control-Expose-Headers", "Authorization");
         if(!req.getMethod().equals("POST")) {
             creds = new AccountCredentials();
