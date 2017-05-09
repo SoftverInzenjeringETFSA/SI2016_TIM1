@@ -1,7 +1,11 @@
 (function () {
     'use strict';
-    app.controller('userDetailsController', ['$scope', 'userAccountService', 'localStorageService',
-                            function ($scope, userAccountService, localStorageService) {
+    app.controller('userDetailsController', ['$scope', '$location', 'userAccountService', 'localStorageService',
+                            function ($scope, $location, userAccountService, localStorageService) {
+
+        if(userAccountService.getAuthData() == null || userAccountService.getAuthData().isAuthenticated != true) {
+            $location.path('/login');
+        }
 
         $scope.getDetails = function() {
             userAccountService.details()

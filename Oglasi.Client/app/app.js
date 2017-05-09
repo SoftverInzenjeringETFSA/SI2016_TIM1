@@ -1,4 +1,4 @@
-var app = angular.module('oglasi', ['ngRoute', 'ui.bootstrap'/*, 'angular-loading-bar'*/, 'LocalStorageModule']);
+var app = angular.module('oglasi', ['ngRoute',/* 'ui.bootstrap'/*, 'angular-loading-bar'*/, 'LocalStorageModule']);
 
 var apiurl = "http://localhost:8080";
 

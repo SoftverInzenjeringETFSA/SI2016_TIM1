@@ -103,6 +103,6 @@ public class UserAccount {
 
     public UserAccountVM mapToViewModel() {
         return new UserAccountVM(username, person.getFirstName(), person.getLastName(),
-                                person.getCompanyName(), person.getPhone(), person.getEmail(), null, null);
+                                person.getCompanyName(), person.getPhone(), person.getEmail(), null, null, role.getName());
     }
 }
