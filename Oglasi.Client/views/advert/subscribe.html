@@ -4,7 +4,12 @@
     <h5 id="adOwner">Ime Vlasnika Oglasa</h5>
     <h2>Send an application on this advert</h2>
     <br><br>
-    <form class="form-horizontal">
+
+    <style>
+      input.ng-invalid.ng-dirty{border: 2px solid red;}
+    </style>
+
+    <form name="frm" class="form-horizontal">
     <fieldset>
 
       <div class="form-group">
@@ -17,14 +22,17 @@
       <div class="form-group">
         <label for="inputName" class="col-lg-2 control-label">Email</label>
         <div class="col-lg-10">
-          <input ng-model="newApplication.email" type="text" class="form-control" id="inputEmail" placeholder="username@example.com">
+          <input ng-model="newApplication.email"  type="email" class="form-control" name="userEmail" id="inputEmail" placeholder="username@example.com" required>
+          <span ng-show="frm.userEmail.$dirty && frm.userEmail.$error.email">Wrong format</span>
+          <span ng-show="frm.userEmail.$dirty && frm.userEmail.$error.required">Required field</span>
         </div>
       </div>
 
       <div class="form-group">
         <label for="inputPhone" class="col-lg-2 control-label">Phone</label>
         <div class="col-lg-10">
-          <input ng-model="newApplication.phone" type="text" class="form-control" id="inputPhone" placeholder="+387xxxxxxxx">
+          <input ng-model="newApplication.phone" ng-minlength="11" type="text" name="userPhone" class="form-control" id="inputPhone" placeholder="+387xxxxxxxx" required >
+           <span ng-show="frm.userPhone.$dirty && frm.userPhone.$error.required">Required field</span>
         </div>
       </div>
 
@@ -47,4 +55,7 @@
       </div>
     </fieldset>
   </form>
-</div>
+  </div>
+  
+
+
