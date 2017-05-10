@@ -26,6 +26,12 @@ app.config(function ($routeProvider) {
       controller: "userDetailsController",
       templateUrl: "views/userAccount/details.html"
   });
+
+  $routeProvider.when("/advert/subscribe", {
+      controller: "advertSubscriptionController",
+      templateUrl: "views/advert/subscribe.html"
+  });
+
   $routeProvider.otherwise({ redirectTo: "/" });
 });
 

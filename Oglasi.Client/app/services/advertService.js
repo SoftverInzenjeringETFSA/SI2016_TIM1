@@ -17,6 +17,15 @@
 
         advertServiceFactory.getAdverts = _getAdverts;
 
+        var _postSubscription = function (newSubscription) {
+
+              return $http.post(servicebase + '/advert/subscribe', newSubscription)
+                          .then(function (results) {
+                              return results;
+                          });
+        }
+        advertServiceFactory.subscribe = _postSubscription;
+
         return advertServiceFactory;
     }]);
 }());
