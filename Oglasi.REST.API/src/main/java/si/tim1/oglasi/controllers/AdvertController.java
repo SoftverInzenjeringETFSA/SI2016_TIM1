@@ -1,14 +1,15 @@
 package si.tim1.oglasi.controllers;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import si.tim1.oglasi.models.Advert;
 import si.tim1.oglasi.services.AdvertService;
+import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
 
 import java.security.Principal;
@@ -59,10 +60,21 @@ public class AdvertController {
         return advertService.getAdvertDetails(id);
     }
 
+    @RequestMapping(value = "/subscribe", method = RequestMethod.GET)                           // naziv i vlasnik oglasa
+    public String getAdvertTitleAndOwner(@RequestParam("id") long id, Principal principal) {
+        return advertService.getAdvertTitleAndOwner(id);
+    }
 
     @RequestMapping(value = "/subscribe", method = RequestMethod.POST) // prijava na oglas
-    public void untitledMethod4() {
-        //TODO
+    public ResponseEntity setSubscription(@RequestBody AdvertSubscriptionVM advertSubscriptionVM) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.setAdvertSubscription(advertSubscriptionVM));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")

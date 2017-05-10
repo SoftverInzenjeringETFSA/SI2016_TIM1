@@ -1,10 +1,14 @@
 package si.tim1.oglasi.services;
 
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import si.tim1.oglasi.models.Advert;
+import si.tim1.oglasi.models.AdvertSubscription;
 import si.tim1.oglasi.repositories.IAdvertRepository;
+import si.tim1.oglasi.repositories.IAdvertSubscriptionRepository;
+import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
 
 import java.util.ArrayList;
@@ -18,6 +22,9 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
 
     @Autowired
     private IAdvertRepository advertRepository;
+
+    @Autowired
+    private IAdvertSubscriptionRepository advertSubscriptionRepository;
 
     public String getAdvertDetails(long id){
         Advert advert = advertRepository.findAdvertById(id);
@@ -33,5 +40,21 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         }
 
         return advertsVM;
+    }
+
+    public String getAdvertTitleAndOwner(long id){
+        Advert advert = advertRepository.findAdvertById(id);
+        return advert.getTitle() + "/" + advert.getOwner().getUsername();
+    }
+
+    public boolean setAdvertSubscription(AdvertSubscriptionVM advertSubscriptionVM) {
+
+        AdvertSubscription advertSubscription = new AdvertSubscription();
+        advertSubscription.setText(advertSubscriptionVM.getMessage());
+        advertSubscriptionRepository.save(advertSubscription);
+
+        return true;
+
+        //throw new ServiceException("Error!");
     }
 }

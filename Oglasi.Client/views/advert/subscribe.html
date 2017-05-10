@@ -1,6 +1,7 @@
 <div class="col-lg-8 col-lg-offset-2">
+<!-- ng-init="getTitleOwner()" -->
 
-    <h2 id="adName">Ime Oglasa</h2>
+    <h2 ng-model="titleOwner"></h2>
     <h5 id="adOwner">Ime Vlasnika Oglasa</h5>
     <h2>Send an application on this advert</h2>
     <br><br>
@@ -10,21 +11,21 @@
       <div class="form-group">
         <label for="inputName" class="col-lg-2 control-label">Name</label>
         <div class="col-lg-10">
-          <input ng-model="newApplication.username" type="text" class="form-control" id="inputName" placeholder="Username or Nickname">
+          <input type="text" class="form-control" id="inputName" placeholder="Username or Nickname">
         </div>
       </div>
 
       <div class="form-group">
         <label for="inputName" class="col-lg-2 control-label">Email</label>
         <div class="col-lg-10">
-          <input ng-model="newApplication.email" type="text" class="form-control" id="inputEmail" placeholder="username@example.com">
+          <input type="text" class="form-control" id="inputEmail" placeholder="username@example.com">
         </div>
       </div>
 
       <div class="form-group">
         <label for="inputPhone" class="col-lg-2 control-label">Phone</label>
         <div class="col-lg-10">
-          <input ng-model="newApplication.phone" type="text" class="form-control" id="inputPhone" placeholder="+387xxxxxxxx">
+          <input type="text" class="form-control" id="inputPhone" placeholder="+387xxxxxxxx">
         </div>
       </div>
 
@@ -33,7 +34,7 @@
       <div class="form-group">
         <label for="reportMessage" class="col-lg-2 control-label">Report Message</label>
         <div class="col-lg-10">
-          <textarea ng-model="newApplication.message" class="form-control" rows="4" id="reportMessage"></textarea>
+          <textarea ng-model="newSubscription.message" class="form-control" rows="4" id="reportMessage"></textarea>
           <span class="help-block">Please leave a message for the owner of this advert.</span>
         </div>
       </div>

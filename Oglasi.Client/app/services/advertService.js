@@ -26,6 +26,15 @@
         }
         advertServiceFactory.subscribe = _postSubscription;
 
+        var _getTitleOwner = function () {
+              return $http.get(servicebase + '/advert/subscribe')
+                          .then(function(results) {
+                              return results;
+                          });
+        };
+        advertServiceFactory.getTitleOwner = _getTitleOwner;
+
+
         return advertServiceFactory;
     }]);
 }());
