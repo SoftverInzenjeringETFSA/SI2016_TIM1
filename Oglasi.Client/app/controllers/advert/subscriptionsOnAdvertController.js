@@ -8,13 +8,6 @@
         			.then(function(response){
         				$scope.subscriptions = response.data;
         			});
-    		// $scope.subscriptions = [{
-    		// 	subscriberName: "mmm",
-    		// 	datetime: "jhjh"
-    		// },{
-    		// 	subscriberName: "mm2",
-    		// 	datetime: "time"
-    		// }];
 
 
    }]);
