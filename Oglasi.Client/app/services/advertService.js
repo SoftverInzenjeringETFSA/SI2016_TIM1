@@ -7,16 +7,17 @@
 
         var advertServiceFactory = {};
 
-        var _getAdverts = function () {
+        var _getSubscriptions = function (id) {
 
-            return $http.get(servicebase + '/advert/all')
-                        .then(function (results) {
+            return $http.get(servicebase + '/advert/'+id+'/subscriptions')
+                        .then(function(results) {
                             return results;
                         });
         };
 
-        advertServiceFactory.getAdverts = _getAdverts;
+        advertServiceFactory.getSubscriptions= _getSubscriptions;
 
         return advertServiceFactory;
     }]);
+
 }());

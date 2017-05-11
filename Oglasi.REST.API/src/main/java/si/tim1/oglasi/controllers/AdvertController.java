@@ -3,15 +3,15 @@ package si.tim1.oglasi.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import si.tim1.oglasi.models.Advert;
 import si.tim1.oglasi.services.AdvertService;
 import si.tim1.oglasi.viewmodels.AdvertVM;
+import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
 
 import java.security.Principal;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,18 +24,23 @@ public class AdvertController {
     private AdvertService advertService;
 
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa iz kategorije, treba dodati request parameter za odabranu kat.
+
     public Iterable<Advert> getAllAdverts() {
         return advertService.findAll();
     }
 
 
     @RequestMapping(value = "/category", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
-    @PreAuthorize("hasRole('ROLE_USER')")
+
     public List<AdvertVM> getAdvertsByCategory(@RequestParam("id") long id){
         return advertService.findAdvertsByCategoryId(id);
     }
+
+
   
+
     @RequestMapping(value = "/create", method = RequestMethod.POST) // objavljivanje oglasa
     public void untitledMethod() {
         //TODO
@@ -67,13 +72,18 @@ public class AdvertController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{id}/subscriptions", method = RequestMethod.GET) // pregled prijava na oglas
-    public void untitledMethod5() {
-        //TODO
+    public List<SubscriptionListItemVM> getSubscriptionsForAdvert(@PathVariable Long id, Principal principal) {
+        try {
+            return advertService.getSubscriptionsForAdvert(id, principal.getName());
+        }
+        catch (Exception e) {
+            return Collections.EMPTY_LIST;
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{id}/subscriptions/{s_id}", method = RequestMethod.GET) // pregled detalja prijave na oglas
-    public void untitledMethod6() {
+    public void getSubscriptionDetails(@PathVariable Long id, @PathVariable Long s_id) {
         //TODO
     }
 
