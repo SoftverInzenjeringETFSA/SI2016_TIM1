@@ -1,0 +1,23 @@
+<div class="col-lg-4 col-lg-offset-4">
+    <form class="form-horizontal">
+      <fieldset>
+        <br /><br /><br />
+         <ul>
+		    <li ng-repeat="subscription in subscriptions">
+		      <p>{{subscription.subscriberName}}</p>
+		      <p>{{subscription.datetime}}</p>
+		    </li>
+		 </ul>
+      </fieldset>
+    </form>
+    <div class="col-lg-10 col-lg-offset-2">
+    	{{subscriptions}}
+    </div>
+</div>
+
+
+
+
+
+
+

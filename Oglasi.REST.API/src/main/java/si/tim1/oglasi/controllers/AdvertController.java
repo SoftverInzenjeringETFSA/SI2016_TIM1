@@ -24,18 +24,23 @@ public class AdvertController {
     private AdvertService advertService;
 
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa iz kategorije, treba dodati request parameter za odabranu kat.
+
     public Iterable<Advert> getAllAdverts() {
         return advertService.findAll();
     }
 
 
     @RequestMapping(value = "/category", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
-    @PreAuthorize("hasRole('ROLE_USER')")
+
     public List<AdvertVM> getAdvertsByCategory(@RequestParam("id") long id){
         return advertService.findAdvertsByCategoryId(id);
     }
+
+
   
+
     @RequestMapping(value = "/create", method = RequestMethod.POST) // objavljivanje oglasa
     public void untitledMethod() {
         //TODO
