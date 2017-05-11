@@ -12,10 +12,11 @@ public class UserAccountVM {
     private String email;
     private String pwHash;
     private String confirmPwHash;
+    private String roleName;
 
     public UserAccountVM() {}
 
-    public UserAccountVM(String username, String firstName, String lastName, String companyName, String phone, String email, String pwHash, String confirmPwHash) {
+    public UserAccountVM(String username, String firstName, String lastName, String companyName, String phone, String email, String pwHash, String confirmPwHash, String roleName) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,6 +25,7 @@ public class UserAccountVM {
         this.email = email;
         this.pwHash = pwHash;
         this.confirmPwHash = confirmPwHash;
+        this.roleName = roleName;
     }
 
     public String getUsername() {
@@ -88,5 +90,13 @@ public class UserAccountVM {
 
     public void setConfirmPwHash(String confirmPwHash) {
         this.confirmPwHash = confirmPwHash;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

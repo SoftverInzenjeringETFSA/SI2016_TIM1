@@ -1,6 +1,8 @@
-var app = angular.module('oglasi', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar', 'LocalStorageModule']);
 
-var apiurl = "http://localhost:8080/";
+var app = angular.module('oglasi', ['ngRoute',/* 'ui.bootstrap'/*, 'angular-loading-bar'*/, 'LocalStorageModule']);
+
+
+var apiurl = "http://localhost:8080";
 
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: apiurl,
@@ -23,20 +25,15 @@ app.config(function ($routeProvider) {
     templateUrl: "views/userAccount/register.html"
   });
 
-
-  $routeProvider.when("/advert/details", {
-    controller: "advertDetailsController",
-    templateUrl: "views/advert/advert_details.html"
-  });
-
-  $routeProvider.when("/advert/register", {
-    controller: "advertRegisterController",
-    templateUrl: "views/advert/register.html"
-  });
-
   $routeProvider.when("/advert/details/:id", {
     controller: "advertDetailsController",
     templateUrl: "views/advert/details.html"
+  });
+
+
+  $routeProvider.when("/account", {
+      controller: "userDetailsController",
+      templateUrl: "views/userAccount/details.html"
   });
 
   $routeProvider.otherwise({ redirectTo: "/" });

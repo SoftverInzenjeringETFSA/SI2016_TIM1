@@ -50,9 +50,7 @@ public class UserAccountController {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public UserAccountVM getUserDetail(Principal principal) {
-
         return userAccountService.getUserAccountDetails(principal.getName());
-
     }
 
     @Autowired

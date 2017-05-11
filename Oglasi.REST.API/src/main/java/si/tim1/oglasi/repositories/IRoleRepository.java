@@ -8,4 +8,5 @@ import si.tim1.oglasi.models.Role;
  */
 public interface IRoleRepository extends PagingAndSortingRepository<Role, Long> {
     Role findRoleByName(String name);
+
 }
