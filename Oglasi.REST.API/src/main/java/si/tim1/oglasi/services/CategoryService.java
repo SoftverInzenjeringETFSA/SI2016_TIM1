@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import si.tim1.oglasi.models.Category;
 import si.tim1.oglasi.models.CategorySpec;
 import si.tim1.oglasi.repositories.ICategoryRepository;
+import si.tim1.oglasi.viewmodels.CategorySpecVM;
 import si.tim1.oglasi.viewmodels.CategoryVM;
 import org.hibernate.service.spi.ServiceException;
 

@@ -13,7 +13,7 @@ public class AdvertVM {
     private String owner;
     private String creationDate;
 
-    public AdvertVM(){};
+    public AdvertVM(){}
 
     public AdvertVM(String title, String description, String category, String owner, String creationDate){
         this.title = title;

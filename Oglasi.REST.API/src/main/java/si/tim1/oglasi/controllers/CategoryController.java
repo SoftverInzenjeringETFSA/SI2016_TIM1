@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import si.tim1.oglasi.models.CategorySpec;
 import si.tim1.oglasi.services.CategoryService;
+import si.tim1.oglasi.viewmodels.CategorySpecVM;
 import si.tim1.oglasi.viewmodels.CategoryVM;
 
 /**
@@ -28,6 +30,19 @@ public class CategoryController {
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(categoryService.createCategory(categoryVM));
+        }
+        catch (ServiceException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @RequestMapping(value = "/addCategorySpec", method = RequestMethod.PUT)
+    public ResponseEntity addCategorySpec(@RequestBody CategoryVM categoryVM, CategorySpec categorySpec) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(categoryService.addCategorySpec(categoryVM,categorySpec));
         }
         catch (ServiceException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
