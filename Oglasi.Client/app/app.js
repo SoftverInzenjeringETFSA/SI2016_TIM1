@@ -33,11 +33,15 @@ app.config(function ($routeProvider) {
     templateUrl: "views/advert/inappropriate_advert.html"
   });
 
-    $routeProvider.when("/advert/details/application_form", {
-    controller: "applicationOnAdvertController",
-    templateUrl: "views/advert/application_form.html"
-  });
+  //   $routeProvider.when("/advert/details/application_form", {
+  //   controller: "applicationOnAdvertController",
+  //   templateUrl: "views/advert/application_form.html"
+  // });
 
+   $routeProvider.when("/advert/:id/subscriptions", {
+    controller: "subscriptionsOnAdvertController",
+    templateUrl: "views/advert/advert_subscriptions.html"
+  });
 
 
   $routeProvider.otherwise({ redirectTo: "/" });
