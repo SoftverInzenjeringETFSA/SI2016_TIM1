@@ -4,9 +4,15 @@
 
       advertService.getAdverts()
                   .then(function(response) {
-                      alert(response.data);
+                      $scope.adverts = response.data;
+                      //alert(response);
                   });
-    }]);
 
+    $scope.advertDetails = function(advert) {
+            advertService.getAdvert(advert);
+    }
+
+
+    }]);
 
 }());

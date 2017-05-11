@@ -1,5 +1,6 @@
 package si.tim1.oglasi.viewmodels;
 
+
 /**
  * Created by Adnan on 5/10/2017.
  */

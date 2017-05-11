@@ -15,7 +15,34 @@
                         });
         };
 
+               var _getAdvertDetails = function (id) {
+                     return $http.get(servicebase + '/advert/details/' + id)
+                                .then(function (results) {
+                                    return results;
+                                 });
+                 };
+
+                 advertServiceFactory.getAdvertDetails = _getAdvertDetails;
+
+
+        var _getSubscrins = function (id) {
+
+            return $http.get(servicebase + '/advert/'+id+'/subscriptions')
+                        .then(function(results) {
+                            return results;
+                        });
+        };
+
+
+
+
+
         advertServiceFactory.getAdverts = _getAdverts;
+        // advertServiceFactory.getAdvert = _getAdvert;
+
+        advertServiceFactory.getSubscriptions=_getSubscrins;
+
+
 
         var _postSubscription = function (newSubscription) {
 
@@ -45,4 +72,5 @@
 
         return advertServiceFactory;
     }]);
+
 }());

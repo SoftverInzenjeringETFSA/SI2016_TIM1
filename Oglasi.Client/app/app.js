@@ -1,4 +1,6 @@
+
 var app = angular.module('oglasi', ['ngRoute',/* 'ui.bootstrap'/*, 'angular-loading-bar'*/, 'LocalStorageModule']);
+
 
 var apiurl = "http://localhost:8080";
 
@@ -14,7 +16,9 @@ app.config(function ($routeProvider) {
     templateUrl: "views/userAccount/login.html"
   });
 
-  $routeProvider.when("/adverts", {
+
+
+  $routeProvider.when("/", {
     controller: "advertsListController",
     templateUrl: "views/advert/all.html"
   });
@@ -22,10 +26,18 @@ app.config(function ($routeProvider) {
     controller: "registerController",
     templateUrl: "views/userAccount/register.html"
   });
+
+  $routeProvider.when("/advert/details/:id", {
+    controller: "advertDetailsController",
+    templateUrl: "views/advert/details.html"
+  });
+
+
   $routeProvider.when("/account", {
       controller: "userDetailsController",
       templateUrl: "views/userAccount/details.html"
   });
+
 
   $routeProvider.when("/advert/subscribe", {
       controller: "advertSubscriptionController",
@@ -35,9 +47,20 @@ app.config(function ($routeProvider) {
   $routeProvider.when("/advert/report", {
       controller: "advertReportController",
       templateUrl: "views/advert/report.html"
+
+  $routeProvider.when("/account", {
+      controller: "userDetailsController",
+      templateUrl: "views/userAccount/details.html"
+  });
+
+   $routeProvider.when("/advert/:id/subscriptions", {
+    controller: "subscriptionsOnAdvertController",
+    templateUrl: "views/advert/advert_subscriptions.html"
+
   });
 
   $routeProvider.otherwise({ redirectTo: "/" });
+
 });
 
 app.config(function ($httpProvider) {

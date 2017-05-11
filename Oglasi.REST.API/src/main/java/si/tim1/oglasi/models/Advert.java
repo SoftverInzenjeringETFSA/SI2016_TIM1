@@ -124,7 +124,7 @@ public class Advert extends BaseEntityModel {
      * Tampered by Amer
      */
     public AdvertVM mapToViewModel(){
-        return new AdvertVM(title, description, category.getTitle(), owner.getUsername(), creationDate.toString());
+        return new AdvertVM(this.getId(), title, description, category.getTitle(), category.getId(), owner.getUsername(), owner.getId(), creationDate.toString());
     }
 
 }

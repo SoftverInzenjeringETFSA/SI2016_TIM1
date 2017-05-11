@@ -29,7 +29,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/advert").permitAll()
+                .antMatchers(HttpMethod.GET, "/advert/all").permitAll()
                 .antMatchers("/advert/category").permitAll()
+                .antMatchers("/advert/details/{id}").permitAll()
+                .antMatchers("/advert/create").permitAll()
+                .antMatchers("/advert/update").permitAll()
+                .antMatchers("/advert/subscribe/{id}").permitAll()
                 .antMatchers("/account/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/advert/subscribe").permitAll()
