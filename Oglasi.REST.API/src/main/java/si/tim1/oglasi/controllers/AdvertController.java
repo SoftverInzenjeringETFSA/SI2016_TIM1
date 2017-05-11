@@ -1,18 +1,24 @@
 package si.tim1.oglasi.controllers;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import si.tim1.oglasi.models.Advert;
 import si.tim1.oglasi.services.AdvertService;
+import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
+import si.tim1.oglasi.viewmodels.PersonVM;
 
+import javax.websocket.server.PathParam;
 import java.security.Principal;
+import java.sql.Date;
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 /**
  * Created by Adnan on 4/29/2017.
@@ -24,50 +30,77 @@ public class AdvertController {
     private AdvertService advertService;
 
 
-
-    @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa iz kategorije, treba dodati request parameter za odabranu kat.
-
-    public Iterable<Advert> getAllAdverts() {
-        return advertService.findAll();
+    @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa
+    public Iterable<AdvertVM> getAllAdverts() {
+        return advertService.findAllAdverts();
     }
 
-
     @RequestMapping(value = "/category", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
-
     public List<AdvertVM> getAdvertsByCategory(@RequestParam("id") long id){
         return advertService.findAdvertsByCategoryId(id);
     }
 
 
-  
-
     @RequestMapping(value = "/create", method = RequestMethod.POST) // objavljivanje oglasa
-    public void untitledMethod() {
-        //TODO
-    }
+    public ResponseEntity register(@RequestBody AdvertVM advertVM) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.registerAdvert(advertVM));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "/update", method = RequestMethod.PUT) // update oglasa
-    public void untitledMethod1() {
-        //TODO
     }
 
     /**
      *  Tampered by Amer
      **/
-    /*@RequestMapping(value = "/{id}", method = RequestMethod.GET) // detalji oglasa
-    public String getAdvertDetails() {
-        return null; // Test
-    }*/
+    //@PreAuthorize("hasRole('ROLE_USER')")
+    @RequestMapping(value = "/update", method = RequestMethod.PUT) // update oglasa
+    public ResponseEntity update(@RequestBody AdvertVM advertVM) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.update(advertVM));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     *  Tampered by Amer
+     **/
     @RequestMapping(value ="", method = RequestMethod.GET)
-    public String getAdvertDetails(@RequestParam("id") long id, Principal principal){
+    public String getAdvertDetails(@RequestParam("id") long id, Principal principal){ // detalji oglasa
         return advertService.getAdvertDetails(id);
     }
 
+    @RequestMapping(value ="details/{id}", method = RequestMethod.GET)
+    public AdvertVM getAdvertByID(@PathVariable("id") long id){
+        return advertService.getAdvertByID(id);
+    }
 
-    @RequestMapping(value = "/subscribe", method = RequestMethod.POST) // prijava na oglas
-    public void untitledMethod4() {
-        //TODO
+    /**
+     * WORKING!!
+     */
+    /*@RequestMapping(value = "/subscribe/{id}", method = RequestMethod.POST) // prijava na oglas
+    public long subscribeToAdvert(@RequestParam("advertID") long advertID) {
+        return advertID;
+    }*/
+    @RequestMapping(value = "/subscribe", method = RequestMethod.POST) // objavljivanje oglasa
+    public ResponseEntity subscribeToAdvert(@RequestBody AdvertSubscriptionVM advSubscriotionVM) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(true);
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")

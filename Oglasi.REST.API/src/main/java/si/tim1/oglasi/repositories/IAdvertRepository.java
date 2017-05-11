@@ -1,7 +1,10 @@
 package si.tim1.oglasi.repositories;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import si.tim1.oglasi.models.Advert;
+import si.tim1.oglasi.models.Category;
 import si.tim1.oglasi.models.Role;
 
 import java.util.List;

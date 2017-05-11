@@ -1,14 +1,16 @@
 (function () {
     'use strict';
-    app.controller('advertsDetailsController', ['$scope', 'userAccountService', function ($scope, userAccountService) {
 
-        advertService.getAdvert()
-        			.then(function(response){
-        				console.log(response);
-        			});
-      }
+    app.controller('advertDetailsController', ['$scope', '$routeParams', 'advertService', function ($scope, $routeParams, advertService) {
 
-    }]);
+      $scope.advert = {};
 
+      $scope.getAdvert = function() {
+                advertService.getAdvertDetails($routeParams.id)
+                            .then(function(response) {
+                                $scope.advert = response.data;
+                            });
+              }
 
+          }]);
 }());

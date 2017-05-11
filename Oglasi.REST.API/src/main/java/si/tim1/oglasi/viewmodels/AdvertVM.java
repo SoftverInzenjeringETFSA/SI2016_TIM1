@@ -7,20 +7,50 @@ import java.util.Date;
  */
 public class AdvertVM {
 
+    private long advertID;
     private String title;
     private String description;
+    private long categoryID;
     private String category;
     private String owner;
+    private long ownerID;
     private String creationDate;
 
     public AdvertVM(){};
 
-    public AdvertVM(String title, String description, String category, String owner, String creationDate){
+    public AdvertVM(long advertID, String title, String description, String category, long categoryID, String owner, long ownerID, String creationDate){
+        this.advertID = advertID;
         this.title = title;
         this.description = description;
         this.category = category;
+        this.categoryID = categoryID;
         this.owner = owner;
+        this.ownerID = ownerID;
         this.creationDate = creationDate;
+    }
+
+    public long getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(long ownerID) {
+        this.ownerID = ownerID;
+    }
+
+    public long getAdvertID() {
+        return advertID;
+    }
+
+    public void setAdvertID(long advertID) {
+        this.advertID = advertID;
+    }
+
+    public long getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(long categoryID) {
+        this.categoryID = categoryID;
     }
 
     public String getTitle() {

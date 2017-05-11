@@ -14,7 +14,7 @@ app.config(function ($routeProvider) {
     templateUrl: "views/userAccount/login.html"
   });
 
-  $routeProvider.when("/adverts", {
+  $routeProvider.when("/", {
     controller: "advertsListController",
     templateUrl: "views/advert/all.html"
   });
@@ -23,24 +23,24 @@ app.config(function ($routeProvider) {
     templateUrl: "views/userAccount/register.html"
   });
 
+
   $routeProvider.when("/advert/details", {
     controller: "advertDetailsController",
     templateUrl: "views/advert/advert_details.html"
   });
 
-   $routeProvider.when("/advert/details/inappropriate", {
-    controller: "inappropriateAdvertController",
-    templateUrl: "views/advert/inappropriate_advert.html"
+  $routeProvider.when("/advert/register", {
+    controller: "advertRegisterController",
+    templateUrl: "views/advert/register.html"
   });
 
-    $routeProvider.when("/advert/details/application_form", {
-    controller: "applicationOnAdvertController",
-    templateUrl: "views/advert/application_form.html"
+  $routeProvider.when("/advert/details/:id", {
+    controller: "advertDetailsController",
+    templateUrl: "views/advert/details.html"
   });
-
-
 
   $routeProvider.otherwise({ redirectTo: "/" });
+
 });
 
 app.config(function ($httpProvider) {
