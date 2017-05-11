@@ -34,6 +34,14 @@
         };
         advertServiceFactory.getTitleOwner = _getTitleOwner;
 
+        var _postReport = function (newReport) {
+
+              return $http.post(servicebase + '/advert/report', newReport)
+                          .then(function (results) {
+                              return results;
+                          });
+        }
+        advertServiceFactory.report = _postReport;
 
         return advertServiceFactory;
     }]);

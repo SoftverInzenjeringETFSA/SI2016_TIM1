@@ -32,6 +32,11 @@ app.config(function ($routeProvider) {
       templateUrl: "views/advert/subscribe.html"
   });
 
+  $routeProvider.when("/advert/report", {
+      controller: "advertReportController",
+      templateUrl: "views/advert/report.html"
+  });
+
   $routeProvider.otherwise({ redirectTo: "/" });
 });
 

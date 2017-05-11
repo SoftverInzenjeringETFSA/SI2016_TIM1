@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    app.controller('advertSubscriptionController', ['$scope', 'advertService', function ($scope, advertService) {
+    app.controller('advertReportController', ['$scope', 'advertService', function ($scope, advertService) {
 
             //            $scope.getTitleOwner = function() {
           //                advertService.getTitleOwner()
@@ -10,8 +10,8 @@
                 //                      });
               //        }
 
-                          $scope.subscribe = function() {
-                            advertService.subscribe($scope.newSubscription)
+                          $scope.report = function() {
+                            advertService.report($scope.newReport)
                                               .then(function(response){
                                                    console.log(response);
                                                 });

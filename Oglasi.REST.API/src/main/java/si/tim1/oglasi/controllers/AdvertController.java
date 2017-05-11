@@ -11,6 +11,7 @@ import si.tim1.oglasi.models.Advert;
 import si.tim1.oglasi.services.AdvertService;
 import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
+import si.tim1.oglasi.viewmodels.InappropriateAdvertReportVM;
 
 import java.security.Principal;
 import java.util.List;
@@ -76,6 +77,19 @@ public class AdvertController {
                     .body(e.getLocalizedMessage());
         }
     }
+
+    @RequestMapping(value = "/report", method = RequestMethod.POST) // prijava oglasa
+    public ResponseEntity setReport(@RequestBody InappropriateAdvertReportVM inappropriateAdvertReportVM) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.setInappropriateAdvertReport(inappropriateAdvertReportVM));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
+
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{id}/subscriptions", method = RequestMethod.GET) // pregled prijava na oglas
