@@ -7,4 +7,5 @@ import si.tim1.oglasi.models.Category;
  * Created by Adnan on 5/5/2017.
  */
 public interface ICategoryRepository extends PagingAndSortingRepository<Category, Long>{
+    Category findCategoryById(long id);
 }
