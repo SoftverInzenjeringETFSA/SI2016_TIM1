@@ -66,6 +66,6 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
 
     }
     public AdvertSubscriptionVM getSubscriptionDetails(Long id) {
-
+        return null; // TODO
     }
 }

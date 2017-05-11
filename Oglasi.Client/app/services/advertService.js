@@ -15,7 +15,7 @@
                         });
         };
 
-        advertServiceFactory.subscriptions= _getSubscriptions;
+        advertServiceFactory.getSubscriptions= _getSubscriptions;
 
         return advertServiceFactory;
     }]);

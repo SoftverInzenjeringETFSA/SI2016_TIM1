@@ -1,20 +1,22 @@
 (function (){
     'use strict';
-    app.controller('subscriptionsOnAdvertController', ['$scope', 'advertService', function ($scope, advertService) {
+    app.controller('subscriptionsOnAdvertController', ['$scope', '$routeParams', 'advertService', function ($scope, $routeParams, advertService) {
 
-       /* advertService.getSubscriptions()
+        $scope.subscriptions = [];
+
+        advertService.getSubscriptions($routeParams.id)
         			.then(function(response){
-        				console.log(response);
-        			});*/
-    		$scope.subscriptions = [{
-    			subscriberName: "mmm",
-    			datetime: "jhjh"
-    		},{
-    			subscriberName: "mm2",
-    			datetime: "time"
-    		}];
+        				$scope.subscriptions = response.data;
+        			});
+    		// $scope.subscriptions = [{
+    		// 	subscriberName: "mmm",
+    		// 	datetime: "jhjh"
+    		// },{
+    		// 	subscriberName: "mm2",
+    		// 	datetime: "time"
+    		// }];
 
-     
+
    }]);
 
 
