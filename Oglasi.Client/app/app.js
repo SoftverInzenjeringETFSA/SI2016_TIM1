@@ -47,6 +47,7 @@ app.config(function ($routeProvider) {
   $routeProvider.when("/advert/report", {
       controller: "advertReportController",
       templateUrl: "views/advert/report.html"
+  });
 
   $routeProvider.when("/account", {
       controller: "userDetailsController",
