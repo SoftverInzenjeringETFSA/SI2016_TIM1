@@ -6,6 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 import si.tim1.oglasi.models.Advert;
+
+import si.tim1.oglasi.models.AdvertSubscription;
+import si.tim1.oglasi.models.InappropriateAdvertReport;
+import si.tim1.oglasi.repositories.IAdvertReportRepository;
+import si.tim1.oglasi.repositories.IAdvertRepository;
+import si.tim1.oglasi.repositories.IAdvertSubscriptionRepository;
+import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
+import si.tim1.oglasi.viewmodels.AdvertVM;
+import si.tim1.oglasi.viewmodels.InappropriateAdvertReportVM;
+
 import si.tim1.oglasi.models.UserAccount;
 import si.tim1.oglasi.repositories.IAdvertRepository;
 import si.tim1.oglasi.repositories.ICategoryRepository;
@@ -14,6 +24,7 @@ import si.tim1.oglasi.repositories.IAdvertRepository;
 import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
 import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
+
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -29,7 +40,13 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     private IAdvertRepository advertRepository;
 
     @Autowired
+    private IAdvertSubscriptionRepository advertSubscriptionRepository;
+
+    @Autowired
+    private IAdvertReportRepository advertReportRepository;
+
     private ICategoryRepository categoryRepository;
+
 
     public String getAdvertDetails(long id){
         Advert advert = advertRepository.findAdvertById(id);
@@ -64,6 +81,33 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return advertsVM;
     }
 
+
+    public String getAdvertTitleAndOwner(long id){
+        Advert advert = advertRepository.findAdvertById(id);
+        return advert.getTitle() + "/" + advert.getOwner().getUsername();
+    }
+
+    public boolean setAdvertSubscription(AdvertSubscriptionVM advertSubscriptionVM) {
+
+        AdvertSubscription advertSubscription = new AdvertSubscription();
+        advertSubscription.setText(advertSubscriptionVM.getMessage());
+        advertSubscriptionRepository.save(advertSubscription);
+
+        return true;
+
+        //throw new ServiceException("Error!");
+    }
+
+    public boolean setInappropriateAdvertReport(InappropriateAdvertReportVM inappropriateAdvertReportVM) {
+
+        InappropriateAdvertReport inappropriateAdvertReport = new InappropriateAdvertReport();
+        inappropriateAdvertReport.setText(inappropriateAdvertReportVM.getMessage());
+        advertReportRepository.save(inappropriateAdvertReport);
+
+        return true;
+
+        //throw new ServiceException("Error!");
+    }
     public Boolean registerAdvert(AdvertVM advertVM){
 
         Advert advert = new Advert(advertVM.getTitle(),
@@ -123,5 +167,6 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     }
     public AdvertSubscriptionVM getSubscriptionDetails(Long id) {
         return null; // TODO
+
     }
 }

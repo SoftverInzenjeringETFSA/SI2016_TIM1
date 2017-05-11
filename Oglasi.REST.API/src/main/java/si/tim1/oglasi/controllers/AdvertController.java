@@ -7,10 +7,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import si.tim1.oglasi.models.Advert;
+import si.tim1.oglasi.services.AdvertService;
+import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
+import si.tim1.oglasi.viewmodels.AdvertVM;
+import si.tim1.oglasi.viewmodels.InappropriateAdvertReportVM;
+
 import si.tim1.oglasi.services.AdvertService;
 import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
 import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
+
 
 import java.security.Principal;
 import java.util.Collections;
@@ -76,6 +84,7 @@ public class AdvertController {
         return advertService.getAdvertDetails(id);
     }
 
+
     @RequestMapping(value ="details/{id}", method = RequestMethod.GET)
     public AdvertVM getAdvertByID(@PathVariable("id") long id){
         return advertService.getAdvertByID(id);
@@ -99,7 +108,21 @@ public class AdvertController {
                     .body(e.getLocalizedMessage());
         }
 
+
     }
+
+    @RequestMapping(value = "/report", method = RequestMethod.POST) // prijava oglasa
+    public ResponseEntity setReport(@RequestBody InappropriateAdvertReportVM inappropriateAdvertReportVM) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.setInappropriateAdvertReport(inappropriateAdvertReportVM));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
+
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{id}/subscriptions", method = RequestMethod.GET) // pregled prijava na oglas

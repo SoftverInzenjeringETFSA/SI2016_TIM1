@@ -38,6 +38,16 @@ app.config(function ($routeProvider) {
       templateUrl: "views/userAccount/details.html"
   });
 
+
+  $routeProvider.when("/advert/subscribe", {
+      controller: "advertSubscriptionController",
+      templateUrl: "views/advert/subscribe.html"
+  });
+
+  $routeProvider.when("/advert/report", {
+      controller: "advertReportController",
+      templateUrl: "views/advert/report.html"
+
   $routeProvider.when("/account", {
       controller: "userDetailsController",
       templateUrl: "views/userAccount/details.html"
@@ -46,6 +56,7 @@ app.config(function ($routeProvider) {
    $routeProvider.when("/advert/:id/subscriptions", {
     controller: "subscriptionsOnAdvertController",
     templateUrl: "views/advert/advert_subscriptions.html"
+
   });
 
   $routeProvider.otherwise({ redirectTo: "/" });
