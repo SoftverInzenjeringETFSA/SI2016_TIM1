@@ -6,15 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 import si.tim1.oglasi.models.Advert;
-<<<<<<< HEAD
 import si.tim1.oglasi.models.UserAccount;
 import si.tim1.oglasi.repositories.IAdvertRepository;
 import si.tim1.oglasi.repositories.ICategoryRepository;
-=======
 import si.tim1.oglasi.models.AdvertSubscription;
 import si.tim1.oglasi.repositories.IAdvertRepository;
 import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
->>>>>>> d8fcea88c2b37bac8899a82a2539acd8e8732dc2
 import si.tim1.oglasi.viewmodels.AdvertVM;
 import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
 
@@ -67,7 +64,6 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return advertsVM;
     }
 
-<<<<<<< HEAD
     public Boolean registerAdvert(AdvertVM advertVM){
 
         Advert advert = new Advert(advertVM.getTitle(),
@@ -99,7 +95,6 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return createdADV != null;
     }
 
-=======
     public List<SubscriptionListItemVM> getSubscriptionsForAdvert(Long advertID, String callerUsername) {
         Advert advert = advertRepository.findAdvertById(advertID);
         if(advert.getOwner().getUsername().equals(callerUsername)) {
@@ -129,5 +124,4 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     public AdvertSubscriptionVM getSubscriptionDetails(Long id) {
         return null; // TODO
     }
->>>>>>> d8fcea88c2b37bac8899a82a2539acd8e8732dc2
 }
