@@ -11,11 +11,20 @@ import si.tim1.oglasi.models.Advert;
 import si.tim1.oglasi.services.AdvertService;
 import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
+<<<<<<< HEAD
 import si.tim1.oglasi.viewmodels.PersonVM;
+=======
+import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
+>>>>>>> d8fcea88c2b37bac8899a82a2539acd8e8732dc2
 
 import javax.websocket.server.PathParam;
 import java.security.Principal;
+<<<<<<< HEAD
 import java.sql.Date;
+=======
+import java.util.Collection;
+import java.util.Collections;
+>>>>>>> d8fcea88c2b37bac8899a82a2539acd8e8732dc2
 import java.util.List;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -105,13 +114,18 @@ public class AdvertController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{id}/subscriptions", method = RequestMethod.GET) // pregled prijava na oglas
-    public void untitledMethod5() {
-        //TODO
+    public List<SubscriptionListItemVM> getSubscriptionsForAdvert(@PathVariable Long id, Principal principal) {
+        try {
+            return advertService.getSubscriptionsForAdvert(id, principal.getName());
+        }
+        catch (Exception e) {
+            return Collections.EMPTY_LIST;
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{id}/subscriptions/{s_id}", method = RequestMethod.GET) // pregled detalja prijave na oglas
-    public void untitledMethod6() {
+    public void getSubscriptionDetails(@PathVariable Long id, @PathVariable Long s_id) {
         //TODO
     }
 

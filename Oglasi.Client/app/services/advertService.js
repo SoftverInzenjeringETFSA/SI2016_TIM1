@@ -7,8 +7,9 @@
 
         var advertServiceFactory = {};
 
-        var _getAdverts = function () {
+        var _getSubscriptions = function (id) {
 
+<<<<<<< HEAD
             return $http.get(servicebase + '/advert/all')
                         .then(function (results) {
                             return results;
@@ -48,11 +49,15 @@
         var _getAdvert = function () {
 
             return $http.get(servicebase + '/advert/advert_details')
+=======
+            return $http.get(servicebase + '/advert/'+id+'/subscriptions')
+>>>>>>> d8fcea88c2b37bac8899a82a2539acd8e8732dc2
                         .then(function(results) {
                             return results;
                         });
         };
 
+<<<<<<< HEAD
 
         advertServiceFactory.getAdvert=_getAdvert;
 
@@ -87,26 +92,11 @@
     }]);
 }());
 
+=======
+        advertServiceFactory.getSubscriptions= _getSubscriptions;
 
-(function () {
-    'use strict';
-
-    app.factory('advertService', ['$http', 'ngAuthSettings', function ($http, ngAuthSettings) {
-
-        var servicebase = ngAuthSettings.apiServiceBaseUri;
-
-        var userAccountServiceFactory = {};
-
-        var application = function (newApplication) {
-
-            return $http.post(servicebase + '/advert/details/application', newApplication)
-                        .then(function (results) {
-                            return results;
-                        });
-        };
-
-        userAccountServiceFactory.application = application;
-
-        return userAccountServiceFactory;
+        return advertServiceFactory;
     }]);
+>>>>>>> d8fcea88c2b37bac8899a82a2539acd8e8732dc2
+
 }());

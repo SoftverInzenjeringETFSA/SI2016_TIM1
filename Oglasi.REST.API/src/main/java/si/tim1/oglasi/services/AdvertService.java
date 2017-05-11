@@ -1,14 +1,22 @@
 package si.tim1.oglasi.services;
 
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 import si.tim1.oglasi.models.Advert;
+<<<<<<< HEAD
 import si.tim1.oglasi.models.UserAccount;
 import si.tim1.oglasi.repositories.IAdvertRepository;
 import si.tim1.oglasi.repositories.ICategoryRepository;
+=======
+import si.tim1.oglasi.models.AdvertSubscription;
+import si.tim1.oglasi.repositories.IAdvertRepository;
+import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
+>>>>>>> d8fcea88c2b37bac8899a82a2539acd8e8732dc2
 import si.tim1.oglasi.viewmodels.AdvertVM;
+import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -59,6 +67,7 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return advertsVM;
     }
 
+<<<<<<< HEAD
     public Boolean registerAdvert(AdvertVM advertVM){
 
         Advert advert = new Advert(advertVM.getTitle(),
@@ -90,4 +99,35 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return createdADV != null;
     }
 
+=======
+    public List<SubscriptionListItemVM> getSubscriptionsForAdvert(Long advertID, String callerUsername) {
+        Advert advert = advertRepository.findAdvertById(advertID);
+        if(advert.getOwner().getUsername().equals(callerUsername)) {
+            List<AdvertSubscription> advertSubscriptions = advert.getAdvertSubscriptions();
+            List<SubscriptionListItemVM> subscriptionList = new ArrayList<>();
+            for (AdvertSubscription advertSubscription : advertSubscriptions) {
+                SubscriptionListItemVM itemVM = new SubscriptionListItemVM();
+
+                if(advertSubscription.getSubscriber().getCompanyName() != null) {
+                    itemVM.setSubscriberName(advertSubscription.getSubscriber().getCompanyName());
+                }
+                else {
+                    String name = advertSubscription.getSubscriber().getFirstName() + " " + advertSubscription.getSubscriber().getLastName();
+                    itemVM.setSubscriberName(name);
+                }
+                itemVM.setDatetime("hard coded DATE TIME"); // TODO
+                itemVM.setId(advertSubscription.getId());
+                subscriptionList.add(itemVM);
+            }
+            return subscriptionList;
+        }
+        else {
+            throw new ServiceException("You don't have a permission to view the subscription list for this advert");
+        }
+
+    }
+    public AdvertSubscriptionVM getSubscriptionDetails(Long id) {
+        return null; // TODO
+    }
+>>>>>>> d8fcea88c2b37bac8899a82a2539acd8e8732dc2
 }
