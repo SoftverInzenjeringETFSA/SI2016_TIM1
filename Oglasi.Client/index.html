@@ -8,17 +8,19 @@
   <script src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
   <script src="/node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
   <script src="/node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
-  <script src="/node_modules/sweetalert/dist/sweetalert.min.js"></script>
 
   <!-- app config -->
   <script src="/app/app.js"></script>
   <!-- services -->
   <script src="/app/services/advertService.js"></script>
   <script src="/app/services/userAccountService.js"></script>
-  <!-- <script src="/app/services/authInterceptorService.js"></script> -->
+  <script src="/app/services/authInterceptorService.js"></script>
 
   <!-- controllers -->
   <script src="/app/controllers/advert/advertsListController.js"></script>
+  <script src="/app/controllers/advert/advertDetailsController.js"></script>
+  <script src="/app/controllers/advert/inappropriateAdvertController.js"></script>
+  <script src="/app/controllers/advert/applicationOnAdvertController.js"></script>
   <script src="/app/controllers/userAccount/registerController.js"></script>
   <script src="/app/controllers/userAccount/loginController.js"></script>
 
@@ -26,13 +28,11 @@
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" />
   <link rel="stylesheet" href="/node_modules/angular-loading-bar/build/loading-bar.min.css"  />
-  <link rel="stylesheet" href="/node_modules/sweetalert/dist/sweetalert.css" />
 
 
 </head>
 
 <body>
-
   <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">

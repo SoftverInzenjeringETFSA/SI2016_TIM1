@@ -1,6 +1,6 @@
-var app = angular.module('oglasi', ['ngRoute', 'ui.bootstrap'/*, 'angular-loading-bar'*/, 'LocalStorageModule']);
+var app = angular.module('oglasi', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar', 'LocalStorageModule']);
 
-var apiurl = "http://localhost:8080";
+var apiurl = "http://localhost:8080/";
 
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: apiurl,
@@ -22,15 +22,27 @@ app.config(function ($routeProvider) {
     controller: "registerController",
     templateUrl: "views/userAccount/register.html"
   });
+
+  $routeProvider.when("/advert/details", {
+    controller: "advertDetailsController",
+    templateUrl: "views/advert/advert_details.html"
+  });
+
+   $routeProvider.when("/advert/details/inappropriate", {
+    controller: "inappropriateAdvertController",
+    templateUrl: "views/advert/inappropriate_advert.html"
+  });
+
+    $routeProvider.when("/advert/details/application_form", {
+    controller: "applicationOnAdvertController",
+    templateUrl: "views/advert/application_form.html"
+  });
+
+
+
   $routeProvider.otherwise({ redirectTo: "/" });
 });
 
-// app.config(function ($httpProvider) {
-//
-//     $httpProvider.defaults.headers.common = {};
-//     $httpProvider.defaults.headers.post = {};
-//     $httpProvider.defaults.headers.put = {};
-//     $httpProvider.defaults.headers.patch = {};
-//
-//     $httpProvider.interceptors.push('authInterceptorService');
-// });
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+});
