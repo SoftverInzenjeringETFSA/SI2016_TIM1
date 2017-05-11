@@ -17,6 +17,15 @@
 
         advertServiceFactory.getAdverts = _getAdverts;
 
+        var _getAdvertDetails = function (id) {
+            return $http.get(servicebase + '/advert/details/' + id)
+                        .then(function (results) {
+                            return results;
+                        });
+        };
+
+        advertServiceFactory.getAdvertDetails = _getAdvertDetails;
+
         return advertServiceFactory;
     }]);
 }());

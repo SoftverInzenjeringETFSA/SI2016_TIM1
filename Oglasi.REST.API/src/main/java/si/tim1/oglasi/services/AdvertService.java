@@ -31,6 +31,23 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return advert.getDescription();
     }
 
+    public List<AdvertVM> findAllAdverts(){
+        Iterable<Advert> adverts = advertRepository.findAll();
+        ArrayList<AdvertVM> advertsVM = new ArrayList<AdvertVM>();
+
+        for(Advert adv : adverts){
+            advertsVM.add(adv.mapToViewModel());
+        }
+
+        return advertsVM;
+    }
+
+    public AdvertVM getAdvertByID(long id){
+        Advert adv = advertRepository.findAdvertById(id);
+        AdvertVM advVM = adv.mapToViewModel();
+        return advVM;
+    }
+
     public List<AdvertVM> findAdvertsByCategoryId(long id){
         Iterable<Advert> adverts = advertRepository.findAdvertsByCategoryId(id);
         ArrayList<AdvertVM> advertsVM = new ArrayList<AdvertVM>();

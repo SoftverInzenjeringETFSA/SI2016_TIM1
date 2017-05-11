@@ -1,4 +1,57 @@
+<div class="col-lg-8 col-lg-offset-2" ng-init="getAdverts()">
 
-<div id="response">
+  <h2>Find an advert</h2>
+
+
+  <div class="panel panel-primary">
+    <div class="panel-body">
+        <br> <br>
+      <form class="form-horizontal">
+        <fieldset>
+
+          <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-1">
+              <input type="text" class="form-control" id="inputName" placeholder="e.g. Trosobni stan Hrasno">
+            </div>
+          </div>
+
+          <div class="form-group">
+          <label class="col-lg-2 control-label">Pick a Category:</label>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                Kategorija 1
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                Kategorija 2
+              </label>
+            </div>
+          </div>
+        </div>
+
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+
+  <h3>Aktivni oglasi</h3>
+
+  <div class="panel panel-primary">
+    <div class="list-group">
+      <span ng-repeat="advert in adverts">
+        <a href="/#!/advert/details/{{advert.advertID}}" class="list-group-item">
+          <h4 class="list-group-item-heading"><b>{{advert.title}}</b></h4>
+          <h5 class="list-group-item-heading">Vlasnik: {{advert.owner}}</h5>
+          <p class="list-group-item-text">Opis: {{advert.description}}</p>
+          <!-- <button ng-click="location.href=/#!/advert/details/{{advert.advertID}}" > klikni me</button> -->
+          </a>
+       </span>
+    </div>
+  </div>
 
 </div>

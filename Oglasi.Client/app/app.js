@@ -14,7 +14,7 @@ app.config(function ($routeProvider) {
     templateUrl: "views/userAccount/login.html"
   });
 
-  $routeProvider.when("/adverts", {
+  $routeProvider.when("/", {
     controller: "advertsListController",
     templateUrl: "views/advert/all.html"
   });
@@ -22,7 +22,19 @@ app.config(function ($routeProvider) {
     controller: "registerController",
     templateUrl: "views/userAccount/register.html"
   });
+
+  $routeProvider.when("/advert/register", {
+    controller: "advertRegisterController",
+    templateUrl: "views/advert/register.html"
+  });
+
+  $routeProvider.when("/advert/details/:id", {
+    controller: "advertDetailsController",
+    templateUrl: "views/advert/details.html"
+  });
+
   $routeProvider.otherwise({ redirectTo: "/" });
+
 });
 
 // app.config(function ($httpProvider) {

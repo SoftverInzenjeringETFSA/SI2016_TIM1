@@ -13,6 +13,7 @@ import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
 import si.tim1.oglasi.viewmodels.PersonVM;
 
+import javax.websocket.server.PathParam;
 import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
@@ -28,12 +29,10 @@ public class AdvertController {
     @Autowired
     private AdvertService advertService;
 
-
     @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa
-    public Iterable<Advert> getAllAdverts() {
-        return advertService.findAll();
+    public Iterable<AdvertVM> getAllAdverts() {
+        return advertService.findAllAdverts();
     }
-
 
     @RequestMapping(value = "/category", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
     public List<AdvertVM> getAdvertsByCategory(@RequestParam("id") long id){
@@ -75,6 +74,11 @@ public class AdvertController {
     @RequestMapping(value ="", method = RequestMethod.GET)
     public String getAdvertDetails(@RequestParam("id") long id, Principal principal){ // detalji oglasa
         return advertService.getAdvertDetails(id);
+    }
+
+    @RequestMapping(value ="details/{id}", method = RequestMethod.GET)
+    public AdvertVM getAdvertByID(@PathVariable("id") long id){
+        return advertService.getAdvertByID(id);
     }
 
     /**
