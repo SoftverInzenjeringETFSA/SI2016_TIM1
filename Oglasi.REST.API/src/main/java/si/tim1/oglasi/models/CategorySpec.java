@@ -14,6 +14,15 @@ import java.util.List;
 public class CategorySpec extends BaseEntityModel{
     private String title;
 
+    public CategorySpec() {
+        super();
+    }
+
+    public CategorySpec(String title) {
+        super();
+        setTitle(title);
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class)
     private Category category;
 
@@ -44,7 +53,4 @@ public class CategorySpec extends BaseEntityModel{
         this.categorySpecValues = categorySpecValues;
     }
 
-    public CategorySpec(String title) {
-        this.title = title;
-    }
 }

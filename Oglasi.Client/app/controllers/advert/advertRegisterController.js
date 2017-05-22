@@ -7,7 +7,7 @@
                             .then(function(response) {
                                 alert(response.data);
                             });
-              }]);
-      }
+              };
+      }])
 
-}());
+});

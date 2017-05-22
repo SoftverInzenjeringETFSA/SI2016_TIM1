@@ -1,56 +1,34 @@
 package si.tim1.oglasi.viewmodels;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by amer on 5/9/17.
  */
 public class AdvertVM {
 
-    private long advertID;
+    private Long id;
     private String title;
     private String description;
-    private long categoryID;
-    private String category;
-    private String owner;
-    private long ownerID;
-    private String creationDate;
+    private Boolean prioritized;
+    private Boolean contactShared;
+    private Long categoryId;
+    private String categoryTitle;
+    private Long ownerId;
+    private String ownerName;
+    private Date creationDate;
+    private List<CategorySpecValueVM> categorySpecValues=new ArrayList<>();
 
     public AdvertVM(){};
 
-    public AdvertVM(long advertID, String title, String description, String category, long categoryID, String owner, long ownerID, String creationDate){
-        this.advertID = advertID;
-        this.title = title;
-        this.description = description;
-        this.category = category;
-        this.categoryID = categoryID;
-        this.owner = owner;
-        this.ownerID = ownerID;
-        this.creationDate = creationDate;
+    public Long getId() {
+        return id;
     }
 
-    public long getOwnerID() {
-        return ownerID;
-    }
-
-    public void setOwnerID(long ownerID) {
-        this.ownerID = ownerID;
-    }
-
-    public long getAdvertID() {
-        return advertID;
-    }
-
-    public void setAdvertID(long advertID) {
-        this.advertID = advertID;
-    }
-
-    public long getCategoryID() {
-        return categoryID;
-    }
-
-    public void setCategoryID(long categoryID) {
-        this.categoryID = categoryID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -69,27 +47,67 @@ public class AdvertVM {
         this.description = description;
     }
 
-    public String getCategory() {
-        return category;
+    public Boolean getPrioritized() {
+        return prioritized;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setPrioritized(Boolean prioritized) {
+        this.prioritized = prioritized;
     }
 
-    public String getOwner() {
-        return owner;
+    public Boolean getContactShared() {
+        return contactShared;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setContactShared(Boolean contactShared) {
+        this.contactShared = contactShared;
     }
 
-    public String getCreationDate() {
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryTitle() {
+        return categoryTitle;
+    }
+
+    public void setCategoryTitle(String categoryTitle) {
+        this.categoryTitle = categoryTitle;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public List<CategorySpecValueVM> getCategorySpecValues() {
+        return categorySpecValues;
+    }
+
+    public void setCategorySpecValues(List<CategorySpecValueVM> categorySpecValues) {
+        this.categorySpecValues = categorySpecValues;
     }
 }

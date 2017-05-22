@@ -2,29 +2,22 @@ package si.tim1.oglasi.controllers;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import si.tim1.oglasi.models.Advert;
 import si.tim1.oglasi.services.AdvertService;
 import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
 import si.tim1.oglasi.viewmodels.InappropriateAdvertReportVM;
 
-import si.tim1.oglasi.services.AdvertService;
-import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
-import si.tim1.oglasi.viewmodels.AdvertVM;
 import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
 
 
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 /**
  * Created by Adnan on 4/29/2017.
@@ -37,16 +30,28 @@ public class AdvertController {
 
 
     @RequestMapping(value = "/all", method = RequestMethod.GET) // prikaz svih oglasa
-    public Iterable<AdvertVM> getAllAdverts() {
+    public List<AdvertVM> getAllAdverts() {
         return advertService.findAllAdverts();
     }
 
     @RequestMapping(value = "/category", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
-    public List<AdvertVM> getAdvertsByCategory(@RequestParam("id") long id){
-        return advertService.findAdvertsByCategoryId(id);
+    public List<AdvertVM> getAdvertsByCategory(@RequestParam("categoryId") long categoryId){
+        return advertService.findAdvertsByCategoryId(categoryId);
     }
 
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/owner", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
+    public List<AdvertVM> getAdvertsByOwner(@RequestParam("ownerId") Long ownerId){
+        return advertService.findAdvertsByOwnerId(ownerId);
+    }
 
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/with_report", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
+    public List<AdvertVM> getAdvertsWithReport(){
+        return advertService.findAdvertsWithReport();
+    }
+
+    //@PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/create", method = RequestMethod.POST) // objavljivanje oglasa
     public ResponseEntity register(@RequestBody AdvertVM advertVM) {
         try{
@@ -64,11 +69,24 @@ public class AdvertController {
      *  Tampered by Amer
      **/
     //@PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "/update", method = RequestMethod.PUT) // update oglasa
+    @RequestMapping(value = "/update", method = RequestMethod.PUT) // updateAdvert oglasa
     public ResponseEntity update(@RequestBody AdvertVM advertVM) {
         try{
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(advertService.update(advertVM));
+                    .body(advertService.updateAdvert(advertVM));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
+
+    //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE) // deletedvert oglasa
+    public ResponseEntity delete(@RequestParam("id") Long id) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.deleteAdvert(id));
         }
         catch (ServiceException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

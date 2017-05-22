@@ -19,7 +19,14 @@ public class Advert extends BaseEntityModel {
     private Boolean isContactShared;
     private Date creationDate;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advert", targetEntity = CategorySpecValue.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
+    private UserAccount owner;
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class)
+    private Category category;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advert", targetEntity = CategorySpecValue.class,
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CategorySpecValue> categorySpecValues = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "advert", targetEntity = InappropriateAdvertReport.class)
@@ -28,20 +35,21 @@ public class Advert extends BaseEntityModel {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "advert", targetEntity = AdvertSubscription.class)
     private List<AdvertSubscription> advertSubscriptions = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
-    private UserAccount owner;
+    public Advert() {
+        super();
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class)
-    private Category category;
-
-    public Advert() {}
-
-    public Advert(String title, String description, Boolean isPrioritized, Boolean isContactShared, Date creationDate) {
-        this.title = title;
-        this.description = description;
-        this.isPrioritized = isPrioritized;
-        this.isContactShared = isContactShared;
-        this.creationDate = creationDate;
+    public Advert(String title, String description, Boolean isContactShared,
+                  UserAccount owner, Category category, List<CategorySpecValue> categorySpecValues) {
+        super();
+        setTitle(title);
+        setDescription(description);
+        setPrioritized(false);
+        setContactShared(isContactShared);
+        setCreationDate(new Date());
+        setOwner(owner);
+        setCategory(category);
+        setCategorySpecValues(categorySpecValues);
     }
 
     public String getTitle() {
@@ -80,28 +88,8 @@ public class Advert extends BaseEntityModel {
         return creationDate;
     }
 
-    public List<CategorySpecValue> getCategorySpecValues() {
-        return categorySpecValues;
-    }
-
-    public void setCategorySpecValues(List<CategorySpecValue> categorySpecValues) {
-        this.categorySpecValues = categorySpecValues;
-    }
-
-    public List<InappropriateAdvertReport> getInappropriateAdvertReports() {
-        return inappropriateAdvertReports;
-    }
-
-    public void setInappropriateAdvertReports(List<InappropriateAdvertReport> inappropriateAdvertReports) {
-        this.inappropriateAdvertReports = inappropriateAdvertReports;
-    }
-
-    public List<AdvertSubscription> getAdvertSubscriptions() {
-        return advertSubscriptions;
-    }
-
-    public void setAdvertSubscriptions(List<AdvertSubscription> advertSubscriptions) {
-        this.advertSubscriptions = advertSubscriptions;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public UserAccount getOwner() {
@@ -120,11 +108,54 @@ public class Advert extends BaseEntityModel {
         this.category = category;
     }
 
+    public List<CategorySpecValue> getCategorySpecValues() {
+        return categorySpecValues;
+    }
+
+    public void setCategorySpecValues(List<CategorySpecValue> categorySpecValues) {
+        for(CategorySpecValue value:categorySpecValues){
+            value.setAdvert(this);
+            this.categorySpecValues.add(value);
+        }
+    }
+
+    public List<InappropriateAdvertReport> getInappropriateAdvertReports() {
+        return inappropriateAdvertReports;
+    }
+
+    public void setInappropriateAdvertReports(List<InappropriateAdvertReport> inappropriateAdvertReports) {
+        this.inappropriateAdvertReports = inappropriateAdvertReports;
+    }
+
+    public List<AdvertSubscription> getAdvertSubscriptions() {
+        return advertSubscriptions;
+    }
+
+    public void setAdvertSubscriptions(List<AdvertSubscription> advertSubscriptions) {
+        this.advertSubscriptions = advertSubscriptions;
+    }
+
     /**
      * Tampered by Amer
      */
     public AdvertVM mapToViewModel(){
-        return new AdvertVM(this.getId(), title, description, category.getTitle(), category.getId(), owner.getUsername(), owner.getId(), creationDate.toString());
+        AdvertVM advertVM=new AdvertVM();
+
+        advertVM.setId(getId());
+        advertVM.setTitle(getTitle());
+        advertVM.setDescription(getDescription());
+        advertVM.setPrioritized(getPrioritized());
+        advertVM.setContactShared(getContactShared());
+        advertVM.setCategoryId(getCategory().getId());
+        advertVM.setCategoryTitle(getCategory().getTitle());
+        advertVM.setOwnerId(getOwner().getId());
+        advertVM.setOwnerName(getOwner().getUsername());
+        advertVM.setCreationDate(getCreationDate());
+        for(CategorySpecValue csv:getCategorySpecValues()){
+            advertVM.getCategorySpecValues().add(csv.mapToViewModel());
+        }
+
+        return  advertVM;
     }
 
 }

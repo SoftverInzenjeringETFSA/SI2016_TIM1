@@ -5,20 +5,14 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
-import si.tim1.oglasi.models.Advert;
+import si.tim1.oglasi.models.*;
 
-import si.tim1.oglasi.models.AdvertSubscription;
-import si.tim1.oglasi.models.InappropriateAdvertReport;
-import si.tim1.oglasi.repositories.IAdvertReportRepository;
-import si.tim1.oglasi.repositories.IAdvertRepository;
-import si.tim1.oglasi.repositories.IAdvertSubscriptionRepository;
+import si.tim1.oglasi.repositories.*;
 import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
 import si.tim1.oglasi.viewmodels.AdvertVM;
 import si.tim1.oglasi.viewmodels.InappropriateAdvertReportVM;
 
-import si.tim1.oglasi.models.UserAccount;
 import si.tim1.oglasi.repositories.IAdvertRepository;
-import si.tim1.oglasi.repositories.ICategoryRepository;
 import si.tim1.oglasi.models.AdvertSubscription;
 import si.tim1.oglasi.repositories.IAdvertRepository;
 import si.tim1.oglasi.viewmodels.AdvertSubscriptionVM;
@@ -29,6 +23,7 @@ import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Adnan on 4/29/2017.
@@ -45,7 +40,26 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     @Autowired
     private IAdvertReportRepository advertReportRepository;
 
+    @Autowired
     private ICategoryRepository categoryRepository;
+
+    @Autowired
+    private IUserAccountRepository userAccountRepository;
+
+    @Autowired
+    private ICategorySpecValueRepository categorySpecValueRepository;
+
+    private Iterable<Advert> getAll(){
+        return advertRepository.findAllByIsActiveTrueOrderByIsPrioritizedDescCreationDateDesc();
+    }
+
+    private Iterable<Advert> getAllByCategory(Long categoryId){
+        return advertRepository.findAllByIsActiveTrueAndCategoryIdOrderByIsPrioritizedDescCreationDateDesc(categoryId);
+    }
+
+    private Iterable<Advert> getAllByOwner(Long ownerId){
+        return advertRepository.findAllByIsActiveTrueAndOwnerIdOrderByIsPrioritizedDescCreationDateDesc(ownerId);
+    }
 
 
     public String getAdvertDetails(long id){
@@ -54,28 +68,51 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     }
 
     public List<AdvertVM> findAllAdverts(){
-        Iterable<Advert> adverts = advertRepository.findAll();
-        ArrayList<AdvertVM> advertsVM = new ArrayList<AdvertVM>();
+        Iterable<Advert> adverts = getAll();
+        ArrayList<AdvertVM> advertsVM = new ArrayList<>();
 
-        for(Advert adv : adverts){
-            advertsVM.add(adv.mapToViewModel());
+        for(Advert advert : adverts){
+            advertsVM.add(advert.mapToViewModel());
         }
 
         return advertsVM;
     }
 
     public AdvertVM getAdvertByID(long id){
-        Advert adv = advertRepository.findAdvertById(id);
-        AdvertVM advVM = adv.mapToViewModel();
-        return advVM;
+        Advert advert=findById(id);
+
+        return advert==null ? null : advert.mapToViewModel();
     }
 
-    public List<AdvertVM> findAdvertsByCategoryId(long id){
-        Iterable<Advert> adverts = advertRepository.findAdvertsByCategoryId(id);
-        ArrayList<AdvertVM> advertsVM = new ArrayList<AdvertVM>();
+    public List<AdvertVM> findAdvertsByCategoryId(Long categoryId){
+        Iterable<Advert> adverts = getAllByCategory(categoryId);
+        ArrayList<AdvertVM> advertsVM = new ArrayList<>();
 
-        for(Advert adv : adverts){
-            advertsVM.add(adv.mapToViewModel());
+        for(Advert advert : adverts){
+            advertsVM.add(advert.mapToViewModel());
+        }
+
+        return advertsVM;
+    }
+
+    public List<AdvertVM> findAdvertsByOwnerId(Long ownerId){
+        Iterable<Advert> adverts = getAllByOwner(ownerId);
+        ArrayList<AdvertVM> advertsVM = new ArrayList<>();
+
+        for(Advert advert : adverts){
+            advertsVM.add(advert.mapToViewModel());
+        }
+
+        return advertsVM;
+    }
+
+    public List<AdvertVM> findAdvertsWithReport(){
+        List<Advert> adverts = (List<Advert>)getAll();
+        adverts=adverts.stream().filter(a->a.getInappropriateAdvertReports().size()!=0).collect(Collectors.toList());
+        ArrayList<AdvertVM> advertsVM = new ArrayList<>();
+
+        for(Advert advert : adverts){
+            advertsVM.add(advert.mapToViewModel());
         }
 
         return advertsVM;
@@ -109,34 +146,107 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         //throw new ServiceException("Error!");
     }
     public Boolean registerAdvert(AdvertVM advertVM){
+        String title=advertVM.getTitle();
+        String description=advertVM.getDescription();
+        Boolean isContactShared=advertVM.getContactShared();
+        UserAccount owner=userAccountRepository.findOne(advertVM.getOwnerId());
+        Category category=categoryRepository.findOne(advertVM.getCategoryId());
 
-        Advert advert = new Advert(advertVM.getTitle(),
-                                    advertVM.getDescription(),
-                                    null,
-                                    null,
-                                    null);
+        if(owner==null || category==null){
+            return false;
+        }
 
+        int size=category.getCategorySpecs().size();
+        if(advertVM.getCategorySpecValues().size()!=size){
+            return false;
+        }
 
-        Advert createdADV = advertRepository.save(advert);
+        List<CategorySpecValue> categorySpecValues=new ArrayList<>();
+        for(int i=0;i<size;i++){
+            String value=advertVM.getCategorySpecValues().get(i).getValue();
+            CategorySpec categorySpec=category.getCategorySpecs().get(i);
+            CategorySpecValue categorySpecValue=new CategorySpecValue(value, categorySpec);
+            categorySpecValues.add(categorySpecValue);
+        }
 
-        return createdADV != null;
+        Advert advert=new Advert(title, description, isContactShared, owner, category, categorySpecValues);
+        Advert created = add(advert);
+
+        return created!=null;
     }
 
-    public Boolean update(AdvertVM advertVM){
+    public Boolean updateAdvert(AdvertVM advertVM){
+        Advert advert=findById(advertVM.getId());
 
-        Advert advert = advertRepository.findAdvertById(advertVM.getAdvertID());
-        advert.setTitle(advertVM.getTitle());
-        advert.setDescription(advertVM.getDescription());
-        /**
-         * Add other parameters we wish to change depending on the category
-         */
+        if(advert==null){
+            return false;
+        }
 
-        // In case we want to give an opportunity to change the category of an advert
-        // in the future.
-        // --> advert.setCategory(categoryRepository.findCategoryById(advertVM.getCategoryID()));
+        String title=advertVM.getTitle();
+        String description=advertVM.getDescription();
+        Boolean isContactShared=advertVM.getContactShared();
+        Boolean isPrioritized=advertVM.getPrioritized();
+        UserAccount owner=userAccountRepository.findOne(advertVM.getOwnerId());
+        Category category=categoryRepository.findOne(advertVM.getCategoryId());
 
-        Advert createdADV = advertRepository.save(advert);
-        return createdADV != null;
+        if(owner==null || category==null){
+            return false;
+        }
+
+        int size=category.getCategorySpecs().size();
+        if(advertVM.getCategorySpecValues().size()!=size){
+            return false;
+        }
+
+        advert.setTitle(title);
+        advert.setDescription(description);
+        advert.setContactShared(isContactShared);
+        advert.setPrioritized(isPrioritized);
+        advert.setOwner(owner);
+
+        if(advert.getCategory()==null || advert.getCategory().getId()!=category.getId()){
+            if(advert.getCategory()!=null){
+                advert.getCategorySpecValues().clear();
+            }
+
+            List<CategorySpecValue> categorySpecValues=new ArrayList<>();
+            for(int i=0;i<size;i++){
+                String value=advertVM.getCategorySpecValues().get(i).getValue();
+                CategorySpec categorySpec=category.getCategorySpecs().get(i);
+                CategorySpecValue categorySpecValue=new CategorySpecValue(value, categorySpec);
+                categorySpecValues.add(categorySpecValue);
+            }
+
+            advert.setCategory(category);
+            advert.setCategorySpecValues(categorySpecValues);
+        }
+        else{
+            for(int i=0;i<size;i++){
+                String value=advertVM.getCategorySpecValues().get(i).getValue();
+                advert.getCategorySpecValues().get(i).setValue(value);
+            }
+        }
+
+        Advert created = update(advert);
+
+        return created!=null;
+    }
+
+    public Boolean deleteAdvert(Long id){
+        Advert advert=findById(id);
+
+        if(advert==null){
+            return false;
+        }
+
+        for(CategorySpecValue csv:advert.getCategorySpecValues()){
+            csv.setActive(false);
+        }
+
+        categorySpecValueRepository.save(advert.getCategorySpecValues());
+        archive(advert);
+
+        return true;
     }
 
     public List<SubscriptionListItemVM> getSubscriptionsForAdvert(Long advertID, String callerUsername) {

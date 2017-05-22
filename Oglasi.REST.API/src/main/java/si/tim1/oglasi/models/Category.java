@@ -14,6 +14,16 @@ import java.util.List;
 public class Category extends BaseEntityModel {
     private String title;
 
+    public Category(){
+        super();
+    }
+
+    public Category(String title, List<CategorySpec> categorySpecs) {
+        super();
+        setTitle(title);
+        setCategorySpecs(categorySpecs);
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", targetEntity = Advert.class)
     private List<Advert> adverts = new ArrayList<>();
 

@@ -15,4 +15,8 @@ import java.util.List;
 public interface IAdvertRepository extends PagingAndSortingRepository<Advert, Long> {
     Advert findAdvertById(long id);
     Iterable<Advert> findAdvertsByCategoryId(long id);
+
+    Iterable<Advert> findAllByIsActiveTrueAndCategoryIdOrderByIsPrioritizedDescCreationDateDesc(Long id);
+    Iterable<Advert> findAllByIsActiveTrueAndOwnerIdOrderByIsPrioritizedDescCreationDateDesc(Long id);
+    Iterable<Advert> findAllByIsActiveTrueOrderByIsPrioritizedDescCreationDateDesc();
 }
