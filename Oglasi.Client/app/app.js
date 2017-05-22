@@ -60,6 +60,12 @@ app.config(function ($routeProvider) {
 
   });
 
+   $routeProvider.when("/category/create", {
+    controller: "createCategoryController",
+    templateUrl: "views/category/createCategory.html"
+
+  });
+
   $routeProvider.otherwise({ redirectTo: "/" });
 
 });

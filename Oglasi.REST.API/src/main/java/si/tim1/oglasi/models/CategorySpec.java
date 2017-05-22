@@ -43,4 +43,8 @@ public class CategorySpec extends BaseEntityModel{
     public void setCategorySpecValues(List<CategorySpecValue> categorySpecValues) {
         this.categorySpecValues = categorySpecValues;
     }
+
+    public CategorySpec(String title) {
+        this.title = title;
+    }
 }

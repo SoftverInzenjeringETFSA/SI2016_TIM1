@@ -1,0 +1,30 @@
+
+<div class="col-lg-6 col-lg-offset-3">
+  <form class="form-horizontal">
+    
+    <div class="form-group">
+        <label for="inputTitle" class="col-lg-2 control-label">Naziv</label>
+        <div class="col-lg-10">
+          <input ng-model="categoryVM.title" type="text" class="form-control" id="inputTitle" placeholder="Naziv">
+        </div>
+      </div>
+
+    <fieldset  data-ng-repeat="value in categoryVM.values track by $index">
+        <div class="col-lg-7">
+      <input  class="form-control" type="text" ng-model="categoryVM.values[$index]" name="" placeholder="Novo polje">
+        </div>
+      <button class="btn btn-primary col-lg-1 text-center" class="remove" ng-show="$last" ng-click="removeValue()">-</button>
+   </fieldset>
+   <button class="btn btn-primary col-lg-12 text-center" class="addfields" ng-click="addNewValue()">Add fields</button>
+       
+   <div id="valuesDisplay">
+      {{ categoryVM.values }}
+   </div>
+   
+      <button ng-click="save()" class="btn btn-primary col-lg-12 text-center">Save</button>
+  </form>
+    
+ 
+</div>
+
+<link rel="stylesheet" type="text/css" href="createCategory.css">
