@@ -4,10 +4,17 @@
     <h3 class="panel-title">{{advert.title}}</h3>
   </div>
   <div class="panel-body">
-      <h5>Kategorija: {{advert.category}}</h5>
+      <h5>Kategorija: {{advert.categoryTitle}}</h5>
       <h5>Opis: {{advert.description}} </h5>
-      <h5>Vlasnik: {{advert.owner}} </h5>
+      <h5>Vlasnik: {{advert.ownerName}} </h5>
       <h5>Datum objave: {{advert.creationDate}}</h5>
+      <ul>
+          <li ng-repeat="categorySpecValue in advert.categorySpecValues">
+              {{categorySpecValue.categorySpecTitle}}
+              <br />
+              {{categorySpecValue.value}}
+          </li>
+      </ul>
       <a href="#" class="btn btn-success">Prijavi se na oglas</a>
       <a href="#" class="btn btn-danger">Neprimjeren sadržaj</a>
   </div>

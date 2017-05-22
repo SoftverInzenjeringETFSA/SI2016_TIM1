@@ -1,18 +1,45 @@
 (function () {
     'use strict';
-    app.controller('advertsListController', ['$scope', 'advertService', function ($scope, advertService) {
 
-      advertService.getAdverts()
-                  .then(function(response) {
-                      $scope.adverts = response.data;
-                      //alert(response);
-                  });
+    app.controller('advertsListController',
+        ['$scope', '$routeParams', 'advertService',
+            function ($scope, $routeParams, advertService){
 
-    $scope.advertDetails = function(advert) {
-            advertService.getAdvert(advert);
-    }
+                $scope.adverts = [];
 
+                advertService.getAdverts()
+                    .then(function(response){
+                            $scope.adverts = response.data;
+                            //alert(response);
+                        }
+                    );
 
-    }]);
+                $scope.advertsByCategory = function(){
+                    advertService.getAdvertsByCategory($routeParams.categoryId)
+                        .then(function(response){
+                                $scope.adverts = response.data;
+                            }
+                        );
+                }
+
+                $scope.advertsByOwner = function(){
+                    advertService.getAdvertsByCategory($routeParams.ownerId)
+                        .then(function(response){
+                                $scope.adverts = response.data;
+                            }
+                        );
+                }
+
+                $scope.advertsWithReport = function(){
+                    advertService.getAdvertsWithReport()
+                        .then(function(response){
+                                $scope.adverts = response.data;
+                            }
+                        );
+                }
+
+            }
+        ]
+    );
 
 }());

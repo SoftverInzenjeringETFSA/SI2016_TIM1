@@ -34,14 +34,14 @@ public class AdvertController {
         return advertService.findAllAdverts();
     }
 
-    @RequestMapping(value = "/category", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
-    public List<AdvertVM> getAdvertsByCategory(@RequestParam("categoryId") long categoryId){
+    @RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
+    public List<AdvertVM> getAdvertsByCategory(@PathVariable("categoryId") Long categoryId){
         return advertService.findAdvertsByCategoryId(categoryId);
     }
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/owner", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
-    public List<AdvertVM> getAdvertsByOwner(@RequestParam("ownerId") Long ownerId){
+    @RequestMapping(value = "/owner/{ownerId}", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
+    public List<AdvertVM> getAdvertsByOwner(@PathVariable("ownerId") Long ownerId){
         return advertService.findAdvertsByOwnerId(ownerId);
     }
 
@@ -82,11 +82,11 @@ public class AdvertController {
     }
 
     //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE) // deletedvert oglasa
-    public ResponseEntity delete(@RequestParam("id") Long id) {
+    @RequestMapping(value = "/delete/{advertId}", method = RequestMethod.DELETE) // deletedvert oglasa
+    public ResponseEntity delete(@PathVariable("advertId") Long advertId) {
         try{
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(advertService.deleteAdvert(id));
+                    .body(advertService.deleteAdvert(advertId));
         }
         catch (ServiceException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -98,20 +98,20 @@ public class AdvertController {
      *  Tampered by Amer
      **/
     @RequestMapping(value ="", method = RequestMethod.GET)
-    public String getAdvertDetails(@RequestParam("id") long id, Principal principal){ // detalji oglasa
+    public String getAdvertDetails2(@RequestParam("advertId") long id, Principal principal){ // detalji oglasa
         return advertService.getAdvertDetails(id);
     }
 
 
-    @RequestMapping(value ="details/{id}", method = RequestMethod.GET)
-    public AdvertVM getAdvertByID(@PathVariable("id") long id){
-        return advertService.getAdvertByID(id);
+    @RequestMapping(value ="details/{advertId}", method = RequestMethod.GET)
+    public AdvertVM getAdvertDetails(@PathVariable("advertId") Long advertId){
+        return advertService.getAdvertByID(advertId);
     }
 
     /**
      * WORKING!!
      */
-    /*@RequestMapping(value = "/subscribe/{id}", method = RequestMethod.POST) // prijava na oglas
+    /*@RequestMapping(value = "/subscribe/{advertId}", method = RequestMethod.POST) // prijava na oglas
     public long subscribeToAdvert(@RequestParam("advertID") long advertID) {
         return advertID;
     }*/
@@ -143,7 +143,7 @@ public class AdvertController {
 
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "/{id}/subscriptions", method = RequestMethod.GET) // pregled prijava na oglas
+    @RequestMapping(value = "/{advertId}/subscriptions", method = RequestMethod.GET) // pregled prijava na oglas
     public List<SubscriptionListItemVM> getSubscriptionsForAdvert(@PathVariable Long id, Principal principal) {
         try {
             return advertService.getSubscriptionsForAdvert(id, principal.getName());
@@ -154,7 +154,7 @@ public class AdvertController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "/{id}/subscriptions/{s_id}", method = RequestMethod.GET) // pregled detalja prijave na oglas
+    @RequestMapping(value = "/{advertId}/subscriptions/{s_id}", method = RequestMethod.GET) // pregled detalja prijave na oglas
     public void getSubscriptionDetails(@PathVariable Long id, @PathVariable Long s_id) {
         //TODO
     }

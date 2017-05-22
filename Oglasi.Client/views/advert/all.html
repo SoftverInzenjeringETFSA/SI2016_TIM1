@@ -1,3 +1,4 @@
+<script src="../../app/controllers/advert/advertsListController.js"></script>
 <div class="col-lg-8 col-lg-offset-2" ng-init="getAdverts()">
 
   <h2>Find an advert</h2>
@@ -45,9 +46,9 @@
   <div class="panel panel-primary">
     <div class="list-group">
       <span ng-repeat="advert in adverts">
-        <a href="/#!/advert/details/{{advert.advertID}}" class="list-group-item">
+        <a href="/#!/advert/details/{{advert.id}}" class="list-group-item">
           <h4 class="list-group-item-heading"><b>{{advert.title}}</b></h4>
-          <h5 class="list-group-item-heading">Vlasnik: {{advert.owner}}</h5>
+          <h5 class="list-group-item-heading">Vlasnik: {{advert.ownerName}}</h5>
           <p class="list-group-item-text">Opis: {{advert.description}}</p>
           <!-- <button ng-click="location.href=/#!/advert/details/{{advert.advertID}}" > klikni me</button> -->
           </a>
