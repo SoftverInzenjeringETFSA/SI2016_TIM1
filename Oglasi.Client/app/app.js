@@ -60,6 +60,12 @@ app.config(function ($routeProvider) {
 
   });
 
+  $routeProvider.when("/advert/:id/subscriptions/subscription_details", {
+   controller: "subscriptionDetailsController",
+   templateUrl: "views/advert/advert_subscription_details.html"
+
+  });
+
    $routeProvider.when("/category/create", {
     controller: "createCategoryController",
     templateUrl: "views/category/createCategory.html"
