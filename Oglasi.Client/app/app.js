@@ -73,7 +73,7 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when("/advert/create", {
         controller: "advertRegisterController",
-        templateUrl: "views/advert/adver_form.html"
+        templateUrl: "views/advert/advert_form.html"
     });
 
   $routeProvider.otherwise({ redirectTo: "/" });
