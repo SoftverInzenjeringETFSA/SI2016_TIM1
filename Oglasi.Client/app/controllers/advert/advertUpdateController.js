@@ -1,9 +1,9 @@
 (function () {
     'use strict';
 
-    app.controller('advertRegisterController',
+    app.controller('advertUpdateController',
         ['$scope', 'advertService',
-            function ($scope, advertService) {
+            function ($scope, advertService) {/*
 
                 // hard kodirano: ownerId:"0"
                 $scope.advert = {
@@ -29,34 +29,37 @@
                 $scope.registerAdvert = function() {
                     $scope.advert.categoryId = $scope.category.id;
 
-                    for(var i in $scope.category.values){
-                        var title=$scope.category.values[i];
-                        var value=$scope.categorySpecValues[i];
+                    for (var i in $scope.category.values) {
+                        var title = $scope.category.values[i];
+                        var value = $scope.categorySpecValues[i];
                         // hard kodirano: categorySpecId:"0"
                         $scope.advert.categorySpecValues.push({
-                            value:value,
-                            categorySpecId:"0",
-                            categorySpecTitle:title
+                            value: value,
+                            categorySpecId: "0",
+                            categorySpecTitle: title
                         });
                     }
 
-                    advertService.registerAdvert($scope.advert)
-                        .then(function() {
-                                alert("Advert created!");
-                                for(var i in $scope.category.values){
+                    advertService.updateAdvert($scope.advert)
+                        .then(function () {
+                                alert("Advert updated!");
+                                for (var i in $scope.category.values) {
                                     $scope.advert.categorySpecValues.pop();
                                 }
                             }, function () {
                                 alert("Error!");
-                                for(var i in $scope.category.values){
+                                for (var i in $scope.category.values) {
                                     $scope.advert.categorySpecValues.pop();
                                 }
                             }
                         );
-                };
-
+                }
+            */
             }
         ]
     )
 
 }());
+/**
+ * Created by Dell on 23.5.2017..
+ */

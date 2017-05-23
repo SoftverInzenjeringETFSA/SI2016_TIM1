@@ -5,38 +5,23 @@
         ['$scope', '$routeParams', 'advertService',
             function ($scope, $routeParams, advertService){
 
-                $scope.adverts = [];
+                $scope.adverts = advertService.getAdverts();
 
-                advertService.getAdverts()
-                    .then(function(response){
-                            $scope.adverts = response.data;
-                            //alert(response);
-                        }
-                    );
+                $scope.getAllAdverts = function () {
+                    $scope.adverts = advertService.getAdverts();
+                };
 
                 $scope.advertsByCategory = function(){
-                    advertService.getAdvertsByCategory($routeParams.categoryId)
-                        .then(function(response){
-                                $scope.adverts = response.data;
-                            }
-                        );
-                }
+                    $scope.adverts = advertService.getAdvertsByCategory($routeParams.categoryId);
+                };
 
                 $scope.advertsByOwner = function(){
-                    advertService.getAdvertsByCategory($routeParams.ownerId)
-                        .then(function(response){
-                                $scope.adverts = response.data;
-                            }
-                        );
-                }
+                    $scope.adverts = advertService.getAdvertsByOwner($routeParams.ownerId)
+                };
 
                 $scope.advertsWithReport = function(){
-                    advertService.getAdvertsWithReport()
-                        .then(function(response){
-                                $scope.adverts = response.data;
-                            }
-                        );
-                }
+                    $scope.adverts = advertService.getAdvertsWithReport();
+                };
 
             }
         ]

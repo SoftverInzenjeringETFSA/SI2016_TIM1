@@ -9,50 +9,50 @@
 
         var _getAdverts = function () {
             return $http.get(servicebase + '/advert/all')
-                        .then(function (results) {
-                            return results;
-                        });
+                .then(function (response) {
+                    return response.data;
+                });
         };
         advertServiceFactory.getAdverts = _getAdverts;
 
         var _getAdvertsByCategory = function (categoryId) {
             return $http.get(servicebase + '/advert/category/'+categoryId)
-                        .then(function (results) {
-                            return results;
-                        });
+                .then(function (response) {
+                    return response.data;
+                });
         };
         advertServiceFactory.getAdvertsByCategory = _getAdvertsByCategory;
 
         var _getAdvertsByOwner = function (ownerId) {
             return $http.get(servicebase + '/advert/owner/'+ownerId)
-                        .then(function (results) {
-                            return results;
-                        });
+                .then(function (response) {
+                    return response.data;
+                });
         };
         advertServiceFactory.getAdvertsByOwner = _getAdvertsByOwner;
 
         var _getAdvertsWithReport = function () {
             return $http.get(servicebase + '/advert/with_report')
-                        .then(function (results) {
-                            return results;
+                        .then(function (response) {
+                            return response.data;
                         });
         };
         advertServiceFactory.getAdvertsWithReport = _getAdvertsWithReport;
 
         var _getAdvertDetails = function (id) {
             return $http.get(servicebase + '/advert/details/' + id)
-                        .then(function (results) {
-                            return results;
-                        });
+                .then(function (response) {
+                    return response.data;
+                });
         };
         advertServiceFactory.getAdvertDetails = _getAdvertDetails;
 
         // register
         var _registerAdvert = function (advert) {
             return $http.post(servicebase+'/advert/create', advert)
-                        .then(function (results) {
-                            return results;
-                        });
+                .then(function (results) {
+                    return results;
+                });
         };
         advertServiceFactory.registerAdvert = _registerAdvert;
 

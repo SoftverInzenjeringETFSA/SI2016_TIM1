@@ -27,11 +27,10 @@ app.config(function ($routeProvider) {
     templateUrl: "views/userAccount/register.html"
   });
 
-  $routeProvider.when("/advert/details/:id", {
+  $routeProvider.when("/advert/details/:advertId", {
     controller: "advertDetailsController",
     templateUrl: "views/advert/details.html"
   });
-
 
   $routeProvider.when("/account", {
       controller: "userDetailsController",
@@ -71,6 +70,11 @@ app.config(function ($routeProvider) {
     templateUrl: "views/category/createCategory.html"
 
   });
+
+    $routeProvider.when("/advert/create", {
+        controller: "advertRegisterController",
+        templateUrl: "views/advert/adver_form.html"
+    });
 
   $routeProvider.otherwise({ redirectTo: "/" });
 

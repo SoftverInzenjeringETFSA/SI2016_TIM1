@@ -6,15 +6,7 @@
         ['$scope', '$routeParams', 'advertService',
             function ($scope, $routeParams, advertService) {
 
-                  $scope.advert = {};
-
-                  $scope.getAdvert = function() {
-                      advertService.getAdvertDetails($routeParams.advertId)
-                          .then(function(response) {
-                                    $scope.advert = response.data;
-                              }
-                          );
-                  }
+                  $scope.advert = advertService.getAdvertDetails($routeParams.advertId);
 
             }
         ]
