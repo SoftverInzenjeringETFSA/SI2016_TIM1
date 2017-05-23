@@ -39,7 +39,17 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
         Category success = categoryRepository.save(newCategory);
         return (success!=null);
 
+    }
 
+    public List<CategoryVM> getCategories(){
+        Iterable<Category> categories=findAll();
+        List<CategoryVM> categoriesVM=new ArrayList<>();
+
+        for(Category c:categories){
+            categoriesVM.add(c.mapToViewModel());
+        }
+
+        return categoriesVM;
     }
 
 }

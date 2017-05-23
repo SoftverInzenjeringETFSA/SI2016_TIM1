@@ -1,5 +1,5 @@
 <script src="../../app/controllers/advert/advertsListController.js"></script>
-<div class="col-lg-8 col-lg-offset-2" ng-init="getAdverts()">
+<div class="col-lg-8 col-lg-offset-2" ng-init="getAllAdverts()">
 
   <h2>Find an advert</h2>
 
@@ -19,22 +19,14 @@
 
           <div class="form-group">
           <label class="col-lg-2 control-label">Pick a Category:</label>
-          <div class="col-lg-10">
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                Kategorija 1
-              </label>
+            <div class="col-lg-10">
+              <select multiple="" class="form-control" id="select" ng-change="setCategory()" ng-model="categoryIndeks.value">
+                <option value="all">Show all adverts</option>
+                <option ng-repeat="c in categories" value="{{ $index }}">{{ c.title }}</option>
+              </select>
             </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                Kategorija 2
-              </label>
-            </div>
-          </div>
         </div>
-
+          <a href="/#!/advert/create" class="list-group-item">Add advert</a>
         </fieldset>
       </form>
 
@@ -52,16 +44,6 @@
           <p class="list-group-item-text">Opis: {{advert.description}}</p>
           <!-- <button ng-click="location.href=/#!/advert/details/{{advert.advertID}}" > klikni me</button> -->
         </a>
-        <div class="form-group">
-            <label for="select" class="col-lg-2 control-label">Category</label>
-            <div class="col-lg-10">
-                <select multiple="" class="form-control" id="select" ng-change="setCategory()" ng-model="categoryIndeks.value">
-                    <option value="all">Show all adverts</option>
-                    <option ng-repeat="c in categories" value="{{ $index }}">{{ c.title }}</option>
-                </select>
-            </div>
-        </div>
-        <a href="/#!/advert/create" class="list-group-item">Add advert</a>
        </span>
     </div>
   </div>

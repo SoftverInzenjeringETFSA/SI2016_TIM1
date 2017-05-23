@@ -2,44 +2,59 @@
     'use strict';
 
     app.controller('advertsListController',
-        ['$scope', '$routeParams', 'advertService',
-            function ($scope, $routeParams, advertService){
+        ['$scope', '$routeParams', 'advertService', 'categoryService',
+            function ($scope, $routeParams, advertService, categoryService){
 
-                $scope.adverts = advertService.getAdverts();
+                advertService.getAdverts()
+                    .then(function (response) {
+                        $scope.adverts=response.data;
+                    });
 
-                // hard kodirano
-                $scope.categories = [
-                    {id:"1", title:"Title 1", values:["Value 1.1", "Value 1.2"]},
-                    {id:"2", title:"Title 2", values:["Value 2.1", "Value 2.2"]},
-                    {id:"3", title:"Title 3", values:["Value 3.1", "Value 3.2"]}
-                ];
+                categoryService.getCategories()
+                    .then(function (response) {
+                        $scope.categories=response.data;
+                    });
 
                 $scope.categoryIndeks = {value:"all"};
-
-                $scope.getAllAdverts = function () {
-                    $scope.adverts = advertService.getAdverts();
-                };
-
-                //$scope.advertsByCategory = function(){
-                //    $scope.adverts = advertService.getAdvertsByCategory($routeParams.categoryId);
-                //};
-
-                $scope.advertsByOwner = function(){
-                    $scope.adverts = advertService.getAdvertsByOwner($routeParams.ownerId)
-                };
-
-                $scope.advertsWithReport = function(){
-                    $scope.adverts = advertService.getAdvertsWithReport();
-                };
 
                 $scope.setCategory = function () {
                     if($scope.categoryIndeks.value=="all"){
                         $scope.getAllAdverts();
-                        return;
                     }
-                    $scope.category = $scope.categories[$scope.categoryIndeks.value];
-                    $scope.adverts = advertService.getAdvertsByCategory($scope.category.id);
+                    else{
+                        $scope.category = $scope.categories[$scope.categoryIndeks.value];
+                        $scope.advertsByCategory($scope.category.id);
+                    }
                 };
+
+                $scope.getAllAdverts = function () {
+                    advertService.getAdverts()
+                        .then(function (response) {
+                            $scope.adverts=response.data;
+                        })
+                };
+
+                $scope.advertsByCategory = function(){
+                    advertService.getAdvertsByCategory($routeParams.categoryId)
+                        .then(function (response) {
+                            $scope.adverts=response.data;
+                        })
+                };
+
+                $scope.advertsByOwner = function(){
+                    advertService.getAdvertsByOwner($routeParams.ownerId)
+                        .then(function (response) {
+                            $scope.adverts=response.data;
+                        })
+                };
+
+                $scope.advertsWithReport = function(){
+                    advertService.getAdvertsWithReport()
+                        .then(function (response) {
+                            $scope.adverts=response.data;
+                        })
+                };
+
 
             }
         ]

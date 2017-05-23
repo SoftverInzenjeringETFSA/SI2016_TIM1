@@ -1,5 +1,8 @@
 package si.tim1.oglasi.models;
 
+import com.sun.org.apache.xml.internal.dtm.ref.sax2dtm.SAX2RTFDTM;
+import si.tim1.oglasi.viewmodels.CategoryVM;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,5 +59,21 @@ public class Category extends BaseEntityModel {
 
     public Category(String title) {
         this.title = title;
+    }
+
+    public CategoryVM mapToViewModel(){
+        CategoryVM categoryVM=new CategoryVM();
+
+        categoryVM.setId(getId());
+        categoryVM.setTitle(getTitle());
+        List<String> values=new ArrayList<>();
+        List<Long> valuesId=new ArrayList<>();
+        for(CategorySpec cs:categorySpecs){
+            valuesId.add(cs.getId());
+            values.add(cs.getTitle());
+        }
+        categoryVM.setValues(values);
+
+        return categoryVM;
     }
 }

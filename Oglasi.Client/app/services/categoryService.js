@@ -15,7 +15,12 @@
                 })
                 };
 
-                      
+                c.getCategories = function () {
+                    return $http.get(servicebase + '/category/all')
+                        .then(function (result) {
+                            return result;
+                        })
+                };
                        
 
                 return c;

@@ -12,6 +12,8 @@ import si.tim1.oglasi.models.Category;
 import si.tim1.oglasi.services.CategoryService;
 import si.tim1.oglasi.viewmodels.CategoryVM;
 
+import java.util.List;
+
 /**
  * Created by Adnan on 5/5/2017.
  */
@@ -41,5 +43,10 @@ public class CategoryController {
 
     }
 
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<CategoryVM> getCategories() {
+        return categoryService.getCategories();
+    }
 
 }

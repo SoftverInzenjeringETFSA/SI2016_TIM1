@@ -10,6 +10,7 @@ public class CategoryVM {
     private Long id;
     private String title;
     private List<String> values;
+    private List<Long> valuesId;
 
     public CategoryVM(String title, List<String> values) {
         this.title = title;
@@ -47,5 +48,13 @@ public class CategoryVM {
     }
 
     public CategoryVM() {
+    }
+
+    public List<Long> getValuesId() {
+        return valuesId;
+    }
+
+    public void setValuesId(List<Long> valuesId) {
+        this.valuesId = valuesId;
     }
 }
