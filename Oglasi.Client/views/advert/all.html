@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <div class="col-lg-10 col-lg-offset-1">
-              <input type="text" class="form-control" id="inputName" placeholder="e.g. Trosobni stan Hrasno">
+              <input type="text" class="form-control" id="inputName" placeholder="Nesto">
             </div>
           </div>
 
@@ -21,7 +21,7 @@
           <label class="col-lg-2 control-label">Pick a Category:</label>
             <div class="col-lg-10">
               <select multiple="" class="form-control" id="select" ng-change="setCategory()" ng-model="categoryIndeks.value">
-                <option value="all">Show all adverts</option>
+                <option value="-1">Show all adverts</option>
                 <option ng-repeat="c in categories" value="{{ $index }}">{{ c.title }}</option>
               </select>
             </div>

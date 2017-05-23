@@ -16,7 +16,8 @@
         advertServiceFactory.getAdverts = _getAdverts;
 
         var _getAdvertsByCategory = function (categoryId) {
-            return $http.get(servicebase + '/advert/category/'+categoryId)
+            var config={params:{categoryId:categoryId}};
+            return $http.get(servicebase + '/advert/category', config)
                 .then(function (results) {
                     return results;
                 });

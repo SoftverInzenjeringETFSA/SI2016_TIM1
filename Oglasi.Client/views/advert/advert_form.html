@@ -34,6 +34,7 @@
             <label for="select" class="col-lg-2 control-label">Category</label>
             <div class="col-lg-10">
                 <select multiple="" class="form-control" id="select" ng-click="setCategory()" ng-model="categoryIndeks.value">
+                    <option value="-1">None</option>
                     <option ng-repeat="c in categories" value="{{ $index }}">{{ c.title }}</option>
                 </select>
             </div>

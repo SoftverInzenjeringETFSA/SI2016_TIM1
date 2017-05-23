@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/advert").permitAll()
                 .antMatchers(HttpMethod.GET, "/advert/all").permitAll()
-                .antMatchers("/advert/category/{categoryId}").permitAll()
+                .antMatchers("/advert/category").permitAll()
                 .antMatchers("/advert/owner/{ownerId}").permitAll()
                 .antMatchers("/advert/with_report").permitAll()
                 .antMatchers("/advert/details/{advertId}").permitAll()

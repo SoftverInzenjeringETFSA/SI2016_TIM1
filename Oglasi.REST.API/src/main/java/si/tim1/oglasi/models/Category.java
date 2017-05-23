@@ -73,6 +73,7 @@ public class Category extends BaseEntityModel {
             values.add(cs.getTitle());
         }
         categoryVM.setValues(values);
+        categoryVM.setValuesId(valuesId);
 
         return categoryVM;
     }

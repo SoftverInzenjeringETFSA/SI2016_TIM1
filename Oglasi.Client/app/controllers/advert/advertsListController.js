@@ -15,10 +15,10 @@
                         $scope.categories=response.data;
                     });
 
-                $scope.categoryIndeks = {value:"all"};
+                $scope.categoryIndeks = {value:"-1"};
 
                 $scope.setCategory = function () {
-                    if($scope.categoryIndeks.value=="all"){
+                    if($scope.categoryIndeks.value=="-1"){
                         $scope.getAllAdverts();
                     }
                     else{
@@ -34,11 +34,11 @@
                         })
                 };
 
-                $scope.advertsByCategory = function(){
-                    advertService.getAdvertsByCategory($routeParams.categoryId)
+                $scope.advertsByCategory = function(categoryId){
+                    advertService.getAdvertsByCategory(categoryId)
                         .then(function (response) {
                             $scope.adverts=response.data;
-                        })
+                        });
                 };
 
                 $scope.advertsByOwner = function(){

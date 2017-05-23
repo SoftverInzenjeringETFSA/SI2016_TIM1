@@ -34,8 +34,8 @@ public class AdvertController {
         return advertService.findAllAdverts();
     }
 
-    @RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
-    public List<AdvertVM> getAdvertsByCategory(@PathVariable("categoryId") Long categoryId){
+    @RequestMapping(value = "/category", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
+    public List<AdvertVM> getAdvertsByCategory(@RequestParam("categoryId") Long categoryId){
         return advertService.findAdvertsByCategoryId(categoryId);
     }
 
