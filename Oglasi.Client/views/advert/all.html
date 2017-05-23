@@ -51,7 +51,16 @@
           <h5 class="list-group-item-heading">Vlasnik: {{advert.ownerName}}</h5>
           <p class="list-group-item-text">Opis: {{advert.description}}</p>
           <!-- <button ng-click="location.href=/#!/advert/details/{{advert.advertID}}" > klikni me</button> -->
-          </a>
+        </a>
+        <div class="form-group">
+            <label for="select" class="col-lg-2 control-label">Category</label>
+            <div class="col-lg-10">
+                <select multiple="" class="form-control" id="select" ng-change="setCategory()" ng-model="categoryIndeks.value">
+                    <option value="all">Show all adverts</option>
+                    <option ng-repeat="c in categories" value="{{ $index }}">{{ c.title }}</option>
+                </select>
+            </div>
+        </div>
         <a href="/#!/advert/create" class="list-group-item">Add advert</a>
        </span>
     </div>
