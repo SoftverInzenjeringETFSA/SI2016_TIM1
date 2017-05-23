@@ -42,7 +42,7 @@
         var _getAdvertDetails = function (id) {
             return $http.get(servicebase + '/advert/details/' + id)
                 .then(function (results) {
-                    return rresults;
+                    return results;
                 });
         };
         advertServiceFactory.getAdvertDetails = _getAdvertDetails;
