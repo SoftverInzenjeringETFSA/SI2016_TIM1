@@ -152,21 +152,23 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         UserAccount owner=userAccountRepository.findOne(advertVM.getOwnerId());
         Category category=categoryRepository.findOne(advertVM.getCategoryId());
 
-        if(owner==null || category==null){
-            return false;
-        }
-
-        int size=category.getCategorySpecs().size();
-        if(advertVM.getCategorySpecValues().size()!=size){
+        if(owner==null){
             return false;
         }
 
         List<CategorySpecValue> categorySpecValues=new ArrayList<>();
-        for(int i=0;i<size;i++){
-            String value=advertVM.getCategorySpecValues().get(i).getValue();
-            CategorySpec categorySpec=category.getCategorySpecs().get(i);
-            CategorySpecValue categorySpecValue=new CategorySpecValue(value, categorySpec);
-            categorySpecValues.add(categorySpecValue);
+        if(category!=null){
+            int size=category.getCategorySpecs().size();
+            if(advertVM.getCategorySpecValues().size()!=size){
+                return false;
+            }
+
+            for(int i=0;i<size;i++){
+                String value=advertVM.getCategorySpecValues().get(i).getValue();
+                CategorySpec categorySpec=category.getCategorySpecs().get(i);
+                CategorySpecValue categorySpecValue=new CategorySpecValue(value, categorySpec);
+                categorySpecValues.add(categorySpecValue);
+            }
         }
 
         Advert advert=new Advert(title, description, isContactShared, owner, category, categorySpecValues);
@@ -185,45 +187,51 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         String title=advertVM.getTitle();
         String description=advertVM.getDescription();
         Boolean isContactShared=advertVM.getContactShared();
-        Boolean isPrioritized=advertVM.getPrioritized();
         UserAccount owner=userAccountRepository.findOne(advertVM.getOwnerId());
         Category category=categoryRepository.findOne(advertVM.getCategoryId());
 
-        if(owner==null || category==null){
-            return false;
-        }
-
-        int size=category.getCategorySpecs().size();
-        if(advertVM.getCategorySpecValues().size()!=size){
+        if(owner==null){
             return false;
         }
 
         advert.setTitle(title);
         advert.setDescription(description);
         advert.setContactShared(isContactShared);
-        advert.setPrioritized(isPrioritized);
         advert.setOwner(owner);
 
-        if(advert.getCategory()==null || advert.getCategory().getId()!=category.getId()){
-            if(advert.getCategory()!=null){
-                advert.getCategorySpecValues().clear();
+        if(category!=null){
+            int size=category.getCategorySpecs().size();
+            if(advertVM.getCategorySpecValues().size()!=size){
+                return false;
             }
 
-            List<CategorySpecValue> categorySpecValues=new ArrayList<>();
-            for(int i=0;i<size;i++){
-                String value=advertVM.getCategorySpecValues().get(i).getValue();
-                CategorySpec categorySpec=category.getCategorySpecs().get(i);
-                CategorySpecValue categorySpecValue=new CategorySpecValue(value, categorySpec);
-                categorySpecValues.add(categorySpecValue);
-            }
+            if(advert.getCategory()==null || advert.getCategory().getId()!=category.getId()){
+                if(advert.getCategory()!=null){
+                    advert.getCategorySpecValues().clear();
+                }
 
-            advert.setCategory(category);
-            advert.setCategorySpecValues(categorySpecValues);
+                List<CategorySpecValue> categorySpecValues=new ArrayList<>();
+                for(int i=0;i<size;i++){
+                    String value=advertVM.getCategorySpecValues().get(i).getValue();
+                    CategorySpec categorySpec=category.getCategorySpecs().get(i);
+                    CategorySpecValue categorySpecValue=new CategorySpecValue(value, categorySpec);
+                    categorySpecValues.add(categorySpecValue);
+                }
+
+                advert.setCategory(category);
+                advert.setCategorySpecValues(categorySpecValues);
+            }
+            else{
+                for(int i=0;i<size;i++){
+                    String value=advertVM.getCategorySpecValues().get(i).getValue();
+                    advert.getCategorySpecValues().get(i).setValue(value);
+                }
+            }
         }
         else{
-            for(int i=0;i<size;i++){
-                String value=advertVM.getCategorySpecValues().get(i).getValue();
-                advert.getCategorySpecValues().get(i).setValue(value);
+            if(advert.getCategory()!=null){
+                advert.getCategorySpecValues().clear();
+                advert.setCategory(category);
             }
         }
 

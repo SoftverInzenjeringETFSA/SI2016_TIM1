@@ -146,8 +146,10 @@ public class Advert extends BaseEntityModel {
         advertVM.setDescription(getDescription());
         advertVM.setPrioritized(getPrioritized());
         advertVM.setContactShared(getContactShared());
-        advertVM.setCategoryId(getCategory().getId());
-        advertVM.setCategoryTitle(getCategory().getTitle());
+        if(getCategory()!=null){
+            advertVM.setCategoryId(getCategory().getId());
+            advertVM.setCategoryTitle(getCategory().getTitle());
+        }
         advertVM.setOwnerId(getOwner().getId());
         advertVM.setOwnerName(getOwner().getUsername());
         advertVM.setCreationDate(getCreationDate());

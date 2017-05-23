@@ -19,11 +19,12 @@
                     });
 
                 $scope.categoryIndeks = {value:"-1"};
+                $scope.category = {id:"0", values:[]}
                 $scope.categorySpecValues = [];
 
                 $scope.setCategory = function () {
                     if($scope.categoryIndeks.value=="-1"){
-                        $scope.category = {values:[]}
+                        $scope.category = {id:"0", values:[]}
                     }
                     else{
                         $scope.category = $scope.categories[$scope.categoryIndeks.value];
@@ -47,32 +48,20 @@
                         });
                     }
 
-                    var s="";
-                    for(var i in $scope.advert.categorySpecValues){
-                        s+=$scope.advert.categorySpecValues[i].categorySpecTitle+" = "+
-                            $scope.advert.categorySpecValues[i].value+"\n";
-                    }
-
-                    alert(
-                        "Title: "+$scope.advert.title+"\n"+
-                        "Description: "+$scope.advert.description+"\n"+
-                        "Contact shared: "+$scope.advert.contactShared+"\n"+
-                        "Category id: "+$scope.advert.categoryId+"\n"+
-                        "Category specification values:"+"\n"+s
-                    );
-
                     advertService.registerAdvert($scope.advert)
                         .then(function() {
                                 alert("Advert created!");
 
                                 $scope.advert = nula;
                                 $scope.categoryIndeks = {value:"-1"};
+                                $scope.category = {id:"0", values:[]}
                                 $scope.categorySpecValues = [];
                             }, function () {
                                 alert("Error!");
 
                                 $scope.advert = nula;
                                 $scope.categoryIndeks = {value:"-1"};
+                                $scope.category = {id:"0", values:[]}
                                 $scope.categorySpecValues = [];
                             }
                         );
