@@ -3,8 +3,8 @@
 
     // OVO JE ADNAN BABOVIC URADIOO
     app.controller('advertDetailsController',
-        ['$scope', '$routeParams', 'advertService',
-            function ($scope, $routeParams, advertService) {
+        ['$scope', '$routeParams', 'advertService', '$location',
+            function ($scope, $routeParams, advertService, $location) {
 
                 advertService.getAdvertDetails($routeParams.advertId)
                     .then(function (response) {
@@ -15,6 +15,7 @@
                     advertService.deleteAdvert($routeParams.advertId)
                         .then(function() {
                                 alert("Advert deleted!");
+                                $location.url("/");
                             }, function () {
                                 alert("Error!");
                             }

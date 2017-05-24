@@ -69,7 +69,7 @@ public class AdvertController {
      *  Tampered by Amer
      **/
     //@PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "/update", method = RequestMethod.PUT) // updateAdvert oglasa
+    @RequestMapping(value = "/update", method = RequestMethod.POST) // updateAdvert oglasa
     public ResponseEntity update(@RequestBody AdvertVM advertVM) {
         try{
             return ResponseEntity.status(HttpStatus.OK)
