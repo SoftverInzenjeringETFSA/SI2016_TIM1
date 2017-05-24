@@ -97,13 +97,14 @@ public class AdvertController {
     /**
      *  Tampered by Amer
      **/
+    /*
     @RequestMapping(value ="", method = RequestMethod.GET)
     public String getAdvertDetails2(@RequestParam("advertId") long id, Principal principal){ // detalji oglasa
         return advertService.getAdvertDetails(id);
     }
+    */
 
-
-    @RequestMapping(value ="details/{advertId}", method = RequestMethod.GET)
+    @RequestMapping(value ="/details/{advertId}", method = RequestMethod.GET)
     public AdvertVM getAdvertDetails(@PathVariable("advertId") Long advertId){
         return advertService.getAdvertByID(advertId);
     }

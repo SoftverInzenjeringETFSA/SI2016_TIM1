@@ -18,13 +18,13 @@
                         $scope.categories=response.data;
                     });
 
-                $scope.categoryIndeks = {value:"-1"};
-                $scope.category = {id:"0", values:[]}
+                $scope.categoryIndeks = {value:""};
+                $scope.category = {id:"", values:[]};
                 $scope.categorySpecValues = [];
 
                 $scope.setCategory = function () {
-                    if($scope.categoryIndeks.value=="-1"){
-                        $scope.category = {id:"0", values:[]}
+                    if($scope.categoryIndeks.value==""){
+                        $scope.category = {id:"", values:[]}
                     }
                     else{
                         $scope.category = $scope.categories[$scope.categoryIndeks.value];
@@ -53,15 +53,15 @@
                                 alert("Advert created!");
 
                                 $scope.advert = nula;
-                                $scope.categoryIndeks = {value:"-1"};
-                                $scope.category = {id:"0", values:[]}
+                                $scope.categoryIndeks = {value:""};
+                                $scope.category = {id:"", values:[]};
                                 $scope.categorySpecValues = [];
                             }, function () {
                                 alert("Error!");
 
                                 $scope.advert = nula;
-                                $scope.categoryIndeks = {value:"-1"};
-                                $scope.category = {id:"0", values:[]}
+                                $scope.categoryIndeks = {value:""};
+                                $scope.category = {id:"", values:[]};
                                 $scope.categorySpecValues = [];
                             }
                         );

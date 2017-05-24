@@ -7,7 +7,7 @@
       <h5>Kategorija: {{advert.categoryTitle}}</h5>
       <h5>Opis: {{advert.description}} </h5>
       <h5>Vlasnik: {{advert.ownerName}} </h5>
-      <h5>Datum objave: {{advert.creationDate}}</h5>
+      <h5>Datum objave: {{advert.creationDate | date:"dd/MM/yyyy"}}</h5>
       <ul>
           <li ng-repeat="categorySpecValue in advert.categorySpecValues">
               {{categorySpecValue.categorySpecTitle}}
@@ -17,6 +17,7 @@
       </ul>
       <a href="#" class="btn btn-success">Prijavi se na oglas</a>
       <a href="#" class="btn btn-danger">Neprimjeren sadržaj</a>
+      <a href="/#!/advert/details/{{advert.id}}/update" class="btn btn-success">Update</a>
   </div>
 </div>
 

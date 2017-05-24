@@ -16,6 +16,10 @@ public class BaseEntityModel {
 
     private Boolean isActive;
 
+    public BaseEntityModel(){
+        setActive(true);
+    }
+
     public Long getId() {
         return id;
     }

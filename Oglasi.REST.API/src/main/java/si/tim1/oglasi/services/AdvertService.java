@@ -61,12 +61,6 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return advertRepository.findAllByIsActiveTrueAndOwnerIdOrderByIsPrioritizedDescCreationDateDesc(ownerId);
     }
 
-
-    public String getAdvertDetails(long id){
-        Advert advert = advertRepository.findAdvertById(id);
-        return advert.getDescription();
-    }
-
     public List<AdvertVM> findAllAdverts(){
         Iterable<Advert> adverts = getAll();
         ArrayList<AdvertVM> advertsVM = new ArrayList<>();
@@ -78,7 +72,7 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return advertsVM;
     }
 
-    public AdvertVM getAdvertByID(long id){
+    public AdvertVM getAdvertByID(Long id){
         Advert advert=findById(id);
 
         return advert==null ? null : advert.mapToViewModel();
@@ -150,7 +144,7 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         String description=advertVM.getDescription();
         Boolean isContactShared=advertVM.getContactShared();
         UserAccount owner=userAccountRepository.findOne(advertVM.getOwnerId());
-        Category category=categoryRepository.findOne(advertVM.getCategoryId());
+        Category category=advertVM.getCategoryId()==null ? null : categoryRepository.findOne(advertVM.getCategoryId());
 
         if(owner==null){
             return false;
@@ -188,7 +182,7 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         String description=advertVM.getDescription();
         Boolean isContactShared=advertVM.getContactShared();
         UserAccount owner=userAccountRepository.findOne(advertVM.getOwnerId());
-        Category category=categoryRepository.findOne(advertVM.getCategoryId());
+        Category category=advertVM.getCategoryId()==null ? null : categoryRepository.findOne(advertVM.getCategoryId());
 
         if(owner==null){
             return false;
