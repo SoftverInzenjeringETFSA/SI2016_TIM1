@@ -1,21 +1,17 @@
-<div class="col-lg-8 col-lg-offset-1">
+<div class="col-lg-8 col-lg-offset-2" >
+  <div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Prijava</h3>
+  </div>
+  <div class="panel-body">
+      <h5>Naziv lica: {{advertSubscriptionVM.subscriber}}</h5>
+      <h5>ID: {{advertSubscriptionVM.id}} </h5>
+      <h5>Tekst: {{advertSubscriptionVM.message}} </h5>
+      <br />
+      <!--<a href="/#!/advert/details/{{advert.id}}/update" class="btn btn-success">Update</a>
+      -->
+      <button class="btn pull-right btn-primary" ng-click="removeSubscription()">Obriši prijavu</button>
+  </div>
+</div>
 
-  <form class="form-horizontal">
-    <label class="control-label col-sm-2" for="name">Naziv lica:</label>
-    <div class="col-sm-10">
-      <p class="form-control">{{subscription.subscriber}}</p>
-    </div>
-    <label class="control-label col-sm-2" for="datetime">ID:</label>
-    <div class="col-sm-10">
-      <p class="form-control">{{subscription.id}}</p>
-    </div>
-    <label class="control-label col-sm-2" for="text">Tekst:</label>
-    <div class="col-sm-10">
-      <p class="form-control">{{subscription.message}}</p>
-    </div>
-    <div class="col-sm-offset-2 col-sm-10">
-      <button ng-click="deleteSubscription()" class="btn pull-right btn-primary">Obriši prijavu</button>
-    </div>
-
-  </form>
 </div>

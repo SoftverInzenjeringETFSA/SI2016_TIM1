@@ -33,4 +33,5 @@ public class AdvertSubscriptionVM {
     public void setSubscriber(String subscriber) {
         this.subscriber = subscriber;
     }
+
 }

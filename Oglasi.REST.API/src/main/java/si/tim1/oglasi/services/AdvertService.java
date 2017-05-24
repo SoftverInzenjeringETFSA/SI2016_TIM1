@@ -21,6 +21,8 @@ import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
 
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -266,22 +268,34 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
                 String name = advertSubscription.getSubscriber().getFirstName() + " " + advertSubscription.getSubscriber().getLastName();
                 itemVM.setSubscriberName(name);
             }
-            itemVM.setDatetime("DATE TIME"); // TODO
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            itemVM.setDatetime(df.format(advert.getCreationDate()));
             itemVM.setId(advertSubscription.getId());
+            itemVM.setAdvertID(advert.getId());
             subscriptionList.add(itemVM);
         }
         return subscriptionList;
 
     }
     public AdvertSubscriptionVM getSubscriptionDetails(Long advertID, Long subscriptionID) {
-        AdvertSubscription advertSubscription = advertSubscriptionRepository.findOne(subscriptionID);
+        AdvertSubscription advertSubscription = advertSubscriptionRepository.findAdvertSubscriptionBy(subscriptionID);
         AdvertSubscriptionVM advertSubscriptionVM = new AdvertSubscriptionVM();
 
         advertSubscriptionVM.setMessage(advertSubscription.getText());
         advertSubscriptionVM.setId(advertSubscription.getId());
-        advertSubscriptionVM.setSubscriber(advertSubscription.getSubscriber().getFirstName() + advertSubscription.getSubscriber().getLastName());
+        advertSubscriptionVM.setSubscriber(advertSubscription.getSubscriber().getFirstName() + " " +advertSubscription.getSubscriber().getLastName() + "radi omG");
 
         return advertSubscriptionVM;
 
+    }
+
+    public Boolean deleteSubscription(Long id){
+        AdvertSubscription advertSubscription = advertSubscriptionRepository.findAdvertSubscriptionBy(id);
+        if(advertSubscription == null)
+            return false;
+
+        advertSubscriptionRepository.delete(id);
+
+        return true;
     }
 }

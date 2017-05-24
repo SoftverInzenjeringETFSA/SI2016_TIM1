@@ -5,6 +5,7 @@ package si.tim1.oglasi.viewmodels;
  */
 public class SubscriptionListItemVM {
     private Long id;
+    private Long advertID;
     private String subscriberName;
     private String datetime;
 
@@ -32,5 +33,13 @@ public class SubscriptionListItemVM {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getAdvertID() {
+        return advertID;
+    }
+
+    public void setAdvertID(Long advertID) {
+        this.advertID = advertID;
     }
 }

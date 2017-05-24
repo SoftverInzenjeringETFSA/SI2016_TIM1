@@ -1,15 +1,26 @@
 (function (){
     'use strict';
-    app.controller('subscriptionDetailsController', ['$scope', '$routeParams', 'advertService', function ($scope, $routeParams, advertService) {
+    app.controller('subscriptionDetailsController', ['$scope', '$routeParams', 'advertService', '$location',
+                                                      function ($scope, $routeParams, advertService, $location) {
 
-        $scope.advertSubsriptionVM = {};
+        $scope.advertSubscriptionVM = {};
+        $scope.advertSubscriptionVM = {subscriber:"sumejja", id: "1", message: "dedkdnlncs"};
 
         advertService.getSubscriptionDetails($routeParams.id, $routeParams.s_id)
         			.then(function(response){
-        				$scope.advertSubsriptionVM = response.data;
-                //$scope.subscription = {subscriber:"sumejja", id: "1", message: "dedkdnlncs"};
+        				$scope.advertSubscriptionVM = response.data;
         			});
 
+              $scope.removeSubscription = function() {
+                  advertService.deleteSubscription($routeParams.s_id)
+                      .then(function(response) {
+                              swal("Success", "Prijava izbrisana!", "success");
+                              $location.url("/");
+                          }, function (response) {
+                              swal("Error", "Check your input!", "error");
+                          }
+                      );
+              };
 
    }]);
 }());
