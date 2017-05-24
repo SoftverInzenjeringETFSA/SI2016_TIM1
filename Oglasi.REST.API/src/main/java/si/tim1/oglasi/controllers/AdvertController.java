@@ -142,25 +142,26 @@ public class AdvertController {
         }
     }
 
-
-    @PreAuthorize("hasRole('ROLE_USER')")
+    //@PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{advertId}/subscriptions", method = RequestMethod.GET) // pregled prijava na oglas
-    public List<SubscriptionListItemVM> getSubscriptionsForAdvert(@PathVariable Long id, Principal principal) {
+    public List<SubscriptionListItemVM> getSubscriptionsForAdvert(@PathVariable("advertId") Long advertId) {
         try {
-            return advertService.getSubscriptionsForAdvert(id, principal.getName());
+            return advertService.getSubscriptionsForAdvert(advertId);
         }
         catch (Exception e) {
             return Collections.EMPTY_LIST;
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    //@PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{advertId}/subscriptions/{s_id}", method = RequestMethod.GET) // pregled detalja prijave na oglas
-    public void getSubscriptionDetails(@PathVariable Long id, @PathVariable Long s_id) {
-        //TODO
+    public AdvertSubscriptionVM getSubscriptionDetails(@PathVariable("advertId") Long advertId, @PathVariable("s_id") Long s_id) {
+        try {
+            return advertService.getSubscriptionDetails(advertId, s_id);
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
-
-
-
 
 }

@@ -84,10 +84,18 @@
                         });
         };
 
-        // advertServiceFactory.getAdvert = _getAdvert;
+        advertServiceFactory.getSubscriptionsForAdvert=_getSubscrins;
 
-        advertServiceFactory.getSubscriptions=_getSubscrins
+        var _getSubscrinsDetails = function (id, s_id) {
 
+            return $http.get(servicebase + '/advert/'+ id +'/subscriptions/' + s_id +'/subscription_details')
+                        .then(function(results) {
+                            return results;
+                        });
+        };
+
+        advertServiceFactory.getSubscriptionDetails=_getSubscrinsDetails;
+        
         var _postSubscription = function (newSubscription) {
 
               return $http.post(servicebase + '/advert/subscribe', newSubscription)

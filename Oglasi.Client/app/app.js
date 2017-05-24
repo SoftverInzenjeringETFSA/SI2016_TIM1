@@ -53,13 +53,13 @@ app.config(function ($routeProvider) {
       templateUrl: "views/userAccount/details.html"
   });
 
-   $routeProvider.when("/advert/:id/subscriptions", {
+  $routeProvider.when("/advert/:id/subscriptions", {
     controller: "subscriptionsOnAdvertController",
     templateUrl: "views/advert/advert_subscriptions.html"
 
   });
 
-  $routeProvider.when("/advert/:id/subscriptions/subscription_details", {
+  $routeProvider.when("/advert/:id/subscriptions/:s_id/subscription_details", {
    controller: "subscriptionDetailsController",
    templateUrl: "views/advert/advert_subscription_details.html"
 

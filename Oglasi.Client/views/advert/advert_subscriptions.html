@@ -1,5 +1,4 @@
 <div class="col-lg-8 col-lg-offset-1">
-
 <ul class="list-group">
   <form class="form-horizontal">
     <li class="list-group-item" ng-repeat="subscription in subscriptions">
@@ -17,7 +16,7 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button ng-click="getSubscription()" class="btn pull-right btn-primary">Opširnije</button>
+        <a href="/#!/advert/1/subscriptions/{{subscription.id}}/subscription_details"><button ng-click="getSubscription()" class="btn pull-right btn-primary">Opširnije</button></a>
       </div>
     </div>
   </form>

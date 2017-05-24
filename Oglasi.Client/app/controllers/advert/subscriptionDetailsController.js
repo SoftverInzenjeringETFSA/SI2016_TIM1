@@ -2,16 +2,14 @@
     'use strict';
     app.controller('subscriptionDetailsController', ['$scope', '$routeParams', 'advertService', function ($scope, $routeParams, advertService) {
 
-      $scope.subscriptions = [];
-//TO DOOO
-        advertService.deleteSubscription($routeParams.id)
-        			.then(function(response){
-        				$scope.subscriptions = response.data;
+        $scope.advertSubsriptionVM = {};
 
+        advertService.getSubscriptionDetails($routeParams.id, $routeParams.s_id)
+        			.then(function(response){
+        				$scope.advertSubsriptionVM = response.data;
+                //$scope.subscription = {subscriber:"sumejja", id: "1", message: "dedkdnlncs"};
         			});
 
 
    }]);
-
-
 }());

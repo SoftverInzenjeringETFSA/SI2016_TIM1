@@ -4,13 +4,11 @@
 
         $scope.subscriptions = [];
 
-        advertService.getSubscriptions($routeParams.id)
+        advertService.getSubscriptionsForAdvert($routeParams.id)
         			.then(function(response){
         				$scope.subscriptions = response.data;
         			});
 
 
    }]);
-
-
 }());

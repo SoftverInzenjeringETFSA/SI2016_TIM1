@@ -251,34 +251,37 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return true;
     }
 
-    public List<SubscriptionListItemVM> getSubscriptionsForAdvert(Long advertID, String callerUsername) {
-        Advert advert = advertRepository.findAdvertById(advertID);
-        if(advert.getOwner().getUsername().equals(callerUsername)) {
-            List<AdvertSubscription> advertSubscriptions = advert.getAdvertSubscriptions();
-            List<SubscriptionListItemVM> subscriptionList = new ArrayList<>();
-            for (AdvertSubscription advertSubscription : advertSubscriptions) {
-                SubscriptionListItemVM itemVM = new SubscriptionListItemVM();
 
-                if(advertSubscription.getSubscriber().getCompanyName() != null) {
-                    itemVM.setSubscriberName(advertSubscription.getSubscriber().getCompanyName());
-                }
-                else {
-                    String name = advertSubscription.getSubscriber().getFirstName() + " " + advertSubscription.getSubscriber().getLastName();
-                    itemVM.setSubscriberName(name);
-                }
-                itemVM.setDatetime("hard coded DATE TIME"); // TODO
-                itemVM.setId(advertSubscription.getId());
-                subscriptionList.add(itemVM);
+    public List<SubscriptionListItemVM> getSubscriptionsForAdvert(Long advertID) {
+        Advert advert = advertRepository.findAdvertById(advertID);
+        List<AdvertSubscription> advertSubscriptions = advert.getAdvertSubscriptions();
+        List<SubscriptionListItemVM> subscriptionList = new ArrayList<>();
+        for (AdvertSubscription advertSubscription : advertSubscriptions) {
+            SubscriptionListItemVM itemVM = new SubscriptionListItemVM();
+
+            if(advertSubscription.getSubscriber().getCompanyName() != null) {
+                itemVM.setSubscriberName(advertSubscription.getSubscriber().getCompanyName());
             }
-            return subscriptionList;
+            else {
+                String name = advertSubscription.getSubscriber().getFirstName() + " " + advertSubscription.getSubscriber().getLastName();
+                itemVM.setSubscriberName(name);
+            }
+            itemVM.setDatetime("DATE TIME"); // TODO
+            itemVM.setId(advertSubscription.getId());
+            subscriptionList.add(itemVM);
         }
-        else {
-            throw new ServiceException("You don't have a permission to view the subscription list for this advert");
-        }
+        return subscriptionList;
 
     }
-    public AdvertSubscriptionVM getSubscriptionDetails(Long id) {
-        return null; // TODO
+    public AdvertSubscriptionVM getSubscriptionDetails(Long advertID, Long subscriptionID) {
+        AdvertSubscription advertSubscription = advertSubscriptionRepository.findOne(subscriptionID);
+        AdvertSubscriptionVM advertSubscriptionVM = new AdvertSubscriptionVM();
+
+        advertSubscriptionVM.setMessage(advertSubscription.getText());
+        advertSubscriptionVM.setId(advertSubscription.getId());
+        advertSubscriptionVM.setSubscriber(advertSubscription.getSubscriber().getFirstName() + advertSubscription.getSubscriber().getLastName());
+
+        return advertSubscriptionVM;
 
     }
 }
