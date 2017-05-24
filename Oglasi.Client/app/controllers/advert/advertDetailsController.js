@@ -11,6 +11,16 @@
                        $scope.advert=response.data;
                     });
 
+                $scope.deleteAdvert = function() {
+                    advertService.deleteAdvert($routeParams.advertId)
+                        .then(function() {
+                                alert("Advert deleted!");
+                            }, function () {
+                                alert("Error!");
+                            }
+                        );
+                };
+
             }
         ]
     );

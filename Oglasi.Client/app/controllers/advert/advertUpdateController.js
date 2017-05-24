@@ -28,6 +28,8 @@
                 $scope.category = {id:"", values:[]};
                 $scope.categorySpecValues = [];
 
+                console.log($scope.categories);
+
                 if($scope.advert.categoryId!=""){
                     for(var i in $scope.categories){
                         if($scope.advert.categoryId==$scope.categories[i].id){

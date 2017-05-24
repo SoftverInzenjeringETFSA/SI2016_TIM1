@@ -28,7 +28,6 @@
                     }
                     else{
                         $scope.category = $scope.categories[$scope.categoryIndeks.value];
-                        console.log($scope.category);
                     }
                     $scope.categorySpecValues = [];
                 };
