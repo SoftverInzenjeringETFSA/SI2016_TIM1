@@ -4,7 +4,6 @@
                                                       function ($scope, $routeParams, advertService, $location) {
 
         $scope.advertSubscriptionVM = {};
-        $scope.advertSubscriptionVM = {subscriber:"sumejja", id: "1", message: "dedkdnlncs"};
 
         advertService.getSubscriptionDetails($routeParams.id, $routeParams.s_id)
         			.then(function(response){

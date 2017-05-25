@@ -4,7 +4,7 @@
 <div class="panel panel-primary">
   <div class="list-group">
     <span ng-repeat="subscription in subscriptions">
-      <a href="/#!/advert/{{subscription.advertID}}/subscriptions/{{subscription.id}}/subscription_details" class="list-group-item">
+      <a href="/#!/advert/{{subscription.advertID}}/subscriptions/{{subscription.id}}" class="list-group-item">
         <h5 class="list-group-item-heading">Naziv lica: {{subscription.subscriberName}}</h5>
         <p class="list-group-item-text">Vrijeme prijave: {{subscription.datetime}}</p>
         <!--<input type="hidden" class="list-group-item-text">Vrijeme prijave: {{subscription.advertID}}</input>-->

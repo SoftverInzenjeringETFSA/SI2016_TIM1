@@ -278,19 +278,19 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
 
     }
     public AdvertSubscriptionVM getSubscriptionDetails(Long advertID, Long subscriptionID) {
-        AdvertSubscription advertSubscription = advertSubscriptionRepository.findAdvertSubscriptionBy(subscriptionID);
+        AdvertSubscription advertSubscription = advertSubscriptionRepository.findOne(subscriptionID);
         AdvertSubscriptionVM advertSubscriptionVM = new AdvertSubscriptionVM();
 
         advertSubscriptionVM.setMessage(advertSubscription.getText());
         advertSubscriptionVM.setId(advertSubscription.getId());
-        advertSubscriptionVM.setSubscriber(advertSubscription.getSubscriber().getFirstName() + " " +advertSubscription.getSubscriber().getLastName() + "radi omG");
+        advertSubscriptionVM.setSubscriber(advertSubscription.getSubscriber().getFirstName() + " " +advertSubscription.getSubscriber().getLastName());
 
         return advertSubscriptionVM;
 
     }
 
     public Boolean deleteSubscription(Long id){
-        AdvertSubscription advertSubscription = advertSubscriptionRepository.findAdvertSubscriptionBy(id);
+        AdvertSubscription advertSubscription = advertSubscriptionRepository.findOne(id);
         if(advertSubscription == null)
             return false;
 

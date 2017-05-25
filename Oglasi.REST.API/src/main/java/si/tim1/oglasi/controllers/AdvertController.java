@@ -154,10 +154,10 @@ public class AdvertController {
     }
 
     //@PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "/{advertId}/subscriptions/{s_id}/subscription_details", method = RequestMethod.GET) // pregled detalja prijave na oglas
-    public AdvertSubscriptionVM getSubscriptionDetails(Long advertID, @PathVariable("s_id") Long s_id) {
+    @RequestMapping(value = "/{advertId}/subscriptions/{s_id}", method = RequestMethod.GET) // pregled detalja prijave na oglas
+    public AdvertSubscriptionVM getSubscriptionDetails(@PathVariable("advertId") Long advertId, @PathVariable("s_id") Long s_id) {
         try {
-            return advertService.getSubscriptionDetails(advertID, s_id);
+            return advertService.getSubscriptionDetails(advertId, s_id);
         }
         catch (Exception e) {
             return null;
@@ -165,11 +165,11 @@ public class AdvertController {
     }
 
     //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @RequestMapping(value = "/{advertId}/subscriptions/{s_id}/subscription_details/delete", method = RequestMethod.DELETE) // deletedvert oglasa
-    public ResponseEntity deleteSubscription(@PathVariable("subscriptionID") Long subscriptionID) {
+    @RequestMapping(value = "/{advertId}/subscriptions/{s_id}/delete", method = RequestMethod.DELETE) // deletedvert oglasa
+    public ResponseEntity deleteSubscription(@PathVariable("s_id") Long s_id) {
         try{
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(advertService.deleteSubscription(subscriptionID));
+                    .body(advertService.deleteSubscription(s_id));
         }
         catch (ServiceException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

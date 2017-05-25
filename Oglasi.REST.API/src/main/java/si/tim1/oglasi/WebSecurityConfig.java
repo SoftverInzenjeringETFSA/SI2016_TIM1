@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import si.tim1.oglasi.filters.JWTAuthenticationFilter;
 import si.tim1.oglasi.filters.JWTLoginFilter;
 import si.tim1.oglasi.services.CustomUserDetailsService;
-/*
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
@@ -66,4 +66,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
-*/

@@ -88,7 +88,7 @@
 
         var _getSubscrinsDetails = function (id, s_id) {
 
-            return $http.get(servicebase + '/advert/'+id+'subscriptions/'+s_id+'/subscription_details')
+            return $http.get(servicebase + '/advert/'+id+'/subscriptions/'+s_id)
                         .then(function(results) {
                             return results;
                         });
@@ -98,7 +98,7 @@
 
         var _deleteSubs = function (s_id) {
 
-            return $http.get(servicebase + '/advert/'+id+'subscriptions/'+s_id+'/subscription_details/delete')
+            return $http.get(servicebase + '/advert/'+id+'/subscriptions/'+s_id+'/delete')
                         .then(function(results) {
                             return results;
                         });
