@@ -81,7 +81,11 @@ app.config(function ($routeProvider) {
         templateUrl: "views/advert/advert_form.html"
     });
 
-  $routeProvider.otherwise({ redirectTo: "/" });
+  //$routeProvider.otherwise({ redirectTo: "/" });
+  $routeProvider.when("/account/update", {
+      controller: "userUpdateController",
+      templateUrl: "views/userAccount/update.html"
+  });
 
 });
 

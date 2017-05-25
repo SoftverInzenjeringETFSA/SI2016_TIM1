@@ -66,7 +66,7 @@
         <li ng-show="auth.isAuthenticated" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome {{auth.username}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a>Profile</a></li>
+                <li ng-click="account()"><a>Profile</a></li>
                 <li ng-click="logout()"><a>Logout</a></li>
             </ul>
         </li>

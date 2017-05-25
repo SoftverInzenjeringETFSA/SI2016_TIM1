@@ -10,6 +10,9 @@
             $scope.auth = userAccountService.getAuthData();
             $location.path('/login');
       };
+      $scope.account = function() {
+            $location.path('/account');
+      };
 
 
     }]);

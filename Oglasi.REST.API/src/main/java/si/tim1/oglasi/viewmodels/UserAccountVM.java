@@ -4,6 +4,7 @@ package si.tim1.oglasi.viewmodels;
  * Created by Adnan on 5/2/2017.
  */
 public class UserAccountVM {
+    private Long id;
     private String username;
     private String firstName;
     private String lastName;
@@ -16,7 +17,8 @@ public class UserAccountVM {
 
     public UserAccountVM() {}
 
-    public UserAccountVM(String username, String firstName, String lastName, String companyName, String phone, String email, String pwHash, String confirmPwHash, String roleName) {
+    public UserAccountVM(Long id,String username, String firstName, String lastName, String companyName, String phone, String email, String pwHash, String confirmPwHash, String roleName) {
+        this.setId(id);
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -98,5 +100,13 @@ public class UserAccountVM {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

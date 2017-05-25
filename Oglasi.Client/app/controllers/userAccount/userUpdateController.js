@@ -1,7 +1,7 @@
 (function () {
     'use strict';
-    app.controller('userDetailsController', ['$scope', '$location', 'userAccountService', 'localStorageService','advertService',
-                            function ($scope, $location, userAccountService, localStorageService,advertService) {
+    app.controller('userDetailsController', ['$scope', '$location', 'userAccountService', 'localStorageService',
+                            function ($scope, $location, userAccountService, localStorageService) {
 
         if(userAccountService.getAuthData() == null || userAccountService.getAuthData().isAuthenticated != true) {
             $location.path('/login');
@@ -17,13 +17,11 @@
                                 else {
                                     $scope.accType = "Individual";
                                 }
-                                advertService.getAdvertsByOwner($scope.acc.id).then(function(response){$scope.adverts=response.data;});
                             },
                         function(response) {
 
                         });
         };
-
 
         $scope.update = function() {
             userAccountService.update($scope.acc)
@@ -33,16 +31,6 @@
                     function(response) {
                         console.log(response);
                     });
-        };
-        $scope.deleteAdvert = function() {
-            advertService.deleteAdvert($routeParams.advertId)
-                .then(function() {
-                        alert("Advert deleted!");
-                        $location.url("/");
-                    }, function () {
-                        alert("Error!");
-                    }
-                );
         };
 
 
