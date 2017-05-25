@@ -87,7 +87,7 @@ public class UserAccountService {
     public Boolean changeUserBlock(String username){
         UserAccount userAccount = userAccountRepository.findByUsername(username);
         userAccount.setBlocked(!userAccount.getBlocked());
-
+        userAccount.getPerson().setActive(!userAccount.getPerson().getActive());
         UserAccount createUser = userAccountRepository.save(userAccount);
 
         return createUser != null;
