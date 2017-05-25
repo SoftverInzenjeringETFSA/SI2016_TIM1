@@ -18,7 +18,7 @@ public class OglasiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OglasiApplication.class, args);
 	}
-/*
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
@@ -29,5 +29,5 @@ public class OglasiApplication {
 		};
 
 	}
-*/
+
 }
