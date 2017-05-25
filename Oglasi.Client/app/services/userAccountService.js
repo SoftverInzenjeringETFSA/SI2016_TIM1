@@ -53,12 +53,28 @@
             return auth;
         }
 
+        var getAllUsers = function(){
+            return $http.get(servicebase + '/account/all').then(function(res){
+              return res;
+            });
+        }
+
+        var changeUserBlock = function(username){
+          return $http.post(servicebase + '/account/block', username)
+                      .then(function(res){
+                        return res;
+                      });
+        }
+
         userAccountServiceFactory.register = register;
         userAccountServiceFactory.login = login;
         userAccountServiceFactory.details = details;
         userAccountServiceFactory.update = update;
         userAccountServiceFactory.getAuthData = getAuthData;
         userAccountServiceFactory.logout = logout;
+        userAccountServiceFactory.getAllUsers = getAllUsers;
+        userAccountServiceFactory.changeUserBlock = changeUserBlock;
+
 
         return userAccountServiceFactory;
     }]);

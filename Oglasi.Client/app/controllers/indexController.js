@@ -14,6 +14,10 @@
             $location.path('/account');
       };
 
+      $scope.getAllUsers = function(){
+        $location.path('/users');
+      };
+
 
     }]);
 

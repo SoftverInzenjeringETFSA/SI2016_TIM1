@@ -1,0 +1,26 @@
+
+<div class="col-md-12">
+  <div class="col-md-6 usersList">
+    <ul class="list-group ulList" ng-repeat="(key, value) in array">
+      <li class="list-group-item usersListItem" ng-class="{'usersListItem-active': key == user.index}" ng-click="onListItemClick($index)">
+        Name: {{value.firstName}} {{value.lastName}}
+        <br />
+        Creation Date: {{value.creationDate}}
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-offset-1 col-md-5 userDetailsA">
+    <div ng-hide="user == null">
+      <h3>Username: {{user.username}}</h3>
+      <h3>First name: {{user.firstName}}</h3>
+      <h3>Last name: {{user.lastName}}</h3>
+      <h3>Company name: {{user.companyName}}</h3>
+      <h3>Phone: {{user.phone}}</h3>
+
+      <button ng-hide="user.blocked" ng-click="changeBlock()" class="btn btn-success">Block user</button>
+      <button ng-show="user.blocked" ng-click="changeBlock()" class="btn btn-danger">Unblock user</button>
+
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" type="text/css" href="./views/userAccount/userAdmin.css" />

@@ -7,7 +7,10 @@ import si.tim1.oglasi.models.Person;
 import si.tim1.oglasi.models.UserAccount;
 import si.tim1.oglasi.repositories.IRoleRepository;
 import si.tim1.oglasi.repositories.IUserAccountRepository;
+import si.tim1.oglasi.viewmodels.ListVM;
 import si.tim1.oglasi.viewmodels.UserAccountVM;
+
+import java.util.ArrayList;
 
 /**
  * Created by Adnan on 5/1/2017.
@@ -41,7 +44,7 @@ public class UserAccountService {
             UserAccount userAccount = new UserAccount(userAccountVM.getUsername(),
                                                         userAccountVM.getPwHash(),
                                                         false,
-                                                        person);
+                                                        person, new java.sql.Date((new java.util.Date()).getTime()));
             userAccount.setRole(roleRepository.findRoleByName("ROLE_USER"));
 
             UserAccount createdUA = userAccountRepository.save(userAccount);
@@ -67,6 +70,27 @@ public class UserAccountService {
             return userAccount.mapToViewModel();
         }
         return null;
+    }
+
+    public ListVM<UserAccountVM> getAllUsers(){
+        Iterable<UserAccount> userAccounts = userAccountRepository.findAll();
+        ArrayList<UserAccountVM> fr = new ArrayList<>();
+
+        for(UserAccount ua: userAccounts){
+            if(!ua.getRole().getName().equals("ROLE_ADMIN"))
+                fr.add(ua.mapToViewModelAdmin());
+        }
+
+        return new ListVM<>(fr);
+    }
+
+    public Boolean changeUserBlock(String username){
+        UserAccount userAccount = userAccountRepository.findByUsername(username);
+        userAccount.setBlocked(!userAccount.getBlocked());
+
+        UserAccount createUser = userAccountRepository.save(userAccount);
+
+        return createUser != null;
     }
 
 

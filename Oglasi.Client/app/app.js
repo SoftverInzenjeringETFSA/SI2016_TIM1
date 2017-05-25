@@ -86,6 +86,10 @@ app.config(function ($routeProvider) {
       controller: "userUpdateController",
       templateUrl: "views/userAccount/update.html"
   });
+  $routeProvider.when("/users",{
+    controller: "adminUserController",
+    templateUrl: "views/userAccount/userAdmin.html"
+  });
 
 });
 
