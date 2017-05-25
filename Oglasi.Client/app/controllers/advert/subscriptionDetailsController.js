@@ -11,11 +11,11 @@
         			});
 
               $scope.removeSubscription = function() {
-                  advertService.deleteSubscription($routeParams.s_id)
-                      .then(function(response) {
+                  advertService.deleteSubscription($routeParams.id, $routeParams.s_id)
+                      .then(function() {
                               swal("Success", "Prijava izbrisana!", "success");
                               $location.url("/");
-                          }, function (response) {
+                          }, function () {
                               swal("Error", "Check your input!", "error");
                           }
                       );

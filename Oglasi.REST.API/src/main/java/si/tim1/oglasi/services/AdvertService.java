@@ -289,7 +289,7 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
 
     }
 
-    public Boolean deleteSubscription(Long id){
+    public Boolean deleteSubscription(Long advertId, Long id){
         AdvertSubscription advertSubscription = advertSubscriptionRepository.findOne(id);
         if(advertSubscription == null)
             return false;

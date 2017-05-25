@@ -165,11 +165,11 @@ public class AdvertController {
     }
 
     //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @RequestMapping(value = "/{advertId}/subscriptions/{s_id}/delete", method = RequestMethod.DELETE) // deletedvert oglasa
-    public ResponseEntity deleteSubscription(@PathVariable("s_id") Long s_id) {
+    @RequestMapping(value = "/{advertId}/subscriptions/{s_id}/delete", method = RequestMethod.GET) // deletedvert oglasa
+    public ResponseEntity deleteSubscription(@PathVariable("advertId") Long advertId, @PathVariable("s_id") Long s_id) {
         try{
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(advertService.deleteSubscription(s_id));
+                    .body(advertService.deleteSubscription(advertId, s_id));
         }
         catch (ServiceException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
