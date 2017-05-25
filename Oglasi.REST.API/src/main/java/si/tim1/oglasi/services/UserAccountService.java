@@ -56,12 +56,21 @@ public class UserAccountService {
     }
 
     public Boolean updateAccount(UserAccountVM userAccountVM) {
-        UserAccount userAccount = userAccountRepository.findByUsername(userAccountVM.getUsername());
-        if(userAccount != null) {
-            return false;
-        }
-        return false;
-         //not implemented yet
+        UserAccount userAccount = userAccountCustomRepository.findByUsername(userAccountVM.getUsername());
+
+        userAccount.getPerson().setFirstName(userAccountVM.getFirstName());
+        userAccount.getPerson().setLastName(userAccountVM.getLastName());
+        userAccount.getPerson().setEmail(userAccountVM.getEmail());
+        userAccount.getPerson().setCompanyName(userAccountVM.getCompanyName());
+        userAccount.getPerson().setPhone(userAccountVM.getPhone());
+        // userAccount.setUsername(userAccountVM.getUsername());
+        // userAccount.setPasswordHash(userAccountVM.getPwHash());
+
+        UserAccount createUser = userAccountRepository.save(userAccount);
+
+        return createUser != null;
+
+
     }
 
     public UserAccountVM getUserAccountDetails(String username) {

@@ -8,13 +8,14 @@
         <label class="col-lg-2 control-label">Account type</label>
         <div class="col-lg-10">
           <div class="btn-group">
-              <label class="btn btn-sm btn-primary" ng-model="accType" uib-btn-radio="'Individual'">Individual</label>
-              <label class="btn btn-sm btn-primary" ng-model="accType" uib-btn-radio="'Company'">Company</label>
+              <label class="btn btn-sm btn-primary" ng-model="accType" uib-btn-radio="'Individual'" ng-click="showme=false">Individual</label>
+              <label class="btn btn-sm btn-primary" ng-model="accType" uib-btn-radio="'Company'" ng-click="showme=true">Company</label>
           </div>
         </div>
       </div>
-
-      <div ng-show="accType == 'Individual'">
+      
+	  <div>
+      <div ng-hide="showme">
         <div class="form-group">
           <label for="inputFirstname" class="col-lg-2 control-label">First name</label>
           <div class="col-lg-10">
@@ -29,7 +30,7 @@
         </div>
       </div>
 
-      <div ng-show="accType == 'Company'">
+      <div ng-show="showme">
         <div class="form-group">
           <label for="inputCompany" class="col-lg-2 control-label">Company</label>
           <div class="col-lg-10">
@@ -37,6 +38,7 @@
           </div>
         </div>
       </div>
+	  </div>
 
       <div class="form-group">
         <label for="inputEmail" class="col-lg-2 control-label">Email</label>
