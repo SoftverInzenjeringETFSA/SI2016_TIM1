@@ -96,7 +96,7 @@
 
         advertServiceFactory.getSubscriptionDetails=_getSubscrinsDetails;
 
-        var _deleteSubs = function (s_id) {
+        var _deleteSubs = function (id, s_id) {
 
             return $http.get(servicebase + '/advert/'+id+'/subscriptions/'+s_id+'/delete')
                         .then(function(results) {
