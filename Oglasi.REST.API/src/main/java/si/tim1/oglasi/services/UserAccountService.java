@@ -56,7 +56,7 @@ public class UserAccountService {
     }
 
     public Boolean updateAccount(UserAccountVM userAccountVM) {
-        UserAccount userAccount = userAccountCustomRepository.findByUsername(userAccountVM.getUsername());
+        UserAccount userAccount = userAccountRepository.findOne(userAccountVM.getId());
 
         userAccount.getPerson().setFirstName(userAccountVM.getFirstName());
         userAccount.getPerson().setLastName(userAccountVM.getLastName());

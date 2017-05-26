@@ -11,6 +11,7 @@
             userAccountService.details()
                             .then(function(response) {
                                 $scope.acc = response.data;
+                                console.log($scope.acc);
                                 if($scope.acc.companyName != null) {
                                     $scope.accType = "Company";
                                 }
@@ -24,11 +25,14 @@
         };
 
         $scope.update = function() {
+            console.log($scope.acc);
             userAccountService.update($scope.acc)
                         .then(function(response) {
+                            console.log("ok");
                             console.log(response);
                         },
                     function(response) {
+                        console.log("nok");
                         console.log(response);
                     });
         };

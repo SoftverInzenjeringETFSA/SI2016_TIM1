@@ -36,8 +36,8 @@ public class UserAccountController {
 
 
     }
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity update(@RequestBody UserAccountVM userAccountVM) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
