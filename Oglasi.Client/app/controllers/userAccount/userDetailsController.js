@@ -1,7 +1,7 @@
 (function () {
     'use strict';
-    app.controller('userDetailsController', ['$scope', '$location', 'userAccountService', 'localStorageService','advertService',
-                            function ($scope, $location, userAccountService, localStorageService,advertService) {
+    app.controller('userDetailsController', ['$scope', '$location', 'userAccountService', 'localStorageService','advertService', '$route',
+                            function ($scope, $location, userAccountService, localStorageService, advertService, $route) {
 
         if(userAccountService.getAuthData() == null || userAccountService.getAuthData().isAuthenticated != true) {
             $location.path('/login');
@@ -34,11 +34,11 @@
                         console.log(response);
                     });
         };
-        $scope.deleteAdvert = function() {
-            advertService.deleteAdvert($routeParams.advertId)
+        $scope.deleteAdvert = function(advertId) {
+            advertService.deleteAdvert(advertId)
                 .then(function() {
                         alert("Advert deleted!");
-                        $location.url("/");
+                        $route.reload();
                     }, function () {
                         alert("Error!");
                     }
