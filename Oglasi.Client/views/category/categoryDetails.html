@@ -1,0 +1,21 @@
+<div class="col-lg-8 col-lg-offset-2" >
+  <div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{category.title}}</h3>
+  </div>
+  <div class="panel-body">
+      <h5>Kategorija: {{category.title}}</h5>
+      <ul>
+          <li ng-repeat="categorySpecValue in category.values">
+              {{categorySpecValue}}
+              <br />
+              {{categorySpecValue.value}}
+          </li>
+      </ul>
+      <a href="#" class="btn btn-success">Izmijeni kategoriju</a>
+      <button onclick="deleteCategory()" class="btn btn-danger"> Izbrisi kategoriju </button>
+           
+  </div>
+</div>
+
+</div>

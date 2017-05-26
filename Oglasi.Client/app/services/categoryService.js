@@ -21,7 +21,13 @@
                             return result;
                         })
                 };
-                       
+
+                c.getCategory = function (id) {
+                    return $http.get(servicebase + '/category/get/' + id)
+                        .then(function (result) {
+                            return result;
+                        })
+                };        
 
                 return c;
 
