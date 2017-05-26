@@ -279,8 +279,11 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     }
     public AdvertSubscriptionVM getSubscriptionDetails(Long advertID, Long subscriptionID) {
         AdvertSubscription advertSubscription = advertSubscriptionRepository.findOne(subscriptionID);
+        Advert advert = advertRepository.findOne(advertID);
         AdvertSubscriptionVM advertSubscriptionVM = new AdvertSubscriptionVM();
 
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        advertSubscriptionVM.setDate(df.format(advert.getCreationDate()));
         advertSubscriptionVM.setMessage(advertSubscription.getText());
         advertSubscriptionVM.setId(advertSubscription.getId());
         advertSubscriptionVM.setSubscriber(advertSubscription.getSubscriber().getFirstName() + " " +advertSubscription.getSubscriber().getLastName());

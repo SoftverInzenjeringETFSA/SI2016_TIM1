@@ -9,6 +9,15 @@ public class AdvertSubscriptionVM {
     private Long id;
     private String subscriber;
     private String message;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public AdvertSubscriptionVM() {}
 
