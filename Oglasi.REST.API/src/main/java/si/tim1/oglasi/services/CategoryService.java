@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import si.tim1.oglasi.models.Category;
 import si.tim1.oglasi.models.CategorySpec;
 import si.tim1.oglasi.repositories.ICategoryRepository;
+import si.tim1.oglasi.repositories.ICategorySpecRepository;
 import si.tim1.oglasi.viewmodels.CategoryVM;
 
 import java.util.*;
@@ -18,6 +19,9 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
     @Autowired
     private ICategoryRepository categoryRepository;
 
+    @Autowired
+    private ICategorySpecRepository iCategorySpecRepository;
+
 
     public Boolean createCategory(CategoryVM categoryVM){
 
@@ -25,12 +29,14 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
             return false;
 
         Category newCategory = new Category(categoryVM.getTitle());
-
+        categoryRepository.save(newCategory);
         List<CategorySpec> myCategrySpecs = new ArrayList<CategorySpec>();
         for (String value:
               categoryVM.getValues()) {
 
             CategorySpec newCS = new CategorySpec(value);
+            newCS.setCategory(newCategory);
+            newCS = iCategorySpecRepository.save(newCS);
             myCategrySpecs.add(newCS);
         }
 
@@ -50,6 +56,29 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
         }
 
         return categoriesVM;
+    }
+
+    public CategoryVM getCategory(Long id)
+    {
+        Category myCategory = categoryRepository.findCategoryById(id);
+
+        if(myCategory != null){
+            List<String> mySpecs = new ArrayList<>();
+            List<Long> ids = new ArrayList<>();
+
+            for (CategorySpec cs :myCategory.getCategorySpecs()){
+                mySpecs.add(cs.getTitle());
+                ids.add(cs.getId());
+            }
+
+            CategoryVM myCategoryVM = new CategoryVM(myCategory.getId(), myCategory.getTitle(), mySpecs);
+            myCategoryVM.setValuesId(ids);
+
+            return myCategoryVM;
+        }
+
+
+        return null;
     }
 
 }

@@ -27,10 +27,10 @@ public class Category extends BaseEntityModel {
         setCategorySpecs(categorySpecs);
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", targetEntity = Advert.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", targetEntity = Advert.class, cascade = CascadeType.ALL)
     private List<Advert> adverts = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", targetEntity = CategorySpec.class, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", targetEntity = CategorySpec.class, cascade = CascadeType.ALL)
     private List<CategorySpec> categorySpecs = new ArrayList<>();
 
     public String getTitle() {
@@ -68,7 +68,7 @@ public class Category extends BaseEntityModel {
         categoryVM.setTitle(getTitle());
         List<String> values=new ArrayList<>();
         List<Long> valuesId=new ArrayList<>();
-        for(CategorySpec cs:categorySpecs){
+        for(CategorySpec cs: getCategorySpecs()){
             valuesId.add(cs.getId());
             values.add(cs.getTitle());
         }
