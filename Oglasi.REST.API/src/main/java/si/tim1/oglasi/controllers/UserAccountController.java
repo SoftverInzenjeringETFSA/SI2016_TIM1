@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import si.tim1.oglasi.services.UserAccountService;
+import si.tim1.oglasi.viewmodels.ListVM;
 import si.tim1.oglasi.viewmodels.UserAccountVM;
 
 import java.security.Principal;
@@ -51,6 +52,25 @@ public class UserAccountController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public UserAccountVM getUserDetail(Principal principal) {
         return userAccountService.getUserAccountDetails(principal.getName());
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ListVM<UserAccountVM> getAllUsers(){
+        return userAccountService.getAllUsers();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/block", method = RequestMethod.POST)
+    public ResponseEntity blockIt(@RequestBody String username){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(userAccountService.changeUserBlock(username));
+        }
+        catch (ServiceException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
     }
 
     @Autowired

@@ -7,6 +7,7 @@ import si.tim1.oglasi.viewmodels.UserAccountVM;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class UserAccount {
     private String username;
     private String passwordHash;
     private Boolean isBlocked;
+    private Date creationDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     //@PrimaryKeyJoinColumn => this makes Hibernate doesn't create FK, but don't delete, we need to check that
@@ -38,11 +40,12 @@ public class UserAccount {
 
     public UserAccount() {}
 
-    public UserAccount(String username, String passwordHash, Boolean isBlocked, Person person) {
+    public UserAccount(String username, String passwordHash, Boolean isBlocked, Person person, Date creationDate) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.isBlocked = isBlocked;
         this.person = person;
+        this.creationDate = creationDate;
     }
 
     public String getUsername() {
@@ -101,8 +104,23 @@ public class UserAccount {
         this.role = role;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public UserAccountVM mapToViewModel() {
         return new UserAccountVM(id,username, person.getFirstName(), person.getLastName(),
-                                person.getCompanyName(), person.getPhone(), person.getEmail(), null, null, role.getName());
+                person.getCompanyName(), person.getPhone(), person.getEmail(), null, null, role.getName(), null, null);
     }
+
+    public UserAccountVM mapToViewModelAdmin(){
+        return new UserAccountVM(id,username, person.getFirstName(), person.getLastName(),
+                person.getCompanyName(), person.getPhone(), person.getEmail(), null, null, role.getName(), isBlocked, creationDate);
+    }
+
+
 }

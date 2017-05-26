@@ -1,5 +1,7 @@
 package si.tim1.oglasi.viewmodels;
 
+import java.sql.Date;
+
 /**
  * Created by Adnan on 5/2/2017.
  */
@@ -15,9 +17,12 @@ public class UserAccountVM {
     private String confirmPwHash;
     private String roleName;
 
+    private Boolean isBlocked;
+    private Date creationDate;
+
     public UserAccountVM() {}
 
-    public UserAccountVM(Long id,String username, String firstName, String lastName, String companyName, String phone, String email, String pwHash, String confirmPwHash, String roleName) {
+    public UserAccountVM(Long id,String username, String firstName, String lastName, String companyName, String phone, String email, String pwHash, String confirmPwHash, String roleName, Boolean isBlocked, Date creationDate) {
         this.setId(id);
         this.username = username;
         this.firstName = firstName;
@@ -28,6 +33,8 @@ public class UserAccountVM {
         this.pwHash = pwHash;
         this.confirmPwHash = confirmPwHash;
         this.roleName = roleName;
+        this.isBlocked = isBlocked;
+        this.creationDate = creationDate;
     }
 
     public String getUsername() {
@@ -108,5 +115,21 @@ public class UserAccountVM {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        isBlocked = blocked;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

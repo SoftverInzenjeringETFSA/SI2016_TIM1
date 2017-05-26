@@ -40,6 +40,8 @@
 
   <script src="/app/controllers/category/createCategoryController.js"></script>
 
+  <script src="app/controllers/userAccount/adminUserController.js" ></script>
+
   <!-- css -->
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
 
@@ -68,6 +70,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome {{auth.username}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li ng-click="account()"><a>Profile</a></li>
+                <li ng-show="auth.role == 'ROLE_ADMIN'" ng-click="getAllUsers()" ><a>Users</a></li>
                 <li ng-click="logout()"><a>Logout</a></li>
             </ul>
         </li>

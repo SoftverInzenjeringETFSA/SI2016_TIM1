@@ -1,0 +1,32 @@
+h3{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.usersList{
+  height: 500px;
+  border: 2px solid #4D5987;
+  border-radius: 10px;
+  overflow: scroll;
+}
+.ulList{
+  margin-top: 10px;
+}
+.usersListItem{
+  background-color: #ecf0f1;
+}
+
+.usersListItem:hover{
+  background-color: #C7D5D9;
+}
+
+.usersListItem-active{
+  background-color: #A0A7C0;
+}
+
+.usersListItem-active:hover{
+  background-color: #757FA3;
+}
+
+.userDetailsA{
+  margin-top: 70px;
+}
