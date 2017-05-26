@@ -1,7 +1,7 @@
 (function () {
     'use strict';
-    app.controller('loginController', ['$scope', '$location', 'userAccountService', 'localStorageService',
-                            function ($scope, $location, userAccountService, localStorageService) {
+    app.controller('loginController', ['$scope', '$location','$window', 'userAccountService', 'localStorageService',
+                            function ($scope, $location,$window, userAccountService, localStorageService) {
 
 
         //$scope.auth = userAccountService.getAuthData();
@@ -35,7 +35,7 @@
                                         $scope.auth.isAuthenticated = auth.isAuthenticated;
                                         $scope.auth.username = auth.username;
                                         $scope.auth.role = auth.role;
-                                        $location.path('/account');
+                                        //$location.path('/account');
                                     },
                                 function(response) {
 
@@ -45,6 +45,8 @@
                         console.log(response);
                     }
                 );
+                $location.path('/account')
+                $window.location.reload();
 
       };
 
