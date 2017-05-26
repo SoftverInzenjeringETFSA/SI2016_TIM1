@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    app.controller('userDetailsController', ['$scope', '$location', 'userAccountService', 'localStorageService',
+    app.controller('userUpdateController', ['$scope', '$location', 'userAccountService', 'localStorageService',
                             function ($scope, $location, userAccountService, localStorageService) {
 
         if(userAccountService.getAuthData() == null || userAccountService.getAuthData().isAuthenticated != true) {

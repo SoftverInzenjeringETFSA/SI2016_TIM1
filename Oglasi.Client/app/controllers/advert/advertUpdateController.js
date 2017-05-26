@@ -5,89 +5,63 @@
         ['$scope', 'advertService', 'categoryService', '$routeParams',
             function ($scope, advertService, categoryService, $routeParams) {
 
-                // hard kodirano: ownerId:"1"
-
-                var nula = {
-                    title:"", description:"", categoryId:"", ownerId:"1", contactShared:"true", categorySpecValues:[]
-                };
+                // korisnik id se podrazumijeva iz oglasa
 
                 advertService.getAdvertDetails($routeParams.advertId)
                     .then(function (response) {
                         $scope.advert=response.data;
+
+                        categoryService.getCategories()
+                            .then(function (response) {
+                                $scope.categories=response.data;
+
+                                $scope.categoryIndeks = {value:""};
+                                $scope.category = {id:undefined, values:[]};
+
+                                if(angular.isDefined($scope.advert.categoryId)){
+                                    for(var i in $scope.categories){
+                                        if($scope.advert.categoryId==$scope.categories[i].id){
+                                            $scope.categoryIndeks.value=i;
+                                            $scope.category = $scope.categories[i];
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            });
                     });
-
-                console.log("advert id:"+$routeParams.advertId);
-                //console.log("advert id:"+$scope.advert.id);
-
-                categoryService.getCategories()
-                    .then(function (response) {
-                        $scope.categories=response.data;
-                    });
-
-                $scope.categoryIndeks = {value:""};
-                $scope.category = {id:"", values:[]};
-                $scope.categorySpecValues = [];
-
-                console.log($scope.categories);
-
-                if($scope.advert.categoryId!=""){
-                    for(var i in $scope.categories){
-                        if($scope.advert.categoryId==$scope.categories[i].id){
-                            $scope.categoryIndeks.value=i;
-                            $scope.category = $scope.categories[i];
-
-                            break;
-                        }
-                    }
-                }
 
                 $scope.setCategory = function () {
-                    if($scope.categoryIndeks.value==""){
-                        $scope.category = {id:"", values:[]}
+                    $scope.advert.categorySpecValues = [];
+
+                    if($scope.categoryIndeks.value.length>1){}
+                    else if($scope.categoryIndeks.value==""){
+                        $scope.category = {id:undefined, values:[]}
                     }
                     else{
                         $scope.category = $scope.categories[$scope.categoryIndeks.value];
-                        console.log($scope.category);
                     }
-                    $scope.categorySpecValues = [];
                 };
 
-                $scope.updateAdvert = function() {
+                $scope.saveAdvert = function() {
                     $scope.advert.categoryId = $scope.category.id;
 
                     for(var i in $scope.category.values){
-                        var title=$scope.category.values[i];
-                        var valueId=$scope.category.valuesId[i];
-                        var value=$scope.categorySpecValues[i];
-
-                        $scope.advert.categorySpecValues.push({
-                            value:value,
-                            categorySpecId:valueId,
-                            categorySpecTitle:title
-                        });
+                        $scope.advert.categorySpecValues[i].categorySpecTitle=$scope.category.values[i];
+                        $scope.advert.categorySpecValues[i].categorySpecId=$scope.category.valuesId[i];
                     }
 
                     advertService.updateAdvert($scope.advert)
                         .then(function() {
                                 alert("Advert updated!");
-
-                                $scope.advert = nula;
-                                $scope.categoryIndeks = {value:""};
-                                $scope.category = {id:"", values:[]}
-                                $scope.categorySpecValues = [];
                             }, function () {
                                 alert("Error!");
-
-                                $scope.advert = nula;
-                                $scope.categoryIndeks = {value:""};
-                                $scope.category = {id:"", values:[]}
-                                $scope.categorySpecValues = [];
                             }
                         );
                 };
             }
         ]
-    )
+    );
 
 }());
 /**

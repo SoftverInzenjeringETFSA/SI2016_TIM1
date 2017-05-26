@@ -15,10 +15,11 @@
                         $scope.categories=response.data;
                     });
 
-                $scope.categoryIndeks = {value:"-1"};
+                $scope.categoryIndeks = {value:""};
 
                 $scope.setCategory = function () {
-                    if($scope.categoryIndeks.value=="-1"){
+                    if($scope.categoryIndeks.value.length>1){}
+                    else if($scope.categoryIndeks.value==""){
                         $scope.getAllAdverts();
                     }
                     else{

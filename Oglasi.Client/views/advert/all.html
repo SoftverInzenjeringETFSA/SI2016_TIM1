@@ -20,7 +20,7 @@
           <label class="col-lg-2 control-label">Pick a Category:</label>
             <div class="col-lg-10">
               <select multiple="" class="form-control" id="select" ng-change="setCategory()" ng-model="categoryIndeks.value">
-                <option value="-1">Show all adverts</option>
+                <option value="">Show all adverts</option>
                 <option ng-repeat="c in categories" value="{{ $index }}">{{ c.title }}</option>
               </select>
             </div>

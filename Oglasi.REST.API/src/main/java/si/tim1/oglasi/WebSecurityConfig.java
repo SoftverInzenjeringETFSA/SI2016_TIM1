@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/advert/delete/{advertId}").permitAll()
                 .antMatchers("/advert/subscribe/{id}").permitAll()
                 .antMatchers("/account/register").permitAll()
+                .antMatchers("/account/update").permitAll()
                 .antMatchers(HttpMethod.POST,"/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/advert/subscribe").permitAll()
                 .antMatchers(HttpMethod.POST, "/advert/report").permitAll()
