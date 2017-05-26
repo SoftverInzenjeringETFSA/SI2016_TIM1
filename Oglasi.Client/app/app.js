@@ -71,6 +71,12 @@ app.config(function ($routeProvider) {
 
   });
 
+     $routeProvider.when("/category/all", {
+    controller: "allCategoriesController",
+    templateUrl: "views/category/allCategories.html"
+
+  });
+
     $routeProvider.when("/advert/create", {
         controller: "advertRegisterController",
         templateUrl: "views/advert/advert_form.html"
