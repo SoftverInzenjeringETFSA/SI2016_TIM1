@@ -2,15 +2,17 @@
     'use strict';
 
     app.controller('advertRegisterController',
-        ['$scope', 'advertService', 'categoryService',
-            function ($scope, advertService, categoryService) {
+        ['$scope', 'advertService', 'categoryService', 'userAccountService',
+            function ($scope, advertService, categoryService, userAccountService) {
 
-                // hard kodirano: ownerId:"1"
-
-                $scope.advert = {
-                    title:undefined, description:undefined, categoryId:undefined, ownerId:"1",
-                    contactShared:true, categorySpecValues:[]
-                };
+                userAccountService.details()
+                    .then(function (response) {
+                        var user=response.data;
+                        $scope.advert = {
+                            title:undefined, description:undefined, categoryId:undefined, ownerId:user.id,
+                            contactShared:true, categorySpecValues:[]
+                        };
+                    });
 
                 categoryService.getCategories()
                     .then(function (response) {
