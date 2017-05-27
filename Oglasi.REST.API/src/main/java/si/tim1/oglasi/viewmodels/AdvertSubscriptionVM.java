@@ -11,6 +11,12 @@ public class AdvertSubscriptionVM {
     private String message;
     private String date;
 
+    private Long advertId;
+    private String firstName;
+    private String lastName;
+    private String mail;
+    private String phone;
+
     public String getDate() {
         return date;
     }
@@ -19,7 +25,7 @@ public class AdvertSubscriptionVM {
         this.date = date;
     }
 
-    public AdvertSubscriptionVM() {}
+    public AdvertSubscriptionVM(){}
 
     public String getMessage(){
         return message;
@@ -43,4 +49,43 @@ public class AdvertSubscriptionVM {
         this.subscriber = subscriber;
     }
 
+    public Long getAdvertId() {
+        return advertId;
+    }
+
+    public void setAdvertId(Long advertId) {
+        this.advertId = advertId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

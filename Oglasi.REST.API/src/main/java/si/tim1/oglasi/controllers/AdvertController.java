@@ -175,12 +175,24 @@ public class AdvertController {
         }
     }
 
+
     //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @RequestMapping(value = "/{advertId}/subscriptions/{s_id}/delete", method = RequestMethod.GET) // deletedvert oglasa
     public ResponseEntity deleteSubscription(@PathVariable("advertId") Long advertId, @PathVariable("s_id") Long s_id) {
-        try{
+        try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(advertService.deleteSubscription(advertId, s_id));
+        } catch (ServiceException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
+
+    @RequestMapping(value = "/check_in", method = RequestMethod.POST)
+    public ResponseEntity checkInAdvert(@RequestBody AdvertSubscriptionVM advertSubscriptionVM){
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.addAdvertSubscription(advertSubscriptionVM));
         }
         catch (ServiceException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

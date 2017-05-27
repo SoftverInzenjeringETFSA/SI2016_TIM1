@@ -35,18 +35,16 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
             return false;
 
         Category newCategory = new Category(categoryVM.getTitle());
-        categoryRepository.save(newCategory);
+
         List<CategorySpec> myCategrySpecs = new ArrayList<CategorySpec>();
         for (String value:
-              categoryVM.getValues()) {
+                categoryVM.getValues()) {
 
             CategorySpec newCS = new CategorySpec(value);
+
             newCS.setCategory(newCategory);
-
             newCS = iCategorySpecRepository.save(newCS);
-
             myCategrySpecs.add(newCS);
-
         }
 
         newCategory.setCategorySpecs(myCategrySpecs);
