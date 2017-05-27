@@ -8,6 +8,15 @@ public class SubscriptionListItemVM {
     private Long advertID;
     private String subscriberName;
     private String datetime;
+    private String active;
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
 
     public SubscriptionListItemVM() {}
 

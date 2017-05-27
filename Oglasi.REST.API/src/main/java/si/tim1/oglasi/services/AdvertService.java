@@ -282,6 +282,12 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
             itemVM.setDatetime(df.format(advert.getCreationDate()));
             itemVM.setId(advertSubscription.getId());
             itemVM.setAdvertID(advert.getId());
+
+            if(advertSubscription.getActive())
+                itemVM.setActive("DA");
+            else
+                itemVM.setActive("NE");
+
             subscriptionList.add(itemVM);
         }
         return subscriptionList;
@@ -289,6 +295,12 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     }
     public AdvertSubscriptionVM getSubscriptionDetails(Long advertID, Long subscriptionID) {
         AdvertSubscription advertSubscription = advertSubscriptionRepository.findOne(subscriptionID);
+
+        if(!advertSubscription.getActive()) {
+            advertSubscription.setActive(true);
+            advertSubscriptionRepository.save(advertSubscription);
+        }
+
         Advert advert = advertRepository.findOne(advertID);
         AdvertSubscriptionVM advertSubscriptionVM = new AdvertSubscriptionVM();
 
