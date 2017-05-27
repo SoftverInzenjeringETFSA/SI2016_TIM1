@@ -2,12 +2,15 @@ package si.tim1.oglasi.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import si.tim1.oglasi.models.Advert;
 import si.tim1.oglasi.models.Category;
 import si.tim1.oglasi.models.CategorySpec;
+import si.tim1.oglasi.repositories.IAdvertRepository;
 import si.tim1.oglasi.repositories.ICategoryRepository;
 import si.tim1.oglasi.repositories.ICategorySpecRepository;
 import si.tim1.oglasi.viewmodels.CategoryVM;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.*;
 
 /**
@@ -18,6 +21,9 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
 
     @Autowired
     private ICategoryRepository categoryRepository;
+
+    @Autowired
+    private IAdvertRepository iAdvertRepository;
 
     @Autowired
     private ICategorySpecRepository iCategorySpecRepository;
@@ -36,15 +42,9 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
 
             CategorySpec newCS = new CategorySpec(value);
             newCS.setCategory(newCategory);
-<<<<<<< HEAD
 
             newCS = iCategorySpecRepository.save(newCS);
-=======
-//<<<<<<< HEAD
-//=======
-            newCS = iCategorySpecRepository.save(newCS);
-//>>>>>>> be7cd2f85f65c3b89b83852fbb4c0b6d057702c1
->>>>>>> c5a0842145037395071b49767187fec2ab77870c
+
             myCategrySpecs.add(newCS);
 
         }
@@ -88,6 +88,30 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
 
 
         return null;
+    }
+
+    public Boolean deleteCategory(Long id)
+    {
+        Category category = categoryRepository.findCategoryById(id);
+
+        if(category == null){
+            return false;
+        }
+
+        //ako vec postoje neki oglasi u ovoj kategoriji, ne moze se obrisati
+
+//        Iterable<Advert> myAdverts = new ArrayList<>();
+//
+//        myAdverts = iAdvertRepository.findAdvertsByCategoryId(id);
+//
+//        if(myAdverts.spliterator().getExactSizeIfKnown() == 0)
+//            return false;
+
+
+
+        categoryRepository.delete(id);
+
+        return true;
     }
 
 }

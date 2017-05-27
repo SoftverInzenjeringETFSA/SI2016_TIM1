@@ -57,4 +57,16 @@ public class CategoryController {
         }
     }
 
+    @RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.GET)
+    public ResponseEntity deleteCategory(@PathVariable("categoryId") Long categoryId) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(categoryService.deleteCategory(categoryId));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
+
 }

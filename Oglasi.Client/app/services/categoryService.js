@@ -27,7 +27,14 @@
                         .then(function (result) {
                             return result;
                         })
-                };        
+                };    
+
+                c.deleteCategory = function (id) {
+                    return $http.get(servicebase + '/category/delete/' + id)
+                        .then(function (result) {
+                            return result;
+                        })
+                };    
 
                 return c;
 
