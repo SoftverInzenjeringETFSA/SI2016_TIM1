@@ -1,0 +1,19 @@
+<div class="check-in-div">
+  <div ng-hide="isUserAcc" class="col-md-offset-4 col-md-4"><!--Ako nije logovan!-->
+    <input ng-model="firstName" class="inputCheckIn inputCCC col-md-12" placeholder="First name"></input>
+    <br />
+    <input ng-model="lastName" class="inputCheckIn inputCCC col-md-12" placeholder="Last name"></input>
+    <br />
+    <input ng-model="phone" class="inputCheckIn inputCCC col-md-12" placeholder="Your phone number"></input>
+    <br />
+    <input ng-model="mail" class="inputCheckIn inputCCC col-md-12" placeholder="Your Email address"></input>
+    <br />
+  </div>
+  <div class="col-md-offset-4 col-md-4 div-message">
+    <textarea class="inputCheckIn col-md-12" ng-model="message" rows="5" placeholder="Type message here..."></textarea>
+    <br />
+    <button class="btn btn-success" ng-click="checkIn()">Send</button>
+  </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="./views/advert/check_in.css" />

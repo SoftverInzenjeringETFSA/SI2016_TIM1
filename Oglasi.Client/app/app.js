@@ -102,6 +102,10 @@ app.config(function ($routeProvider) {
     controller: "adminUserController",
     templateUrl: "views/userAccount/userAdmin.html"
   });
+  $routeProvider.when("/advert/details/:advertId/check_in",{
+    controller: "advertCheckInController",
+    templateUrl: "views/advert/check_in.html",
+  })
 
 });
 

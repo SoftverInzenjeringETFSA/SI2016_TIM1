@@ -140,6 +140,30 @@
         }
         advertServiceFactory.report = _postReport;
 
+        var _checkInAdvert = function(info){
+          var info1 = {
+            personId: 1,
+            advertId: 2,
+            message: "ovo sam poslao"
+          };
+
+          var info2 = {
+            firstName: "Ime test5555",
+            lastName: "Prezime test1",
+            mail: "test1@gmail.com",
+            phone: "0000000",
+            advertId: 1,
+            message: "djesi brate huehuehue"
+          }
+
+          return $http.post(servicebase + '/advert/check_in', info)
+                      .then(function(res){
+                        console.log(res);
+                        return res;
+                      });
+        }
+        advertServiceFactory.checkIn = _checkInAdvert;
+
         return advertServiceFactory;
     }]);
 

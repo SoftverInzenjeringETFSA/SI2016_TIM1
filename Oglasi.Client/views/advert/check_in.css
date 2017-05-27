@@ -1,0 +1,37 @@
+.check-in-div{
+  margin-left: 20px;
+  text-align: left;
+  margin-top: 60px;
+}
+
+.check-in-div div{
+  padding-left: 0px;
+}
+
+.div-message{
+  padding-left: 0px;
+  text-align: center;
+}
+
+.inputCCC{
+  height: 40px;
+  font-size: 17px;
+}
+
+.inputCheckIn{
+  background-color: #03465C;
+  color: black;
+  text-align: left;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.inputCheckIn::placeholder{
+  font-style: italic;
+  margin: 0px;
+  padding: 0px;
+}
+
+.inputCheckIn:focus{
+  background-color: white;
+}

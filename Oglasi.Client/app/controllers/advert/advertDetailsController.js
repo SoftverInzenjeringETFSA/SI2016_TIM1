@@ -32,6 +32,10 @@
                         });
                 };
 
+                $scope.checkIn = function(){
+                  $location.path($location.path() + '/check_in');
+                };
+
             }
         ]
     );
