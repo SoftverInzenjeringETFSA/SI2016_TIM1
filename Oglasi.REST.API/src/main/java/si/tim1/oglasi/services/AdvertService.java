@@ -51,6 +51,9 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     @Autowired
     private ICategorySpecValueRepository categorySpecValueRepository;
 
+    @Autowired
+    private IPersonRepository personRepository;
+
     private Iterable<Advert> getAll(){
         return advertRepository.findAllByIsActiveTrueOrderByIsPrioritizedDescCreationDateDesc();
     }
@@ -322,5 +325,33 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         advertSubscriptionRepository.delete(id);
 
         return true;
+    }
+
+    public Boolean addAdvertSubscription(AdvertSubscriptionVM advertSubscriptionVM){
+
+        AdvertSubscription advertSubscription = new AdvertSubscription();
+
+
+        Person p;
+
+        if(advertSubscriptionVM.getSubscriber() == null){
+            p = new Person();
+            p.setActive(false);
+            p.setEmail(advertSubscriptionVM.getMail());
+            p.setFirstName(advertSubscriptionVM.getFirstName());
+            p.setLastName(advertSubscriptionVM.getLastName());
+            p.setPhone(advertSubscriptionVM.getPhone());
+            p = personRepository.save(p);
+
+        }else p = userAccountRepository.findByUsername(advertSubscriptionVM.getSubscriber()).getPerson();
+
+        advertSubscription.setSubscriber(p);
+        advertSubscription.setAdvert(advertRepository.findAdvertById(advertSubscriptionVM.getAdvertId()));
+        advertSubscription.setText(advertSubscriptionVM.getMessage());
+        advertSubscription.setActive(true);
+
+        advertSubscription = advertSubscriptionRepository.save(advertSubscription);
+
+        return advertSubscription != null;
     }
 }
