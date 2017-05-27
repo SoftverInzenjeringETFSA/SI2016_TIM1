@@ -44,9 +44,9 @@
 
                     advertService.registerAdvert($scope.advert)
                         .then(function() {
-                                alert("Advert created!");
+                                swal("Success", "Advert created!", "success");
                             }, function () {
-                                alert("Error!");
+                                swal("Error", "Advert not created. Check your input!", "error");
                             }
                         );
                 };

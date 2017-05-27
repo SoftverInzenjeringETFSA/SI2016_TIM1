@@ -37,10 +37,10 @@
         $scope.deleteAdvert = function(advertId) {
             advertService.deleteAdvert(advertId)
                 .then(function() {
-                        alert("Advert deleted!");
+                        swal("Success", "Advert deleted!", "success");
                         $route.reload();
                     }, function () {
-                        alert("Error!");
+                        swal("Error", "Advert not deleted!", "error");
                     }
                 );
         };

@@ -53,9 +53,9 @@
 
                     advertService.updateAdvert($scope.advert)
                         .then(function() {
-                                alert("Advert updated!");
+                                swal("Success", "Advert updated!", "success");
                             }, function () {
-                                alert("Error!");
+                                swal("Error", "Advert not updated. Check your input!", "error");
                             }
                         );
                 };

@@ -6,8 +6,6 @@
         ['$scope', '$routeParams', 'advertService', '$location', '$route',
             function ($scope, $routeParams, advertService, $location, $route) {
 
-                $scope.advert = {};
-
                 advertService.getAdvertDetails($routeParams.advertId)
                     .then(function (response) {
                        $scope.advert=response.data;
@@ -16,10 +14,10 @@
                 $scope.deleteAdvert = function() {
                     advertService.deleteAdvert($routeParams.advertId)
                         .then(function() {
-                                alert("Advert deleted!");
+                                swal("Success", "Advert deleted!", "success");
                                 $location.url("/");
                             }, function () {
-                                alert("Error!");
+                                swal("Error", "Advert not deleted!", "error");
                             }
                         );
                 };
@@ -27,10 +25,10 @@
                 $scope.setPriority = function () {
                     advertService.changePriority($scope.advert.id)
                         .then(function () {
-                            alert("Priority changed!");
+                            swal("Success", "Priority changed!", "success");
                             $route.reload();
                         }, function () {
-                            alert("Error!");
+                            swal("Error", "Priority not changed!", "error");
                         });
                 };
 

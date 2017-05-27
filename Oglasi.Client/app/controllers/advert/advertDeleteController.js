@@ -8,9 +8,9 @@
                 $scope.deleteAdvert = function() {
                     advertService.deleteAdvert($routeParams.advertId)
                         .then(function() {
-                                alert("Advert deleted!");
+                                swal("Success", "Advert deleted!", "success");
                             }, function () {
-                                alert("Error!");
+                                swal("Error", "Advert not deleted!", "error");
                             }
                         );
                 };
