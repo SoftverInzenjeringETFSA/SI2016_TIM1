@@ -31,7 +31,9 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
               categoryVM.getValues()) {
 
             CategorySpec newCS = new CategorySpec(value);
+            newCS.setCategory(newCategory);
             myCategrySpecs.add(newCS);
+
         }
 
         newCategory.setCategorySpecs(myCategrySpecs);

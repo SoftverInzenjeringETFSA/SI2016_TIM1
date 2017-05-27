@@ -4,7 +4,6 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import si.tim1.oglasi.services.AdvertService;
@@ -15,7 +14,6 @@ import si.tim1.oglasi.viewmodels.InappropriateAdvertReportVM;
 import si.tim1.oglasi.viewmodels.SubscriptionListItemVM;
 
 
-import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,6 +85,19 @@ public class AdvertController {
         try{
             return ResponseEntity.status(HttpStatus.OK)
                     .body(advertService.deleteAdvert(advertId));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
+
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/set_priority", method = RequestMethod.POST)
+    public ResponseEntity changeAdvertPriority(@RequestParam("id") Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.changeAdvertPriority(id));
         }
         catch (ServiceException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

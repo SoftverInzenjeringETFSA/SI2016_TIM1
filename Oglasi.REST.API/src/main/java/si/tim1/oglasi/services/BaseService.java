@@ -25,8 +25,8 @@ public class BaseService<M extends BaseEntityModel, R extends PagingAndSortingRe
     public M update(M m) {
         return repository.save(m);
     }
-    public void archive(M m) {
+    public M archive(M m) {
         m.setActive(false);
-        repository.save(m);
+        return repository.save(m);
     }
 }

@@ -75,6 +75,14 @@
         };
         advertServiceFactory.deleteAdvert = _deleteAdvert;
 
+        var _changePriority = function (id) {
+            return $http.post(servicebase + '/advert/set_priority?id=' + id)
+                .then(function (results) {
+                    return results;
+                });
+        };
+        advertServiceFactory.changePriority = _changePriority;
+
 
         var _getSubscrins = function (id) {
 

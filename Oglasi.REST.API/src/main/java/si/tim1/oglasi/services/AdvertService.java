@@ -248,11 +248,21 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         }
 
         categorySpecValueRepository.save(advert.getCategorySpecValues());
-        archive(advert);
 
-        return true;
+        return archive(advert)!=null;
     }
 
+    public Boolean changeAdvertPriority(Long id){
+        Advert advert=findById(id);
+
+        if(advert==null){
+            return false;
+        }
+
+        advert.setPrioritized(!advert.getPrioritized());
+
+        return update(advert)!=null;
+    }
 
     public List<SubscriptionListItemVM> getSubscriptionsForAdvert(Long advertID) {
         Advert advert = advertRepository.findAdvertById(advertID);

@@ -37,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/advert/create").permitAll()
                 .antMatchers("/advert/update").permitAll()
                 .antMatchers("/advert/delete/{advertId}").permitAll()
+                .antMatchers("/advert/set_priority").permitAll()
                 .antMatchers("/advert/subscribe/{id}").permitAll()
                 .antMatchers("/account/register").permitAll()
                 .antMatchers("/account/update").permitAll()

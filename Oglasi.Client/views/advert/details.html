@@ -8,6 +8,8 @@
       <h5>Opis: {{advert.description}} </h5>
       <h5>Vlasnik: {{advert.ownerName}} </h5>
       <h5>Datum objave: {{advert.creationDate | date:"dd/MM/yyyy"}}</h5>
+      <h5 ng-show="advert.prioritized">Prioritet: Da</h5>
+      <h5 ng-hide="advert.prioritized">Prioritet: Ne</h5>
       <ul>
           <li ng-repeat="categorySpecValue in advert.categorySpecValues">
               {{categorySpecValue.categorySpecTitle}}
@@ -15,6 +17,9 @@
               {{categorySpecValue.value}}
           </li>
       </ul>
+      <a ng-hide="advert.prioritized" ng-click="setPriority()" class="btn btn-success">Set prioritized</a>
+      <a ng-show="advert.prioritized" ng-click="setPriority()" class="btn btn-danger">Unset prioritized</a>
+      <br><br>
       <a href="#" class="btn btn-success">Prijavi se na oglas</a>
       <a href="#" class="btn btn-danger">Neprimjeren sadržaj</a>
   </div>
