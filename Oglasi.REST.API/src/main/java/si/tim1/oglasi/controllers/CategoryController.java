@@ -4,10 +4,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import si.tim1.oglasi.models.Category;
 import si.tim1.oglasi.services.CategoryService;
 import si.tim1.oglasi.viewmodels.CategoryVM;
@@ -47,6 +44,17 @@ public class CategoryController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<CategoryVM> getCategories() {
         return categoryService.getCategories();
+    }
+
+
+    @RequestMapping(value = "/get/{categoryId}", method = RequestMethod.GET) // deletedvert oglasa
+    public CategoryVM  getOneCategory(@PathVariable("categoryId") Long categoryId) {
+        try {
+            return categoryService.getCategory(categoryId);
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 
 }

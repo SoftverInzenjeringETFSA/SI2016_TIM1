@@ -1,9 +1,6 @@
 package si.tim1.oglasi.models;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +20,10 @@ public class CategorySpec extends BaseEntityModel{
         setTitle(title);
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class)
+    @ManyToOne(targetEntity = Category.class)
     private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categorySpec", targetEntity = CategorySpecValue.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categorySpec", targetEntity = CategorySpecValue.class, cascade = CascadeType.ALL)
     private List<CategorySpecValue> categorySpecValues = new ArrayList<>();
 
     public String getTitle() {
@@ -53,4 +50,8 @@ public class CategorySpec extends BaseEntityModel{
         this.categorySpecValues = categorySpecValues;
     }
 
+    public CategorySpec(String title, Category category) {
+        this.title = title;
+        this.category = category;
+    }
 }
