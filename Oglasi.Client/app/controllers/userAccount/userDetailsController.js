@@ -7,6 +7,7 @@
             $location.path('/login');
         }
 
+
         $scope.getDetails = function() {
             userAccountService.details()
                             .then(function(response) {

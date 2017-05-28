@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    app.controller('advertReportController', ['$scope', 'advertService', function ($scope, advertService) {
+    app.controller('advertReportController', ['$scope', 'advertService', 'userAccountService', function ($scope, advertService, userAccountService) {
 
             //            $scope.getTitleOwner = function() {
           //                advertService.getTitleOwner()

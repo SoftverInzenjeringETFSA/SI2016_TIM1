@@ -49,7 +49,7 @@ app.config(function ($routeProvider) {
   });
 
   $routeProvider.when("/advert/with_report", {
-      controller: "advertReportController",
+      controller: "advertReportAllController",
       templateUrl: "views/advert/advert_with_reports.html"
   });
   
