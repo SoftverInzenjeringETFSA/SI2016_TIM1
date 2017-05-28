@@ -223,4 +223,16 @@ public class AdvertController {
                     .body(e.getLocalizedMessage());
         }
     }
+
+    @RequestMapping(value = "/inappropriateAdvertReport", method = RequestMethod.POST)
+    public ResponseEntity setInappropriateAdvertReport(@RequestBody InappropriateAdvertReportVM inappropriateAdvertReportVM) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.setInappropriateAdvertReport(inappropriateAdvertReportVM));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+    }
 }

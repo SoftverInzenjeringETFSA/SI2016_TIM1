@@ -11,6 +11,9 @@ public class InappropriateAdvertReportVM {
     private String message;
     private String prijavitelj;
     private String date;
+    private Long advertId;
+    private String username;
+    private Boolean isGuest;
 
     public InappropriateAdvertReportVM() {}
 
@@ -41,6 +44,30 @@ public class InappropriateAdvertReportVM {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getAdvertId() {
+        return advertId;
+    }
+
+    public void setAdvertId(Long advertId) {
+        this.advertId = advertId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Boolean getIsGuest() {
+        return isGuest;
+    }
+
+    public void setIsGuest(Boolean guest) {
+        isGuest = guest;
     }
 
 }

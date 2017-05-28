@@ -182,10 +182,23 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
     public boolean setInappropriateAdvertReport(InappropriateAdvertReportVM inappropriateAdvertReportVM) {
 
         InappropriateAdvertReport inappropriateAdvertReport = new InappropriateAdvertReport();
-        inappropriateAdvertReport.setText(inappropriateAdvertReportVM.getMessage());
-        advertReportRepository.save(inappropriateAdvertReport);
+        //advert
+        inappropriateAdvertReport.setAdvert(advertRepository.findAdvertById(inappropriateAdvertReportVM.getAdvertId()));
+        //reporter
+        Person reporter = new Person();
 
-        return true;
+        if (inappropriateAdvertReportVM.getIsGuest()) {
+            reporter.setFirstName(inappropriateAdvertReportVM.getUsername());
+            reporter = personRepository.save(reporter);
+
+        }else
+            reporter = userAccountRepository.findByUsername(inappropriateAdvertReportVM.getUsername()).getPerson();
+
+        inappropriateAdvertReport.setReporter(reporter);
+        inappropriateAdvertReport.setText(inappropriateAdvertReportVM.getMessage());
+        inappropriateAdvertReport = advertReportRepository.save(inappropriateAdvertReport);
+
+        return inappropriateAdvertReport != null;
 
         //throw new ServiceException("Error!");
     }
