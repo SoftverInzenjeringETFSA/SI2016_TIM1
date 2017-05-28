@@ -48,6 +48,21 @@ app.config(function ($routeProvider) {
       templateUrl: "views/advert/report.html"
   });
 
+  $routeProvider.when("/advert/with_report", {
+      controller: "advertReportController",
+      templateUrl: "views/advert/advert_with_reports.html"
+  });
+  
+  $routeProvider.when("/advert/with_report/:id/details", {
+      controller: "advertReportDetailsController",
+      templateUrl: "views/advert/all_reports.html"
+  });
+
+  $routeProvider.when("/advert/with_report/details/:id", {
+      controller: "advertReportOneController",
+      templateUrl: "views/advert/one_report.html"
+  });
+
   $routeProvider.when("/account", {
       controller: "userDetailsController",
       templateUrl: "views/userAccount/details.html"

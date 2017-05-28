@@ -1,0 +1,16 @@
+<div class="col-lg-8 col-lg-offset-1">
+<h3>Oglasi prijavljeni zbog neprimjerenog sadržaja</h3>
+
+<div class="panel panel-primary">
+  <div class="list-group">
+    <span ng-repeat="advert in adverts">
+      <a href="/#!/advert/with_report/{{advert.id}}/details" class="list-group-item">
+        <h5 class="list-group-item-heading">Naslov oglasa: {{advert.title}}</h5>
+        <p class="list-group-item-text">Opis: {{advert.description}}</p>
+        <p class="list-group-item-text">Vlasnik: {{advert.ownerName}}</p>
+        <p class="list-group-item-text">Datum: {{advert.creationDate}}</p>
+      </a>
+     </span>
+  </div>
+</div>
+</div>

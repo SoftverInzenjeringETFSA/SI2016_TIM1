@@ -4,14 +4,13 @@
     <h3 class="panel-title">Prijava</h3>
   </div>
   <div class="panel-body">
-      <h5>Naziv lica: {{advertSubscriptionVM.subscriber}}</h5>
-      <h5>Datum: {{advertSubscriptionVM.date}} </h5>
-      <h5>Mail: {{advertSubscriptionVM.mail}} </h5>
-      <h5>Tekst: {{advertSubscriptionVM.message}} </h5>
+      <h5>Naziv lica: {{report.prijavitelj}}</h5>
+      <h5>Datum: {{report.date}} </h5>
+      <h5>Tekst: {{report.message}} </h5>
       <br />
       <!--<a href="/#!/advert/details/{{advert.id}}/update" class="btn btn-success">Update</a>
       -->
-      <a class="btn pull-right btn-primary" ng-click="removeSubscription()">Obriši prijavu</a>
+      <a class="btn pull-right btn-primary" ng-click="removeReport()">Obriši prijavu</a>
   </div>
 </div>
 

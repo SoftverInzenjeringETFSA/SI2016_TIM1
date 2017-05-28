@@ -17,6 +17,13 @@
                                                 });
                           }
 
+        $scope.adverts = [];
+        
+        advertService.getAdvertsWithReport()
+              .then(function(response){
+                $scope.adverts = response.data;
+              });
+
 
 
     }]);

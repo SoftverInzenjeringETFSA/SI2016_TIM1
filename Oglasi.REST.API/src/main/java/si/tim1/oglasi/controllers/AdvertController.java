@@ -44,9 +44,33 @@ public class AdvertController {
     }
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/with_report", method = RequestMethod.GET) // prikaz svih oglasa po kategoriji
+    @RequestMapping(value = "/with_report", method = RequestMethod.GET) // prikaz svih prijava
     public List<AdvertVM> getAdvertsWithReport(){
         return advertService.findAdvertsWithReport();
+    }
+
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/with_report/details/{reportId}", method = RequestMethod.GET) // prikaz svih prijava za jedan oglas
+    public InappropriateAdvertReportVM findOneReport(@PathVariable("reportId") Long reportId){
+        return advertService.findOneReport(reportId);
+    }
+
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/with_report/{advertId}/details", method = RequestMethod.GET) // prikaz svih prijava za jedan oglas
+    public List<InappropriateAdvertReportVM> getAllReports(@PathVariable("advertId") Long advertId){
+        return advertService.getAllReports(advertId);
+    }
+
+    //@PreAuthorize("hasRole('ROLE_USER')")
+    @RequestMapping(value = "/with_report/{reportId}/details/delete", method = RequestMethod.GET) // delete report
+    public ResponseEntity deleteReport(@PathVariable("reportId") Long reportId) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(advertService.deleteReport(reportId));
+        } catch (ServiceException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
     }
 
     //@PreAuthorize("hasRole('ROLE_USER')")
@@ -176,7 +200,7 @@ public class AdvertController {
     }
 
 
-    //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/{advertId}/subscriptions/{s_id}/delete", method = RequestMethod.GET) // deletedvert oglasa
     public ResponseEntity deleteSubscription(@PathVariable("advertId") Long advertId, @PathVariable("s_id") Long s_id) {
         try {

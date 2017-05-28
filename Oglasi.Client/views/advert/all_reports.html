@@ -1,0 +1,18 @@
+<div class="col-lg-8 col-lg-offset-1">
+<h3>Prijave</h3>
+
+<div class="panel panel-primary">
+  <div class="list-group">
+    <span ng-repeat="report in reports">
+      <a href="/#!/advert/with_report/details/{{report.id}}" class="list-group-item">
+        <div class="panel-body">
+	      <h5>Prijavitelj: {{report.prijavitelj}}</h5>
+	      <h5>id: {{report.id}} </h5> 
+	      <h5>Datum: {{report.date}} </h5>
+	      <br />
+	  	</div>
+      </a>
+     </span>
+  </div>
+</div>
+</div>

@@ -1,6 +1,7 @@
 package si.tim1.oglasi.services;
 
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,6 +118,50 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         return advertsVM;
     }
 
+    public List<InappropriateAdvertReportVM> getAllReports(Long id){
+        Iterable<InappropriateAdvertReport> reportsAll = advertReportRepository.findAll();
+        List<InappropriateAdvertReportVM> reports = new ArrayList<InappropriateAdvertReportVM>();
+
+        for(InappropriateAdvertReport inappropriateAdvertReport : reportsAll){
+            if(inappropriateAdvertReport.getAdvert().getId().equals(id)){
+                InappropriateAdvertReportVM item = new InappropriateAdvertReportVM();
+
+                item.setPrijavitelj(inappropriateAdvertReport.getReporter().getFirstName() + "  " + inappropriateAdvertReport.getReporter().getLastName());
+                item.setMessage(inappropriateAdvertReport.getText());
+                item.setId(inappropriateAdvertReport.getId());
+
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                item.setDate(df.format(inappropriateAdvertReport.getAdvert().getCreationDate()));
+
+                reports.add(item);
+            }
+        }
+
+        return reports;
+    }
+
+    public InappropriateAdvertReportVM findOneReport(Long id){
+        InappropriateAdvertReport inappropriateAdvertReport = advertReportRepository.findOne(id);
+        InappropriateAdvertReportVM item = new InappropriateAdvertReportVM();
+
+        item.setId(id);
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        item.setDate(df.format(inappropriateAdvertReport.getAdvert().getCreationDate()));
+        item.setMessage(inappropriateAdvertReport.getText());
+        item.setPrijavitelj(inappropriateAdvertReport.getReporter().getFirstName() + "  " + inappropriateAdvertReport.getReporter().getLastName());
+
+        return item;
+    }
+
+    public Boolean deleteReport(Long r_id){
+        InappropriateAdvertReport inappropriateAdvertReport = advertReportRepository.findOne(r_id);
+        if(inappropriateAdvertReport == null)
+            return false;
+
+        advertReportRepository.delete(r_id);
+
+        return true;
+    }
 
     public String getAdvertTitleAndOwner(long id){
         Advert advert = advertRepository.findAdvertById(id);
@@ -312,6 +357,7 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         advertSubscriptionVM.setMessage(advertSubscription.getText());
         advertSubscriptionVM.setId(advertSubscription.getId());
         advertSubscriptionVM.setSubscriber(advertSubscription.getSubscriber().getFirstName() + " " +advertSubscription.getSubscriber().getLastName());
+        advertSubscriptionVM.setMessage(advertSubscription.getSubscriber().getEmail());
 
         return advertSubscriptionVM;
 

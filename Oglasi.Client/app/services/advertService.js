@@ -40,6 +40,22 @@
         };
         advertServiceFactory.getAdvertsWithReport = _getAdvertsWithReport;
 
+        var _getAdvertReports = function (id) {
+            return $http.get(servicebase + '/advert/with_report/' + id + '/details')
+                        .then(function (results) {
+                            return results;
+                        });
+        };
+        advertServiceFactory.getAllReports = _getAdvertReports;
+
+        var _getOneReport = function (id) {
+            return $http.get(servicebase + '/advert/with_report/details/' + id )
+                        .then(function (results) {
+                            return results;
+                        });
+        };
+        advertServiceFactory.findOneReport = _getOneReport;
+
         var _getAdvertDetails = function (id) {
             return $http.get(servicebase + '/advert/details/' + id)
                 .then(function (results) {
@@ -47,6 +63,16 @@
                 });
         };
         advertServiceFactory.getAdvertDetails = _getAdvertDetails;
+
+        var _deleteReport = function (id) {
+
+            return $http.get(servicebase + '/advert/with_report/'+id+'/details/delete')
+                        .then(function(results) {
+                            return results;
+                        });
+        };
+
+        advertServiceFactory.deleteReport=_deleteReport;
 
         // register
         var _registerAdvert = function (advert) {
