@@ -190,6 +190,21 @@
         }
         advertServiceFactory.checkIn = _checkInAdvert;
 
+         var createInappropriateAdvertReport = function(info){
+            var info1 = {
+                username: "user2",
+                advertId: 1,
+                message: "ovo je poruka",
+                isGuest: false,
+            };
+            console.log(info);
+            return $http.post(servicebase + '/advert/inappropriateAdvertReport', info).then(function(res){
+                console.log(res);
+            });
+        }
+        advertServiceFactory.createInappropriateAdvertReport = createInappropriateAdvertReport;
+
+
         return advertServiceFactory;
     }]);
 

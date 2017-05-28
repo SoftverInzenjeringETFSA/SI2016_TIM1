@@ -36,6 +36,10 @@
                   $location.path($location.path() + '/check_in');
                 };
 
+                 $scope.reportMe = function () {
+                    $location.path('/advert/' + $routeParams.advertId + '/report');
+                };
+
             }
         ]
     );

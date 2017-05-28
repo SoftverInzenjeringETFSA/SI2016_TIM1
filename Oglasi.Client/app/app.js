@@ -43,7 +43,7 @@ app.config(function ($routeProvider) {
       templateUrl: "views/advert/subscribe.html"
   });
 
-  $routeProvider.when("/advert/report", {
+   $routeProvider.when("/advert/:advertId/report", {
       controller: "advertReportController",
       templateUrl: "views/advert/report.html"
   });

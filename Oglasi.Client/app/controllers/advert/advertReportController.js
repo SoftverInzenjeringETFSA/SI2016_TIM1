@@ -10,8 +10,24 @@
                 //                      });
               //        }
 
+                            $scope.newReport = {};
+                          var user = userAccountService.getAuthData();
+                          if(user == null){
+                            $scope.newReport.isGuest = true;
+                            $scope.newReport.username = "";
+                          }else{
+                            $scope.newReport.isGuest = false;
+                            $scope.newReport.username = user.username;
+
+                          }
+                          $scope.newReport.advertId = $routeParams.advertId;
+                          $scope.newReport.message = "";
+
+
                           $scope.report = function() {
-                            advertService.report($scope.newReport)
+                            if($scope.newReport.message=="" || $scope.username == "") swal("Greska", "Poruka ne smije biti prazna! Korisnicko ime ne smije biti prazno!","error");
+
+                            advertService.createInappropriateAdvertReport($scope.newReport)
                                               .then(function(response){
                                                    console.log(response);
                                                 });
