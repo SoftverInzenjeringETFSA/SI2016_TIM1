@@ -3,8 +3,16 @@
 
     // OVO JE ADNAN BABOVIC URADIOO
     app.controller('advertDetailsController',
-        ['$scope', '$routeParams', 'advertService', '$location', '$route',
-            function ($scope, $routeParams, advertService, $location, $route) {
+        ['$scope', '$routeParams', 'advertService', '$location', '$route', 'userAccountService',
+            function ($scope, $routeParams, advertService, $location, $route, userAccountService) {
+
+                var user=userAccountService.getAuthData();
+                if(user!=null && user.role=="ROLE_ADMIN"){
+                    $scope.checkAdmin=true;
+                }
+                else{
+                    $scope.checkAdmin=false;
+                }
 
                 advertService.getAdvertDetails($routeParams.advertId)
                     .then(function (response) {

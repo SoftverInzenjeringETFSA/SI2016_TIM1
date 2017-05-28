@@ -17,9 +17,11 @@
               {{categorySpecValue.value}}
           </li>
       </ul>
-      <a ng-hide="advert.prioritized" ng-click="setPriority()" class="btn btn-success">Set prioritized</a>
-      <a ng-show="advert.prioritized" ng-click="setPriority()" class="btn btn-danger">Unset prioritized</a>
-      <br><br>
+      <div ng-show="checkAdmin">
+          <a ng-hide="advert.prioritized" ng-click="setPriority()" class="btn btn-success">Set prioritized</a>
+          <a ng-show="advert.prioritized" ng-click="setPriority()" class="btn btn-danger">Unset prioritized</a>
+      </div>
+      <br>
       <button class="btn btn-success" ng-click="checkIn()">Prijavi se na oglas</button>
     
       <button ng-click="reportMe()" class="btn btn-danger">Neprimjeren sadržaj</button>
