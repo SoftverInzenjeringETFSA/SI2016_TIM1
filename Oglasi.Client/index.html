@@ -79,6 +79,7 @@
             <ul class="dropdown-menu" role="menu">
                 <li ng-click="account()"><a>Profile</a></li>
                 <li ng-show="auth.role == 'ROLE_ADMIN'" ng-click="getAllUsers()" ><a>Users</a></li>
+                <li ng-show="auth.role == 'ROLE_ADMIN'"  class="btn btn-success"> <a href="/#!/category/all">Kategorije</a></li>
                 <li ng-click="logout()"><a>Logout</a></li>
             </ul>
         </li>

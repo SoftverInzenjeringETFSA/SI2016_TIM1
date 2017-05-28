@@ -1,5 +1,6 @@
 package si.tim1.oglasi.services;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import si.tim1.oglasi.models.Advert;
@@ -110,6 +111,67 @@ public class CategoryService extends BaseService<Category, ICategoryRepository> 
         categoryRepository.delete(id);
 
         return true;
+    }
+
+    public Boolean updateCategory(CategoryVM categoryVM) {
+
+        Category category = categoryRepository.findOne(categoryVM.getId());
+
+        category.setTitle(categoryVM.getTitle());
+        List<CategorySpec> myList = new ArrayList<>();
+
+
+        for (CategorySpec cs:
+              category.getCategorySpecs()) {
+
+            Boolean flag = false;
+
+            for (String csVM : categoryVM.getValues())
+            {
+                if(cs.getTitle() == csVM) {
+                    flag = true;
+                    myList.add(cs);
+
+
+                }
+            }
+            if(!flag)
+            {
+                iCategorySpecRepository.delete(cs.getId());
+            }
+        }
+
+        for (String csVM : categoryVM.getValues()) {
+
+            Boolean myflag = false;
+
+            for (CategorySpec cs:
+                    category.getCategorySpecs())
+            {
+                if (csVM == cs.getTitle())
+                {
+                    myflag = true;
+
+                }
+            }
+
+            if(!myflag)
+            {
+                 CategorySpec newCS = new CategorySpec(csVM);
+
+                newCS.setCategory(category);
+                newCS = iCategorySpecRepository.save(newCS);
+                myList.add(newCS);
+            }
+
+        }
+
+        category.setCategorySpecs(myList);
+        Category success = categoryRepository.save(category);
+
+        return category != null;
+
+
     }
 
 }

@@ -40,6 +40,20 @@ public class CategoryController {
 
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseEntity updateCategory(@RequestBody CategoryVM myCategory) {
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(categoryService.updateCategory(myCategory));
+        }
+        catch (ServiceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getLocalizedMessage());
+        }
+
+    }
+
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<CategoryVM> getCategories() {

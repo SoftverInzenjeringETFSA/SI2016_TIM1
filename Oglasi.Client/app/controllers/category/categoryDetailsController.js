@@ -17,6 +17,11 @@
                 
             $scope.init();
 
+            $scope.updateCategory = function()
+            {
+             swal("Success", "U fazi implementacije!", "success");   
+            }
+
            $scope.deleteCategory = function() {
                     categoryService.deleteCategory($routeParams.categoryId)
                         .then(function() {
