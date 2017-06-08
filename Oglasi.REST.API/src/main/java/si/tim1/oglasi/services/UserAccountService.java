@@ -63,7 +63,7 @@ public class UserAccountService {
         userAccount.getPerson().setEmail(userAccountVM.getEmail());
         userAccount.getPerson().setCompanyName(userAccountVM.getCompanyName());
         userAccount.getPerson().setPhone(userAccountVM.getPhone());
-        // userAccount.setUsername(userAccountVM.getUsername());
+        userAccount.setUsername(userAccountVM.getUsername());
         // userAccount.setPasswordHash(userAccountVM.getPwHash());
 
         UserAccount createUser = userAccountRepository.save(userAccount);
