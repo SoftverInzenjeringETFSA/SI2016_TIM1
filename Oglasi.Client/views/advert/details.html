@@ -1,31 +1,36 @@
 <div class="col-lg-8 col-lg-offset-2" >
-  <div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{advert.title}}</h3>
-  </div>
-  <div class="panel-body">
-      <h5>Kategorija: {{advert.categoryTitle}}</h5>
-      <h5>Opis: {{advert.description}} </h5>
-      <h5>Vlasnik: {{advert.ownerName}} </h5>
-      <h5>Datum objave: {{advert.creationDate | date:"dd/MM/yyyy"}}</h5>
-      <h5 ng-show="advert.prioritized">Prioritet: Da</h5>
-      <h5 ng-hide="advert.prioritized">Prioritet: Ne</h5>
-      <ul>
-          <li ng-repeat="categorySpecValue in advert.categorySpecValues">
-              {{categorySpecValue.categorySpecTitle}}
-              <br />
-              {{categorySpecValue.value}}
-          </li>
-      </ul>
-      <div ng-show="checkAdmin">
-          <a ng-hide="advert.prioritized" ng-click="setPriority()" class="btn btn-success">Set prioritized</a>
-          <a ng-show="advert.prioritized" ng-click="setPriority()" class="btn btn-danger">Unset prioritized</a>
-      </div>
-      <br>
-      <button class="btn btn-success" ng-click="checkIn()">Prijavi se na oglas</button>
-    
-      <button ng-click="reportMe()" class="btn btn-danger">Neprimjeren sadržaj</button>
-  </div>
-</div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{advert.title}}</h3>
+        </div>
+        <div class="panel-body">
+            <h5>Opis: {{advert.description}} </h5>
+            <h5>Vlasnik: {{advert.ownerName}} </h5>
+            <ul ng-show="advert.contactShared">
+                <li ng-repeat="contactValue in contactValues">
+                    {{contactValue.title}}: {{contactValue.value}}
+                </li>
+            </ul>
+            <h5>Datum objave: {{advert.creationDate | date:"dd/MM/yyyy"}}</h5>
+            <div ng-show="advert.categoryId!=null">
+                <h5>Kategorija: {{advert.categoryTitle}}</h5>
+                <ul>
+                    <li ng-repeat="categorySpecValue in advert.categorySpecValues">
+                        {{categorySpecValue.categorySpecTitle | uppercase}}: {{categorySpecValue.value}}
+                    </li>
+                </ul>
+            </div>
+            <h5 ng-show="advert.prioritized">Prioritet: Da</h5>
+            <h5 ng-hide="advert.prioritized">Prioritet: Ne</h5>
+            <div ng-show="checkAdmin">
+                <a ng-hide="advert.prioritized" ng-click="setPriority()" class="btn btn-success">Set prioritized</a>
+                <a ng-show="advert.prioritized" ng-click="setPriority()" class="btn btn-danger">Unset prioritized</a>
+            </div>
+            <div ng-hide="checkAdmin">
+                <button class="btn btn-success" ng-click="checkIn()">Prijavi se na oglas</button>
+                <button ng-click="reportMe()" class="btn btn-danger">Neprimjeren sadržaj</button>
+            </div>
+        </div>
+    </div>
 
 </div>

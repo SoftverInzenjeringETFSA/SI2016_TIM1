@@ -18,6 +18,8 @@ public class AdvertVM {
     private String categoryTitle;
     private Long ownerId;
     private String ownerName;
+    private String ownerEmail;
+    private String ownerPhone;
     private Date creationDate;
     private List<CategorySpecValueVM> categorySpecValues=new ArrayList<>();
 
@@ -95,6 +97,22 @@ public class AdvertVM {
         this.ownerName = ownerName;
     }
 
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    public String getOwnerPhone() {
+        return ownerPhone;
+    }
+
+    public void setOwnerPhone(String ownerPhone) {
+        this.ownerPhone = ownerPhone;
+    }
+
     public Date getCreationDate() {
         return creationDate;
     }
@@ -110,4 +128,6 @@ public class AdvertVM {
     public void setCategorySpecValues(List<CategorySpecValueVM> categorySpecValues) {
         this.categorySpecValues = categorySpecValues;
     }
+
+
 }
