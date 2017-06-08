@@ -6,7 +6,8 @@
         if(userAccountService.getAuthData() == null || userAccountService.getAuthData().isAuthenticated != true) {
             $location.path('/login');
         }
-
+        
+        $scope.auth = userAccountService.getAuthData() || {};
 
         $scope.getDetails = function() {
             userAccountService.details()

@@ -21,6 +21,7 @@ public class AdvertVM {
     private String ownerEmail;
     private String ownerPhone;
     private Date creationDate;
+    private String date;
     private List<CategorySpecValueVM> categorySpecValues=new ArrayList<>();
 
     public AdvertVM(){};
@@ -127,6 +128,14 @@ public class AdvertVM {
 
     public void setCategorySpecValues(List<CategorySpecValueVM> categorySpecValues) {
         this.categorySpecValues = categorySpecValues;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
 

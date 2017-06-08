@@ -3,6 +3,8 @@ package si.tim1.oglasi.models;
 import si.tim1.oglasi.viewmodels.AdvertVM;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -157,6 +159,9 @@ public class Advert extends BaseEntityModel {
         advertVM.setOwnerId(getOwner().getId());
         advertVM.setOwnerName(getOwner().getUsername());
         advertVM.setCreationDate(getCreationDate());
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        advertVM.setDate(df.format(getCreationDate()));
+
         for(CategorySpecValue csv:getCategorySpecValues()){
             advertVM.getCategorySpecValues().add(csv.mapToViewModel());
         }
