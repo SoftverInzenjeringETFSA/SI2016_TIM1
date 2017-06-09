@@ -45,7 +45,7 @@
                         console.log(response);
                     }
                 );
-                $location.path('/account')
+                $location.path('/')
                 $window.location.reload();
 
       };
