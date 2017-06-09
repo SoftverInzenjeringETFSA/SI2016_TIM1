@@ -2,8 +2,8 @@
     'use strict';
  
     app.controller('categoryDetailsController',
-        ['$scope', '$routeParams', 'categoryService', 
-                 function ($scope, $routeParams, categoryService){
+        ['$scope', '$routeParams', 'categoryService', '$location',
+                 function ($scope, $routeParams, categoryService, $location){
 
         $scope.init = function (){
 
@@ -35,6 +35,7 @@
                             //   $window.location.reload();
                             // });
                                 swal("Success", "Category deleted!", "success");
+                                $location.path('/category/all');
                                 //  var url = "http://" + $window.location.host + "/category/all";
                                 //  $log.log(url);
                                 //  $window.location.href = url;
