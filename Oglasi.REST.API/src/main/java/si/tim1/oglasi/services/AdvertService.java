@@ -370,7 +370,7 @@ public class AdvertService extends BaseService<Advert, IAdvertRepository> {
         advertSubscriptionVM.setMessage(advertSubscription.getText());
         advertSubscriptionVM.setId(advertSubscription.getId());
         advertSubscriptionVM.setSubscriber(advertSubscription.getSubscriber().getFirstName() + " " +advertSubscription.getSubscriber().getLastName());
-        advertSubscriptionVM.setMessage(advertSubscription.getSubscriber().getEmail());
+        advertSubscriptionVM.setMail(advertSubscription.getSubscriber().getEmail());
 
         return advertSubscriptionVM;
 
